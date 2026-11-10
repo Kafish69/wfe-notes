@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>wfe.notes — Web Development Fundamentals</title>
+<meta name="description" content="Interactive notes and practice for Web Development Fundamentals: HTML, semantics, CSS, selectors, box model, flexbox, forms and HTTP.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='12' y='12' width='76' height='76' rx='14' fill='%23d4ff3a' stroke='%23111' stroke-width='6'/></svg>">
+<style>
+:root{
+  --bg:#fafaf8; --card:#ffffff; --ink:#111111; --mute:#75716a; --line:#e4e1da; --line2:#111111;
+  --acc:#d4ff3a; --ok:#16a34a; --bad:#e11d48; --soft:#f1efea; --code:#f4f2ed;
+  --c1:#fde68a; --c2:#bfdbfe; --c3:#fecaca; --c4:#bbf7d0;
+  --mono: ui-monospace, "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+  --sans: ui-sans-serif, -apple-system, "Segoe UI", Inter, Roboto, sans-serif;
+  --r:12px;
+}
+[data-theme=dark]{
+  --bg:#0f0f0f; --card:#161616; --ink:#eeeeea; --mute:#8d8a83; --line:#2a2a2a; --line2:#eeeeea; --soft:#1e1e1e; --code:#1a1a1a;
+  --c1:#5c4a12; --c2:#1e3a5f; --c3:#5f1e1e; --c4:#14532d;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+code,pre,.mono,kbd{font-family:var(--mono)}
+code{background:var(--soft);padding:.08em .35em;border-radius:5px;font-size:.88em}
+pre.code{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow-x:auto;font-size:13px;line-height:1.55;margin:12px 0;position:relative}
+pre.code .tg{color:#9333ea} pre.code .at{color:#b45309} pre.code .st{color:#15803d} pre.code .cm{color:var(--mute)}
+[data-theme=dark] pre.code .tg{color:#c084fc} [data-theme=dark] pre.code .at{color:#fbbf24} [data-theme=dark] pre.code .st{color:#86efac}
+.copy{position:absolute;top:8px;right:8px;font:500 11px var(--mono);border:1px solid var(--line);background:var(--card);color:var(--mute);border-radius:6px;padding:2px 7px;cursor:pointer;opacity:0;transition:opacity .15s}
+pre.code:hover .copy{opacity:1}
+header{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.hd{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:14px;padding:12px 20px}
+.logo{font:700 17px var(--mono);text-decoration:none;letter-spacing:-.3px;white-space:nowrap}
+.logo b{color:var(--mute);font-weight:700}
+.logo i{display:inline-block;width:9px;height:9px;border-radius:2px;background:var(--acc);margin-right:8px;box-shadow:0 0 0 1px var(--line2)}
+.top a{font:500 14px var(--sans);text-decoration:none;color:var(--mute);padding:4px 2px;border-bottom:2px solid transparent}
+.top a.on,.top a:hover{color:var(--ink)} .top a.on{border-bottom-color:var(--ink)}
+.top{display:flex;gap:16px}
+.sp{flex:1}
+.pill{border:1px solid var(--line);border-radius:999px;padding:2px 10px;font:500 12px var(--mono);color:var(--mute);background:var(--card);white-space:nowrap}
+.iconbtn{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:3px 11px;font:500 12px var(--mono);cursor:pointer}
+.layout{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:240px 1fr;gap:40px;padding:0 20px}
+aside.toc{position:sticky;top:64px;align-self:start;padding:26px 0;max-height:calc(100vh - 64px);overflow:auto}
+aside.toc a{display:flex;gap:10px;align-items:baseline;text-decoration:none;color:var(--mute);padding:6px 10px;border-radius:8px;font-size:14px}
+aside.toc a .n{font:500 11px var(--mono)}
+aside.toc a:hover{color:var(--ink);background:var(--soft)}
+aside.toc a.on{color:var(--ink);background:var(--soft);font-weight:600}
+aside.toc a .ck{margin-left:auto;font-size:11px;color:var(--ok)}
+aside.toc .lab{font:500 11px var(--mono);color:var(--mute);text-transform:uppercase;letter-spacing:.6px;padding:14px 10px 6px}
+main{min-width:0;padding:10px 0 100px;max-width:760px}
+h1{font-size:clamp(34px,6vw,52px);line-height:1.05;letter-spacing:-1.8px;margin:40px 0 12px}
+h1 .hl{background:linear-gradient(transparent 62%,var(--acc) 62%);padding:0 2px}
+h2{font-size:30px;letter-spacing:-.8px;margin:34px 0 4px;line-height:1.15}
+h3{font-size:19px;letter-spacing:-.3px;margin:34px 0 8px}
+.lead{color:var(--mute);font-size:16.5px;margin:4px 0 18px}
+.muted{color:var(--mute)} .small{font-size:13.5px}
+ul,ol{padding-left:22px} li{margin:4px 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}
+.note{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--card);font-size:14.5px}
+.note.good{border-left:3px solid var(--ok)} .note.warn{border-left:3px solid var(--bad)}
+.formula{border:1px solid var(--line2);border-radius:10px;padding:12px 16px;font:500 14.5px var(--mono);margin:12px 0;background:var(--card)}
+.tbl{overflow-x:auto;margin:12px 0;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:8px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+th{font-weight:600;background:var(--soft)}
+.widget,.quiz{border:1px solid var(--line2);border-radius:var(--r);padding:18px;margin:20px 0;background:var(--card)}
+.wt{font:500 11px var(--mono);text-transform:uppercase;letter-spacing:.7px;color:var(--mute);margin-bottom:10px;display:flex;gap:8px;align-items:center}
+.wt::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 1px var(--line2)}
+.btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:9px;padding:8px 14px;font:600 14px var(--sans);cursor:pointer;transition:border-color .12s}
+.btn:hover{border-color:var(--line2)}
+.btn.pri{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.sm{padding:4px 10px;font-size:13px;border-radius:7px}
+.btn.danger{border-color:var(--bad);color:var(--bad)}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+input[type=text],input[type=number],select,input.ans{font:500 14px var(--mono);padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);outline:none}
+input:focus,select:focus{border-color:var(--line2)}
+input.ans{width:100%}
+input.ok{border-color:var(--ok)!important} input.bad{border-color:var(--bad)!important}
+label.ctl{display:flex;flex-direction:column;gap:3px;font:500 12px var(--mono);color:var(--mute)}
+label.chk{display:inline-flex;gap:6px;align-items:center;font-size:14px;cursor:pointer}
+input[type=range]{accent-color:var(--ink);width:100%}
+.fb{margin-top:10px;border-left:3px solid var(--line);padding:3px 0 3px 12px;font-size:14px}
+.fb.ok{border-color:var(--ok)} .fb.bad{border-color:var(--bad)}
+.opt{display:flex;gap:12px;width:100%;text-align:left;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:9px;padding:10px 12px;margin:7px 0;font:500 14.5px var(--sans);cursor:pointer}
+.opt:hover{border-color:var(--line2)}
+.opt .k{font:500 12px var(--mono);color:var(--mute);flex:none;padding-top:1px}
+.opt.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 8%,var(--card))}
+.opt.bad{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 7%,var(--card))}
+.bar{height:6px;border-radius:999px;overflow:hidden;background:var(--soft)}
+.bar i{display:block;height:100%;background:var(--ink);border-radius:999px}
+.stage{border:1px dashed var(--line);border-radius:10px;padding:14px;background:var(--bg);overflow:auto}
+.out{font:500 13px/1.6 var(--mono);background:var(--code);border:1px solid var(--line);border-radius:8px;padding:10px 12px;white-space:pre-wrap;word-break:break-all;margin-top:10px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:20px}
+.chcard{display:block;text-decoration:none;border:1px solid var(--line);border-radius:var(--r);padding:16px;background:var(--card);transition:border-color .15s,transform .15s}
+.chcard:hover{border-color:var(--line2);transform:translateY(-1px)}
+.chcard .n{font:500 12px var(--mono);color:var(--mute)}
+.chcard h4{margin:4px 0 4px;font-size:16px}
+.chcard p{margin:0;font-size:13.5px;color:var(--mute)}
+.done-btn{margin:28px 0 0}
+.pager{display:flex;justify-content:space-between;gap:10px;margin-top:30px;border-top:1px solid var(--line);padding-top:18px}
+.pager a{text-decoration:none;font-size:14px;color:var(--mute)} .pager a b{color:var(--ink);display:block;font-size:15px}
+.score{font:700 clamp(54px,12vw,90px)/1 var(--sans);letter-spacing:-3px;margin:8px 0}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:9px 15px;border-radius:10px;font:500 14px var(--sans);z-index:99}
+/* widget specifics */
+.tree{font:13px/1.65 var(--mono);white-space:pre;background:var(--code);border:1px solid var(--line);border-radius:8px;padding:10px 12px;overflow-x:auto}
+.tree .hi{background:var(--acc);color:#111;border-radius:3px;padding:0 2px}
+.tree .hi2{background:var(--c2);border-radius:3px;padding:0 2px}
+.wire{display:grid;grid-template-columns:3fr 1fr;gap:6px;font:600 12px var(--mono)}
+.wire div{border:1.5px solid var(--line2);border-radius:6px;padding:10px;cursor:pointer;background:var(--card);transition:background .12s}
+.wire div:hover,.wire div.on{background:var(--acc);color:#111}
+.wire .full{grid-column:1/-1}
+.wire .mainbox{display:grid;gap:6px;padding:8px;cursor:default}
+.wire .mainbox:hover{background:var(--card);color:inherit}
+.wire .arts{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:0;border:none;cursor:default}
+.wire .arts:hover{background:transparent}
+.codeview{font:13px/1.7 var(--mono);background:var(--code);border:1px solid var(--line);border-radius:8px;padding:10px 12px;overflow-x:auto}
+.codeview div{white-space:pre;border-radius:4px;padding:0 4px}
+.codeview div.m{background:var(--acc);color:#111}
+.boxviz{display:flex;justify-content:center;padding:18px 0;overflow:auto}
+.bm{background:var(--c1);padding:var(--m);position:relative;font:11px var(--mono)}
+.bb{background:#333;padding:var(--b)}
+.bp{background:var(--c4);padding:var(--p)}
+.bc{background:var(--c2);width:var(--w);min-height:46px;display:grid;place-items:center;color:#111;font:11px var(--mono)}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font:12px var(--mono);color:var(--mute);justify-content:center}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.fx{min-height:200px;border:1px dashed var(--line2);border-radius:8px;padding:8px;background:var(--bg)}
+.fx > div{background:var(--c2);border:1px solid var(--line2);border-radius:6px;padding:8px 12px;font:600 13px var(--mono);color:#111}
+.fx > div:nth-child(2){background:var(--c1)} .fx > div:nth-child(3){background:var(--c4)} .fx > div:nth-child(4){background:var(--c3)}
+.growbars > div{height:28px;border:1px solid var(--line2);border-radius:5px;display:flex;align-items:center;padding:0 8px;font:12px var(--mono);margin:6px 0;color:#111;white-space:nowrap;overflow:hidden}
+.ctrls{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:14px}
+.pick{display:flex;gap:8px;flex-wrap:wrap}
+.pick button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:6px 12px;font:600 13px var(--mono);cursor:pointer}
+.pick button:hover{border-color:var(--line2)}
+.pick button.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 12%,var(--card))}
+.pick button.bad{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 10%,var(--card))}
+.mobnav{display:none}
+@media (max-width:900px){
+  .layout{grid-template-columns:1fr;gap:0}
+  aside.toc{display:none}
+  .mobnav{display:block;margin:14px 0 0}
+  .mobnav select{width:100%}
+  .top{gap:12px}
+}
+@media (max-width:560px){ #prog{display:none} .grid2,.grid3{grid-template-columns:1fr} h2{font-size:26px} .hd{gap:10px} .wire{font-size:10.5px} }
+</style>
+</head>
+<body>
+<header><div class="hd">
+  <a class="logo" href="#/"><i></i>wfe<b>.notes</b></a>
+  <nav class="top"><a href="#/" data-r="home">Notes</a><a href="#/practice" data-r="practice">Practice</a></nav>
+  <span class="sp"></span>
+  <span class="pill" id="prog">0/8 read</span>
+  <button class="iconbtn" id="theme">dark</button>
+</div></header>
+<div class="layout">
+  <aside class="toc" id="toc"></aside>
+  <main id="app"></main>
+</div>
+<template id="notes"><!-- CHAPTER 1 -->
+<section class="ch" id="ch-links" data-title="Links, tables & images" data-n="01">
+<h2>Links, tables & images</h2>
+<p class="lead">How pages point to other things, how to show tabular data, and which image format to pick.</p>
+
+<h3>Links</h3>
+<p>A link is an <code>&lt;a&gt;</code> (anchor) tag. <code>href</code> = where it goes, the text between the tags = what the user clicks.</p>
+<pre class="code">&lt;a href="mypage.html"&gt;Go there!&lt;/a&gt;</pre>
+<div class="grid2">
+  <div class="note"><b>Absolute link</b> (inside your site): starts with <code>/</code> and is always seen <em>from the root</em> of the site.<br><code>/pages/products.html</code></div>
+  <div class="note"><b>Relative link</b>: starts from the file you are in. <b>Preferred.</b><br><code>pages/products.html</code> · <code>../</code> = one folder up</div>
+</div>
+<ul>
+  <li>Other website: <code>href="https://www.google.com"</code> (or <code>//www.google.com</code>). Usability rule: open other websites in a <b>new tab</b>.</li>
+  <li>Never link to a file on your own disk like <code>C:\My Documents\file.htm</code>.</li>
+  <li>Jump to a part of the same page: give the target an <code>id</code> and link with <code>#</code>: <code>&lt;a href="#info"&gt;</code> → <code>&lt;h1 id="info"&gt;</code>.</li>
+  <li>Part of <em>another</em> page: combine both: <code>href="about.html#team"</code>.</li>
+</ul>
+<div class="widget" data-w="paths"></div>
+
+<h3>Tables</h3>
+<p>Only for <b>tabular data</b> (if it would go in a spreadsheet, it's a table). <b>Never</b> use tables for layout. Think in <b>rows first</b>: a <code>&lt;tr&gt;</code> must close before the next starts, and every row needs the same number of cells.</p>
+<pre class="code">&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Score&lt;/th&gt;&lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;&lt;td&gt;Anna&lt;/td&gt;&lt;td&gt;17&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tfoot&gt;
+    &lt;tr&gt;&lt;td&gt;Average&lt;/td&gt;&lt;td&gt;17&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tfoot&gt;
+&lt;/table&gt;</pre>
+<p class="small muted"><code>th</code> = header cell, <code>td</code> = data cell, <code>tr</code> = table row.</p>
+
+<h3>Images</h3>
+<pre class="code">&lt;img src="cat.jpg" alt="A grey cat sleeping" title="Our cat"&gt;</pre>
+<ul>
+  <li><code>src</code> = the image (preferably a relative link). <code>alt</code> = <b>mandatory</b>, shown when the image is not (yet) available and read by screen readers. <code>title</code> = tooltip on hover.</li>
+  <li><b>Content images</b> (they mean something) go in <b>HTML</b>. <b>Decoration</b> (backgrounds, design) goes in <b>CSS</b>.</li>
+  <li>Bitmaps can shrink but never grow without losing quality. <b>Never scale disproportionately.</b></li>
+  <li>Need a visible caption? Wrap it: <code>&lt;figure&gt;</code> + <code>&lt;img&gt;</code> + <code>&lt;figcaption&gt;</code>.</li>
+</ul>
+<pre class="code">&lt;figure&gt;
+  &lt;img src="cat.jpg" alt="A grey cat sleeping"&gt;
+  &lt;figcaption&gt;Our cat after exam week&lt;/figcaption&gt;
+&lt;/figure&gt;</pre>
+
+<h3>Image formats</h3>
+<div class="tbl"><table>
+<tr><th></th><th>Type</th><th>Compression</th><th>Transparency</th><th>Animation</th><th>Use it for</th></tr>
+<tr><td><b>JPEG</b></td><td>bitmap, true colour</td><td>lossy</td><td>no</td><td>no</td><td>photos, max compatibility</td></tr>
+<tr><td><b>GIF</b></td><td>bitmap, max 256 colours</td><td>lossy (inferior)</td><td>1 colour only (binary)</td><td><b>yes</b></td><td>flat areas of colour, simple animation</td></tr>
+<tr><td><b>PNG</b></td><td>bitmap, true colour</td><td><b>lossless</b></td><td><b>yes</b> (real)</td><td>no (only APNG)</td><td>transparency, big files</td></tr>
+<tr><td><b>WebP</b></td><td>bitmap (Google)</td><td>lossy or lossless</td><td>yes</td><td>yes</td><td>versatile modern format</td></tr>
+<tr><td><b>AVIF</b></td><td>bitmap (AV1)</td><td>lossy or lossless, best</td><td>yes</td><td>yes</td><td>high-quality photos, smallest files, limited support</td></tr>
+<tr><td><b>SVG</b></td><td><b>vector</b></td><td>(calculated shapes)</td><td>yes</td><td>with CSS/JS</td><td>logos, icons, infinite scaling</td></tr>
+</table></div>
+<ul class="small">
+  <li><b>Lossy</b> = permanently throws data away (irreversible). <b>Lossless</b> = removes only unnecessary data (reversible).</li>
+  <li><b>Gamut</b> = how many colours exist. <b>Bit depth</b> = how finely you can mix between them.</li>
+  <li><b>Icon fonts</b>: fonts with symbols instead of letters. Vector, 1 HTTP request for hundreds of icons, sized and coloured like text, simple images only.</li>
+  <li>Quick pick: backwards compatibility → <b>JPEG</b> · versatility → <b>WebP</b> · best photo quality + compression → <b>AVIF</b>.</li>
+</ul>
+
+<h3>&lt;picture&gt; and progressive enhancement</h3>
+<p><b>Progressive enhancement</b>: give the modern version to browsers that support it, and a <b>fallback</b> to the rest. With images you do that with <code>&lt;picture&gt;</code>:</p>
+<pre class="code">&lt;picture&gt;
+  &lt;source srcset="art.avif" type="image/avif"&gt;
+  &lt;source srcset="art.webp" type="image/webp"&gt;
+  &lt;img src="art.jpg" alt="Art" title="Art"&gt;
+&lt;/picture&gt;</pre>
+<ul>
+  <li>The browser takes the <b>first</b> <code>&lt;source&gt;</code> it supports. <b>Order matters!</b></li>
+  <li>The <code>&lt;img&gt;</code> fallback is <b>mandatory</b>: screen readers read alt/title from it, and old browsers show it.</li>
+</ul>
+<div class="widget" data-w="picture"></div>
+<div class="quiz" data-c="links"></div>
+</section>
+
+<!-- CHAPTER 2 -->
+<section class="ch" id="ch-sem" data-title="Semantic HTML" data-n="02">
+<h2>Semantic HTML</h2>
+<p class="lead">Semantics = what a piece of code <em>means</em>, not what it looks like. It helps browsers, screen readers and search engines understand your page.</p>
+<div class="widget" data-w="layout"></div>
+<div class="tbl"><table>
+<tr><th>Tag</th><th>Meaning</th><th>Rules to remember</th></tr>
+<tr><td><code>header</code></td><td>introductory content (title, logo, often the nav)</td><td>multiple allowed, don't overuse</td></tr>
+<tr><td><code>nav</code></td><td>main or sub navigation</td><td>not for every list of links</td></tr>
+<tr><td><code>main</code></td><td>the main content of the page</td><td><b>only one per page</b>; never inside article, header, footer, aside or nav</td></tr>
+<tr><td><code>section</code></td><td>thematic group (chapter, tab)</td><td><b>needs a heading</b> (h1–h6); not "the new div"</td></tr>
+<tr><td><code>article</code></td><td>independent content that makes sense on its own (blog post, news item, a card you could share)</td><td>can be nested (comments inside an article)</td></tr>
+<tr><td><code>aside</code></td><td>indirectly related (sidebar, related articles, banner)</td><td></td></tr>
+<tr><td><code>footer</code></td><td>footer of the page or of a part of it</td><td>multiple allowed</td></tr>
+<tr><td><code>div</code> / <code>span</code></td><td>no meaning at all</td><td>only to group for <b>graphical</b> reasons: div for blocks, span inside text</td></tr>
+</table></div>
+<div class="grid2">
+  <div class="note"><b>em vs strong vs span</b><br><code>em</code> = emphasis (stress), <code>strong</code> = importance. Both add meaning to a piece of text. <code>span</code> adds none.</div>
+  <div class="note"><b>Others you saw</b><br><code>figure</code>/<code>figcaption</code>, <code>time</code>, <code>address</code>, <code>blockquote</code>, <code>cite</code>, <code>abbr</code>, <code>code</code>, <code>mark</code>, <code>details</code>/<code>summary</code>, <code>fieldset</code> (forms only).</div>
+</div>
+<h3>Valid HTML</h3>
+<ul>
+  <li>Always run your page through the <b>W3C validator</b> (validator.w3.org). That one counts.</li>
+  <li>Headings must follow the order of a table of contents: <code>h1 → h2 → h3</code>. An <code>h3</code> straight after <code>h1</code> is <b>not valid</b>. Want it to look different? Do it in CSS.</li>
+  <li>An <code>id</code> must be unique on the page.</li>
+</ul>
+<pre class="code">&lt;!-- NOT valid --&gt;        &lt;!-- valid --&gt;
+&lt;h1&gt;Title&lt;/h1&gt;             &lt;h1&gt;Title&lt;/h1&gt;
+&lt;h3&gt;Sub&lt;/h3&gt;               &lt;h2&gt;Sub&lt;/h2&gt;
+&lt;h2&gt;Sub&lt;/h2&gt;               &lt;h3&gt;Sub sub&lt;/h3&gt;</pre>
+<div class="note warn"><b>Never do this:</b> <code>&lt;div class="header"&gt;</code>, <code>&lt;div class="main"&gt;</code>… If a semantic tag exists for it, use the tag.</div>
+<div class="quiz" data-c="sem"></div>
+</section>
+
+<!-- CHAPTER 3 -->
+<section class="ch" id="ch-css" data-title="CSS basics & cascading" data-n="03">
+<h2>CSS basics & cascading</h2>
+<p class="lead">Where CSS goes, how a rule is built, and what "cascading" really means.</p>
+<h3>3 ways to add CSS</h3>
+<div class="grid3">
+  <div class="note good"><b>External file</b> ✓ the right way<br><code>&lt;link rel="stylesheet" type="text/css" href="screen.css"&gt;</code> in the <code>&lt;head&gt;</code> of <b>every</b> page.</div>
+  <div class="note"><b>&lt;style&gt; block</b> in the head<br>works, but "yuck"</div>
+  <div class="note warn"><b>Inline</b> <code>style="..."</code><br>"you will burn alive"</div>
+</div>
+<h3>Syntax</h3>
+<pre class="code">selector {
+  property: value;   /* ; ends a declaration */
+  property: value;
+}                    /* { } group the rules for the selector */</pre>
+<p>Most used properties: <code>color</code>, <code>background-color</code>, <code>background-image</code>, <code>border</code>, <code>font-family</code>, <code>font-size</code>, <code>line-height</code>, <code>margin</code>, <code>padding</code>, <code>text-align</code>, <code>width</code>, <code>display</code>, <code>flex</code>.</p>
+
+<h3>Cascading = inheritance</h3>
+<p>Some properties <b>pass down</b> to children automatically (auto-inherited), others don't.</p>
+<div class="grid2">
+  <div class="note good"><b>Inherited</b> (text stuff)<br><code>color</code>, <code>font-family</code>, <code>font-size</code>, <code>line-height</code>, <code>text-align</code>…</div>
+  <div class="note"><b>Not inherited</b> (box stuff)<br><code>margin</code>, <code>padding</code>, <code>border</code>, <code>width</code>, <code>background-color</code>…</div>
+</div>
+<p class="small"><b>The background snag:</b> <code>background-color</code> is not inherited, but children look like they have it because their default background is <code>transparent</code>, so you see the parent's background through them.</p>
+<div class="widget" data-w="inherit"></div>
+
+<h3>Best practices</h3>
+<ol>
+  <li><b>Declare 4 things on <code>body</code></b>: <code>font-family</code>, <code>font-size</code>, <code>color</code>, <code>background-color</code>. They cascade down.</li>
+  <li><b>Declare on the parent, overwrite on the child</b>: <code>section { font-size: 1.2rem }</code> + <code>section h2 { font-size: 3rem }</code>. Future-proof.</li>
+  <li><b>Resize the container</b>, not every child: <code>section { width: 70% }</code>, not <code>section h2, section p, section ul { width: 70% }</code>.</li>
+  <li><b>Auto-size images</b>: <code>img { max-width: 100% }</code> so they never overflow their container.</li>
+  <li><b>Fallback fonts</b>: <code>font-family: Arial, Helvetica, sans-serif;</code>. The last one is always generic: <code>serif</code>, <code>sans-serif</code> or <code>monospace</code>.</li>
+</ol>
+<h3>Reset CSS</h3>
+<p>Every browser has its own default styles. A <b>reset.css</b> (Howest uses <b>Eric Meyer's</b>) puts them all at the same baseline. Load it <b>first</b>, your own CSS after it, on every page:</p>
+<pre class="code">&lt;link rel="stylesheet" type="text/css" href="reset.css"&gt;
+&lt;link rel="stylesheet" type="text/css" href="screen.css"&gt;</pre>
+<div class="quiz" data-c="css"></div>
+</section>
+
+<!-- CHAPTER 4 -->
+<section class="ch" id="ch-sel" data-title="Selectors & specificity" data-n="04">
+<h2>Selectors & specificity</h2>
+<p class="lead">How to point at the right elements, and who wins when two rules fight.</p>
+<div class="tbl"><table>
+<tr><th>Selector</th><th>Example</th><th>Selects</th></tr>
+<tr><td>element</td><td><code>h1</code></td><td>all h1's</td></tr>
+<tr><td>class</td><td><code>.special</code></td><td>every element with class="special"</td></tr>
+<tr><td>id</td><td><code>#products</code></td><td>the one element with id="products" (unique!)</td></tr>
+<tr><td>list <code>,</code></td><td><code>h1, h2</code></td><td>h1's <b>and</b> h2's</td></tr>
+<tr><td>descendant <code>(space)</code></td><td><code>nav a</code></td><td>a's <b>anywhere inside</b> nav (child, grandchild…) — <b>use this by default</b></td></tr>
+<tr><td>child <code>&gt;</code></td><td><code>ul &gt; li</code></td><td>only <b>direct</b> children. Very restrictive, use with care.</td></tr>
+<tr><td>next sibling <code>+</code></td><td><code>h1 + h2</code></td><td>the h2 <b>right after</b> an h1 (same parent)</td></tr>
+<tr><td>subsequent sibling <code>~</code></td><td><code>h3 ~ p</code></td><td>every p <b>after</b> an h3 with the same parent (not necessarily right after)</td></tr>
+<tr><td>pseudo-class</td><td><code>a:hover</code>, <code>li:first-child</code>, <code>tr:nth-child(odd)</code></td><td>elements in a certain state/position</td></tr>
+</table></div>
+<p class="small muted">Use <code>:first-child</code>, <code>:last-child</code>, <code>:nth-child(odd/even)</code> freely. <code>:nth-child(3)</code> for "the third item looks different"? Not future-proof: <b>use a class</b>.</p>
+<div class="widget" data-w="selector"></div>
+
+<h3>Specificity (weights)</h3>
+<p>When rules conflict, the selector with the <b>highest weight</b> wins. Equal weight → the rule that comes <b>last</b> wins.</p>
+<div class="grid3">
+  <div class="note"><b>1</b><br>element / pseudo-element<br><code>p</code> <code>h2</code> <code>::before</code></div>
+  <div class="note"><b>10</b><br>class / attribute / pseudo-class<br><code>.x</code> <code>[type]</code> <code>:hover</code></div>
+  <div class="note"><b>100</b><br>id<br><code>#container</code></div>
+</div>
+<p class="small">Examples from the slides: <code>article h2</code> = 2 · <code>nav ul li a:hover</code> = 14 · <code>#container p.special</code> = 111 · <code>.flexcontainer article p:first-child span</code> = 23. Combinators (space, &gt;, +, ~) count 0.</p>
+<div class="widget" data-w="spec"></div>
+<div class="note"><b>Class or id?</b> Class = reusable, many elements. Id = exactly one unique element per page (also a link target with <code>#</code>). In CSS you'll mostly use classes.</div>
+<div class="quiz" data-c="sel"></div>
+</section>
+
+<!-- CHAPTER 5 -->
+<section class="ch" id="ch-box" data-title="Box model & display" data-n="05">
+<h2>Box model & display</h2>
+<p class="lead">Every element is a box. Layout = placing those boxes next to, below or inside each other.</p>
+<h3>Display modes</h3>
+<div class="tbl"><table>
+<tr><th></th><th>block</th><th>inline</th><th>inline-block</th></tr>
+<tr><td>Width by default</td><td>full width of its parent</td><td>as wide as its content</td><td>as wide as its content</td></tr>
+<tr><td>Forces a new line?</td><td><b>yes</b></td><td>no</td><td>no</td></tr>
+<tr><td>Vertical margin/padding?</td><td>yes</td><td><b>no</b> (only x-axis)</td><td>yes</td></tr>
+<tr><td>width / height work?</td><td>yes</td><td><b>no</b></td><td>yes</td></tr>
+<tr><td>Default for</td><td>div, p, h1–h6, ul, ol, li, all semantic containers</td><td>span, a, strong, em</td><td>img</td></tr>
+</table></div>
+<div class="widget" data-w="display"></div>
+
+<h3>The box</h3>
+<p>From inside to outside: <b>content</b> → <b>padding</b> (space inside the box) → <b>border</b> → <b>margin</b> (space outside, towards the neighbours). Think of a garden: the plants are the content, the lawn around them is padding, the fence is the border and the gap to the neighbour's fence is the margin.</p>
+<div class="formula">total visual width = width + padding (left + right) + border (left + right)<br><span class="muted small">margin is not part of it; it's the space around the box</span></div>
+<p>The background fills the content <b>and</b> the padding (and runs under the border; the border is drawn on top).</p>
+<div class="widget" data-w="box"></div>
+<h3>box-sizing</h3>
+<div class="grid2">
+  <div class="note"><b>content-box</b> (standard)<br><code>width</code> = only the content. Padding and border come <b>on top</b>.<br><span class="small">20rem + 2rem padding + 2×1rem border = <b>24rem</b></span></div>
+  <div class="note"><b>border-box</b><br><code>width</code> = the total visual width. Padding and border are taken <b>out of it</b>.<br><span class="small">20rem = 2rem + 2×1rem + <b>16rem</b> content</span></div>
+</div>
+<p class="small muted">Only change box-sizing when you really need to; switching it around casually confuses other developers.</p>
+
+<h3>Sizing</h3>
+<p><code>width</code>, <code>min-width</code>, <code>max-width</code>, <code>height</code>, <code>min-height</code>, <code>max-height</code>. Classic responsive container: <code>width: 90%; max-width: 60rem; margin: 0 auto;</code> → grows and shrinks with the screen, stops at 60rem, centered.</p>
+
+<h3>Collapsing margins</h3>
+<p>When two vertical margins touch, they don't add up: the <b>biggest one wins</b>.</p>
+<div class="widget" data-w="collapse"></div>
+<ul class="small">
+  <li>Also happens between a parent and its first/last child (margin-top 1rem + child margin-top 2rem → 2rem at the top).</li>
+  <li>Only when they really touch: a border, padding or content in between stops the collapsing.</li>
+  <li>Inside a <b>flex</b> container margins do <b>not</b> collapse.</li>
+</ul>
+<div class="quiz" data-c="box"></div>
+</section>
+
+<!-- CHAPTER 6 -->
+<section class="ch" id="ch-flex" data-title="Layout & flexbox" data-n="06">
+<h2>Layout & flexbox</h2>
+<p class="lead">In this course only two layout techniques are allowed: <b>inline-block</b> and <b>flexbox</b>.</p>
+<div class="tbl"><table>
+<tr><th>Technique</th><th>Verdict</th></tr>
+<tr><td>float</td><td>only meant to let text wrap around an image. Never for layout.</td></tr>
+<tr><td>position (absolute…)</td><td>only for elements that go "off-grid". Never for a full layout.</td></tr>
+<tr><td>display: table</td><td>obsolete, don't use</td></tr>
+<tr><td><b>inline-block</b></td><td>small things side by side (figures, list items) when spacing doesn't matter. Problem: <b>whitespace</b> in the HTML shows up as a gap; no equal heights.</td></tr>
+<tr><td><b>flexbox</b></td><td>everything else: nav bars, rows of cards, components, centering. Positions on <b>one axis</b>.</td></tr>
+<tr><td>grid</td><td>two axes, whole page layouts (semester 2)</td></tr>
+</table></div>
+<h3>Container vs items</h3>
+<p>You put <code>display: flex</code> on the <b>container</b>. Its <b>direct children</b> become flex items.</p>
+<pre class="code">main { display: flex; }      /* main = container, its articles = items */</pre>
+<div class="tbl"><table>
+<tr><th>On the container</th><th>What it does</th></tr>
+<tr><td><code>flex-direction</code></td><td><code>row</code> (default) | <code>row-reverse</code> | <code>column</code> | <code>column-reverse</code></td></tr>
+<tr><td><code>flex-wrap</code></td><td><code>nowrap</code> (default, items squeeze on one line) | <code>wrap</code> | <code>wrap-reverse</code></td></tr>
+<tr><td><code>flex-flow</code></td><td>shorthand for direction + wrap: <code>flex-flow: row wrap</code></td></tr>
+<tr><td><code>gap</code></td><td>space between items: <code>gap: 1rem</code> or <code>gap: 1rem 2rem</code> (row-gap column-gap)</td></tr>
+<tr><td><code>justify-content</code></td><td>align on the <b>main axis</b>: flex-start, center, flex-end, space-between, space-around, space-evenly</td></tr>
+<tr><td><code>align-items</code></td><td>align on the <b>cross axis</b>: stretch (default → equal heights!), center, flex-start, flex-end</td></tr>
+<tr><td><code>align-content</code></td><td>cross axis for <b>multiple wrapped lines</b></td></tr>
+<tr><th>On an item</th><th></th></tr>
+<tr><td><code>align-self</code></td><td>exception on the cross axis for one item</td></tr>
+<tr><td><code>flex-grow</code></td><td>how much of the <b>extra space</b> it gets (default 0 = no growing)</td></tr>
+<tr><td><code>flex-shrink</code></td><td>how much it shrinks when there's not enough space (0 = never smaller than its basis)</td></tr>
+<tr><td><code>flex-basis</code></td><td>the ideal starting size. Use it instead of <code>width</code> (if both are set, flex-basis wins)</td></tr>
+<tr><td><code>flex</code></td><td>shorthand: <code>flex: grow shrink basis</code> → <code>flex: 0 0 50%</code>. Don't leave out the basis.</td></tr>
+</table></div>
+<div class="note"><b>Axes flip!</b> With <code>flex-direction: column</code> the main axis is vertical, so <code>justify-content</code> works vertically and <code>align-items</code> horizontally.</div>
+<div class="widget" data-w="flex"></div>
+<h3>How flex-grow divides space</h3>
+<div class="formula">item width = (flex-grow ÷ total flex-grow) × available space + initial width</div>
+<p class="small">Slide example: container has 730px free, item 1 has <code>flex: 3 1 30rem</code> (480px), items 2 and 3 have <code>flex: 1 1 auto</code> (75px each). Item 1 = 3/5 × 730 + 480 = <b>918px</b>. flex-grow does <b>not</b> make items equal: it shares the <i>extra</i> space.</p>
+<div class="widget" data-w="grow"></div>
+<ul class="small">
+  <li><b>Auto margins</b> in a flex item push in any direction: <code>margin-left: auto</code> pushes an item to the far right (classic nav trick). Margins beat the alignment properties.</li>
+  <li><b>Centering</b> something horizontally and vertically: <code>display:flex; justify-content:center; align-items:center;</code>. A block horizontally: <code>margin: 0 auto</code> + a width.</li>
+</ul>
+<div class="quiz" data-c="flex"></div>
+</section>
+
+<!-- CHAPTER 7 -->
+<section class="ch" id="ch-forms" data-title="Forms & accessibility" data-n="07">
+<h2>Forms & accessibility</h2>
+<p class="lead">Forms collect user data and send it to the server.</p>
+<pre class="code">&lt;form action="login.php" method="post"&gt;
+  &lt;label for="user"&gt;User&lt;/label&gt;
+  &lt;input type="text" name="user" id="user"&gt;
+  &lt;label for="pw"&gt;Password&lt;/label&gt;
+  &lt;input type="password" name="pw" id="pw"&gt;
+  &lt;input type="submit" value="Login"&gt;
+&lt;/form&gt;</pre>
+<ul>
+  <li><code>action</code> = the script that handles the data. <code>method</code> = <code>get</code> or <code>post</code>.</li>
+  <li><b>Every form element belongs inside a <code>&lt;form&gt;</code></b>, otherwise it's not sent.</li>
+  <li><b><code>name</code></b> is what's sent to the server (mandatory). <b><code>id</code></b> is never sent: it's for CSS, JS and labels. Good practice: same value for both.</li>
+  <li><b><code>&lt;label for="x"&gt;</code></b> links to the input with <code>id="x"</code>: screen readers read it and clicking the label focuses/checks the input.</li>
+  <li><b>Radio buttons / checkboxes are grouped by the same <code>name</code></b>. Different names = they don't belong together (you could select both "male" and "female"). Checkbox groups often use <code>name="vehicle[]"</code>.</li>
+  <li>The <code>value</code> is what gets sent, so keep it language-agnostic (<code>value="female"</code>, not the translated label text).</li>
+  <li>Selected by default: <code>checked</code> for radio/checkbox, <code>selected</code> for an <code>&lt;option&gt;</code>.</li>
+  <li><code>placeholder</code> = grey hint text, disappears when you type, <b>not sent</b>. <code>value</code> = real pre-filled content that <b>is</b> sent.</li>
+  <li><code>&lt;fieldset&gt;</code> (+ <code>&lt;legend&gt;</code>) groups related fields in long forms. Only inside forms.</li>
+</ul>
+<div class="widget" data-w="form"></div>
+<h3>Submit vs button</h3>
+<div class="grid2">
+  <div class="note good"><b>Sends the form</b> (works even without JavaScript):<br><code>&lt;input type="submit"&gt;</code> · <code>&lt;button&gt;</code> · <code>&lt;button type="submit"&gt;</code></div>
+  <div class="note warn"><b>Does nothing without JS:</b><br><code>&lt;button type="button"&gt;</code> · <code>&lt;input type="button"&gt;</code><br>Only OK for extra, non-critical features.</div>
+</div>
+<ul class="small">
+  <li><code>&lt;input type="reset"&gt;</code> clears the form. Leave it out unless people fill in the same form over and over (too easy to hit by accident).</li>
+  <li><b>Link or button?</b> Link (<code>&lt;a&gt;</code>) = go somewhere (new page/section, Enter key). Button = do an action (send, open, close; Space key).</li>
+  <li>HTML validation (<code>required</code>, <code>type="email"</code>, <code>min</code>, <code>pattern</code>…) gives quick feedback, but it is <b>not secure one bit</b>: always validate on the server too.</li>
+  <li>Check browser support on <b>caniuse.com</b>.</li>
+</ul>
+<h3>Accessibility (a11y)</h3>
+<p>Make things usable for <b>everyone</b>: vision (low vision, contrast, colour blindness: very common in men), hearing, touch, mobility, speech, cognitive. Often it's the situation: sunlight on your phone, a noisy train station, running for a train. EU law requires <b>WCAG 2.1 level AA</b>. Unobtrusive JS: the page must still work when JavaScript fails.</p>
+<div class="quiz" data-c="forms"></div>
+</section>
+
+<!-- CHAPTER 8 -->
+<section class="ch" id="ch-http" data-title="HTTP request & response" data-n="08">
+<h2>HTTP request & response</h2>
+<p class="lead">Every page load is a conversation: the client <b>requests</b>, the server <b>responds</b>.</p>
+<div class="grid2">
+  <div class="note"><b>Client side</b> (runs in the browser)<br>HTML, CSS, JavaScript</div>
+  <div class="note"><b>Server side</b> (runs on the server)<br>PHP, Python, .NET…</div>
+</div>
+<h3>A request</h3>
+<pre class="code">GET /index.html HTTP/1.1        ← method · request target · protocol
+Host: localhost:5000            ← headers (Host is mandatory in HTTP/1.1)
+Accept-Language: en-GB</pre>
+<p class="small"><b>Origin form</b>: <code>GET /index.html HTTP/1.1</code> (path only). <b>Absolute form</b>: <code>GET http://localhost:5000/index.html HTTP/1.1</code> (full URL).</p>
+<div class="tbl"><table>
+<tr><th>Method</th><th>Does</th><th>Idempotent</th><th>Safe</th></tr>
+<tr><td><b>GET</b></td><td>retrieve (read-only)</td><td>yes</td><td>yes</td></tr>
+<tr><td><b>POST</b></td><td>submit / create</td><td>no</td><td>no</td></tr>
+<tr><td>PUT</td><td>replace</td><td>yes</td><td>no</td></tr>
+<tr><td>PATCH</td><td>partial change</td><td>no</td><td>no</td></tr>
+<tr><td>DELETE</td><td>remove</td><td>yes</td><td>no</td></tr>
+</table></div>
+<p class="small"><b>Idempotent</b> = doing it 10 times has the same effect as once (deleting user 123 twice: still gone). POST /payment twice = charged twice → not idempotent.</p>
+<h3>GET vs POST</h3>
+<div class="grid2">
+  <div class="note"><b>GET</b>: data in the <b>query string</b> of the URL<br><code>https://example.com/page?name=dog&amp;color=black</code><br><span class="small"><code>?</code> starts it, <code>key=value</code> pairs, joined with <code>&amp;</code></span></div>
+  <div class="note"><b>POST</b>: data in the <b>request body</b> (payload / form data), type given by the <code>Content-Type</code> header (forms: <code>application/x-www-form-urlencoded</code>)</div>
+</div>
+<div class="note warn">Is POST more secure because you don't see the data in the URL? <b>No!</b> Hiding ≠ securing.</div>
+<div class="widget" data-w="http"></div>
+<h3>Headers</h3>
+<p>Headers are <b>metadata</b> sent along, not the data itself.</p>
+<div class="grid2">
+  <div class="note"><b>Request headers</b><br><code>Host</code> server domain (mandatory) · <code>Accept</code> types the client understands · <code>Accept-Language</code> · <code>Content-Type</code> format of the body (absent if no body) · <code>Authorization</code> credentials · <code>Referer</code> previous page · <code>User-Agent</code> browser/OS info</div>
+  <div class="note"><b>Response headers</b><br><code>Content-Type</code> media type returned · <code>Content-Encoding</code> how to decode · <code>Date</code> · <code>Server</code> server software · <code>Set-Cookie</code> server sends a cookie · (<code>Cookie</code> = the client sending it back)</div>
+</div>
+<h3>The response</h3>
+<pre class="code">HTTP/1.1 200 OK          ← protocol · status code · reason phrase</pre>
+<div class="tbl"><table>
+<tr><th>Code</th><th>Meaning</th></tr>
+<tr><td>1xx / 2xx / 3xx / 4xx / 5xx</td><td>info / success / redirect / <b>client</b> error / <b>server</b> error</td></tr>
+<tr><td><b>200</b> OK</td><td>processed fine. Not proof the page is correct (an error message can come with a 200).</td></tr>
+<tr><td><b>401</b> Unauthorized</td><td>no or wrong credentials → really an <b>authentication</b> problem</td></tr>
+<tr><td><b>403</b> Forbidden</td><td>you're known but not allowed → <b>authorization</b> problem</td></tr>
+<tr><td><b>404</b> Not Found</td><td>nothing at that URL</td></tr>
+<tr><td><b>418</b> I'm a teapot</td><td>April Fools' joke code</td></tr>
+<tr><td><b>500</b> Internal Server Error</td><td>the server crashed on something (catch-all)</td></tr>
+<tr><td><b>503</b> Service Unavailable</td><td>temporarily can't handle it (overload, maintenance)</td></tr>
+</table></div>
+<div class="note"><b>Attacker mindset:</b> status codes and headers leak info. 404s map a site, 403 says "this folder exists", 500 error pages and <code>Server</code> headers reveal the tech stack, a 200 on <code>/admin</code> is jackpot. Blindly trusting <code>Content-Type</code> led to the Equifax hack (Apache Struts, CVE-2017-5638).</div>
+<div class="quiz" data-c="http"></div>
+</section>
+</template>
+<script>const QS = [{"c": "links", "k": "mcq", "q": "Which link is a RELATIVE link?", "o": ["pages/products.html", "/pages/products.html", "https://site.com/pages/products.html", "C:\\site\\pages\\products.html"], "a": 0, "ex": "Relative links don't start with / or a protocol. Never link to your own disk.", "code": null}, {"c": "links", "k": "mcq", "q": "An absolute link inside your own site always starts from…", "o": ["the root of the site (/)", "the current file", "the parent folder", "the browser"], "a": 0, "ex": "/music/listings.html works from any page.", "code": null}, {"c": "links", "k": "sa", "q": "Site tree: index.html, music/listings.html. Give the RELATIVE link from index.html to listings.html.", "a": ["music/listings.html", "./music/listings.html"], "ex": "From the root folder, go into music/.", "code": null}, {"c": "links", "k": "sa", "q": "Site tree: movies/cinema/reviews.html and theater/reviews.html. Give the RELATIVE link from cinema reviews to theater reviews.", "a": ["../../theater/reviews.html"], "ex": "Up twice (out of cinema, out of movies), then into theater.", "code": null}, {"c": "links", "k": "sa", "q": "Same site: give the ABSOLUTE link from cinema reviews to movies/cinema/listings.html.", "a": ["/movies/cinema/listings.html"], "ex": "Absolute = from the root, starting with /.", "code": null}, {"c": "links", "k": "sa", "q": "Write the href that jumps to the element with id=\"info\" on the same page.", "a": ["#info"], "ex": "# + the id.", "code": null}, {"c": "links", "k": "sa", "q": "Write the href that opens about.html and jumps to id=\"team\" on that page.", "a": ["about.html#team"], "ex": "Combine the page and the #id.", "code": null}, {"c": "links", "k": "mcq", "q": "Which attribute of <img> is mandatory?", "o": ["alt", "title", "width", "class"], "a": 0, "ex": "alt is shown when the image can't load and read by screen readers.", "code": null}, {"c": "links", "k": "mcq", "q": "What does the title attribute of an image do?", "o": ["Shows a tooltip on hover", "Replaces the image when it doesn't load", "Sets the file name", "Makes it accessible to search engines only"], "a": 0, "ex": "alt = replacement text, title = tooltip.", "code": null}, {"c": "links", "k": "mcq", "q": "A purely decorative background pattern belongs in…", "o": ["CSS", "HTML <img>", "<figure>", "<picture>"], "a": 0, "ex": "Content images in HTML, design images in CSS.", "code": null}, {"c": "links", "k": "mcq", "q": "Which tag gives an image a visible caption?", "o": ["<figcaption> inside <figure>", "<caption>", "<alt>", "<label>"], "a": 0, "ex": "<caption> is for tables.", "code": null}, {"c": "links", "k": "mcq", "q": "You need an animated image with true transparency and good compression. Best pick?", "o": ["WebP", "JPEG", "PNG", "GIF (max 256 colours)"], "a": 0, "ex": "JPEG: no transparency/animation. PNG: no animation. GIF: 256 colours and binary transparency.", "code": null}, {"c": "links", "k": "mcq", "q": "Which format is lossless?", "o": ["PNG", "JPEG", "GIF", "none of them"], "a": 0, "ex": "PNG = lossless. JPEG is lossy.", "code": null}, {"c": "links", "k": "mcq", "q": "Which format is a vector format?", "o": ["SVG", "PNG", "WebP", "AVIF"], "a": 0, "ex": "SVG scales infinitely without quality loss.", "code": null}, {"c": "links", "k": "mcq", "q": "GIF supports at most…", "o": ["256 colours", "16 million colours", "2 colours", "65 536 colours"], "a": 0, "ex": "8-bit indexed colour.", "code": null}, {"c": "links", "k": "mcq", "q": "Lossy compression…", "o": ["permanently removes data (irreversible)", "only removes metadata (reversible)", "never reduces quality", "is only used by PNG"], "a": 0, "ex": "Lossless = reversible.", "code": null}, {"c": "links", "k": "mcq", "q": "In <picture>, the browser shows…", "o": ["the first <source> it supports", "the last <source>", "the smallest file", "always the <img>"], "a": 0, "ex": "Source order matters!", "code": null}, {"c": "links", "k": "mcq", "q": "Why is the <img> inside <picture> mandatory?", "o": ["It's the fallback and screen readers read its alt/title", "It sets the size", "It loads first", "It's only for SEO"], "a": 0, "ex": "No support for any source → the img is shown.", "code": null}, {"c": "links", "k": "mcq", "q": "Webp source first, AVIF second, JPG img. A browser supports both AVIF and WebP. It shows…", "o": ["the WebP", "the AVIF", "the JPG", "nothing"], "a": 0, "ex": "First match wins, so put the best (AVIF) first.", "code": "<picture>\n  <source srcset=\"a.webp\" type=\"image/webp\">\n  <source srcset=\"a.avif\" type=\"image/avif\">\n  <img src=\"a.jpg\" alt=\"Art\">\n<\/picture>"}, {"c": "links", "k": "mcq", "q": "Serving AVIF to browsers that support it and JPEG to the rest is called…", "o": ["progressive enhancement", "graceful degradation", "responsive design", "lazy loading"], "a": 0, "ex": "The JPEG is the fallback.", "code": null}, {"c": "links", "k": "mcq", "q": "Tables are meant for…", "o": ["tabular data only", "page layout", "navigation", "forms"], "a": 0, "ex": "Never for layout.", "code": null}, {"c": "links", "k": "mcq", "q": "Which tag is a header cell in a table?", "o": ["<th>", "<td>", "<thead>", "<tr>"], "a": 0, "ex": "th = table header cell, td = data cell, tr = row.", "code": null}, {"c": "sem", "k": "mcq", "q": "How many <main> elements may a page have?", "o": ["One", "As many as needed", "None", "One per section"], "a": 0, "ex": "main = the one main content area.", "code": null}, {"c": "sem", "k": "mcq", "q": "Which can NOT contain <main>?", "o": ["<article>", "<body>", "<div>", "nothing, main can go anywhere"], "a": 0, "ex": "main is never inside article, header, footer, aside or nav.", "code": null}, {"c": "sem", "k": "mcq", "q": "A blog post you could share on its own on social media goes in…", "o": ["<article>", "<section>", "<aside>", "<div>"], "a": 0, "ex": "article = independent, self-contained content.", "code": null}, {"c": "sem", "k": "mcq", "q": "What does a <section> need to be valid?", "o": ["A heading (h1–h6)", "An id", "A class", "A <p>"], "a": 0, "ex": "section = thematic group with a title.", "code": null}, {"c": "sem", "k": "mcq", "q": "A sidebar with related articles goes in…", "o": ["<aside>", "<nav>", "<footer>", "<section>"], "a": 0, "ex": "aside = indirectly related.", "code": null}, {"c": "sem", "k": "mcq", "q": "The main menu of the website goes in…", "o": ["<nav>", "<menu>", "<aside>", "<ul> only"], "a": 0, "ex": "nav = main and sub navigation, not every list of links.", "code": null}, {"c": "sem", "k": "mcq", "q": "You need a wrapper ONLY to give two forms a common background. Use…", "o": ["<div>", "<section>", "<article>", "<aside>"], "a": 0, "ex": "div = meaningless graphical grouping.", "code": null}, {"c": "sem", "k": "mcq", "q": "You want to colour two words inside a sentence, with no extra meaning. Use…", "o": ["<span>", "<div>", "<strong>", "<em>"], "a": 0, "ex": "span = inline, meaningless. strong/em add meaning.", "code": null}, {"c": "sem", "k": "mcq", "q": "What's the difference between <strong> and <em>?", "o": ["strong = importance, em = emphasis/stress", "strong = bold, em = italic only, no meaning", "em is block-level", "there is none"], "a": 0, "ex": "Both add meaning; the look is just default styling.", "code": null}, {"c": "sem", "k": "mcq", "q": "Is this valid? <h1>…<\/h1> <h3>…<\/h3> <h2>…<\/h2>", "o": ["No, headings must follow table-of-contents order", "Yes", "Only with a section", "Only in HTML4"], "a": 0, "ex": "h1 → h2 → h3. Change the look with CSS.", "code": null}, {"c": "sem", "k": "mcq", "q": "Which validator 'counts' for this course?", "o": ["The W3C validator", "The Gitlab validator", "Sonar", "Chrome DevTools"], "a": 0, "ex": "validator.w3.org", "code": null}, {"c": "sem", "k": "mcq", "q": "<div class=\"header\"> instead of <header> is…", "o": ["wrong: use the semantic tag", "fine", "better for SEO", "required in HTML5"], "a": 0, "ex": "", "code": null}, {"c": "sem", "k": "mcq", "q": "How many <header> elements may a page have?", "o": ["Multiple", "Exactly one", "None", "Only one inside main"], "a": 0, "ex": "header and footer can appear multiple times (e.g. inside articles).", "code": null}, {"c": "sem", "k": "mcq", "q": "<fieldset> may be used…", "o": ["only inside forms", "anywhere", "only in tables", "only in nav"], "a": 0, "ex": "It groups form fields.", "code": null}, {"c": "sem", "k": "sa", "q": "Which semantic tag holds the date/time '3 days ago' in an article header?", "a": ["time", "<time>"], "ex": "<time> marks dates and times.", "code": null}, {"c": "css", "k": "mcq", "q": "Best way to add CSS to a site?", "o": ["External file with <link> in the <head>", "A <style> block in every page", "style=\"\" on each element", "<css> tag"], "a": 0, "ex": "Inline = 'you will burn alive'.", "code": null}, {"c": "css", "k": "sa", "q": "Complete the link tag: <link rel=\"________\" type=\"text/css\" href=\"screen.css\">", "a": ["stylesheet"], "ex": "rel = relation to the document.", "code": null}, {"c": "css", "k": "mcq", "q": "Which property is NOT inherited by children?", "o": ["margin", "color", "font-family", "font-size"], "a": 0, "ex": "Text properties inherit; box properties (margin, padding, border, width, background) don't.", "code": null}, {"c": "css", "k": "mcq", "q": "A <p> inside a <div> with a red background looks red too. Why?", "o": ["The p's background is transparent by default", "background-color is inherited", "CSS bug", "p always copies its parent"], "a": 0, "ex": "background-color is NOT inherited.", "code": null}, {"c": "css", "k": "mcq", "q": "Which 4 properties should you declare on body?", "o": ["font-family, font-size, color, background-color", "margin, padding, border, width", "display, flex, gap, width", "font-weight, text-align, width, height"], "a": 0, "ex": "They cascade to everything.", "code": null}, {"c": "css", "k": "mcq", "q": "What is the last font in a font-family list?", "o": ["A generic family: serif, sans-serif or monospace", "Arial", "The most beautiful one", "Times"], "a": 0, "ex": "Fallbacks cascade until one is found.", "code": null}, {"c": "css", "k": "mcq", "q": "All children of section must be 70% wide. Best?", "o": ["section { width: 70%; }", "section h2, section p, section ul { width: 70%; }", "h2 { width:70% } p { width:70% }", "* { width: 70%; }"], "a": 0, "ex": "Resize the container, not every child.", "code": null}, {"c": "css", "k": "mcq", "q": "Images should never overflow their container. Rule?", "o": ["img { max-width: 100%; }", "img { width: 100vw; }", "img { overflow: hidden; }", "img { display: block; }"], "a": 0, "ex": "", "code": null}, {"c": "css", "k": "mcq", "q": "In which order do you load reset.css and screen.css?", "o": ["reset.css first, then screen.css", "screen.css first", "order doesn't matter", "only one of them"], "a": 0, "ex": "Later rules override earlier ones.", "code": null}, {"c": "css", "k": "mcq", "q": "Why use a reset CSS?", "o": ["Browsers have different default styles; the reset gives one baseline", "To delete all CSS", "For speed", "To validate HTML"], "a": 0, "ex": "Howest uses Eric Meyer's reset.", "code": null}, {"c": "css", "k": "mcq", "q": "In  p { color: red; }  , what is 'color'?", "o": ["the property", "the selector", "the value", "the declaration block"], "a": 0, "ex": "selector { property: value; }", "code": null}, {"c": "css", "k": "mcq", "q": "What ends a single declaration in CSS?", "o": ["; (semicolon)", ", (comma)", "} (curly brace)", ": (colon)"], "a": 0, "ex": "{ } group a set of declarations.", "code": null}, {"c": "css", "k": "mcq", "q": "section { font-size: 1.2rem } section h2 { font-size: 3rem }. A new <p> added in the section gets…", "o": ["1.2rem", "3rem", "the browser default", "0"], "a": 0, "ex": "Declare on the parent, overwrite on the child: future-proof.", "code": null}, {"c": "sel", "k": "mcq", "q": "Which selector selects every <a> anywhere inside <nav> (also grandchildren)?", "o": ["nav a", "nav > a", "nav + a", "nav ~ a"], "a": 0, "ex": "Space = descendant. Prefer it over >.", "code": null}, {"c": "sel", "k": "mcq", "q": "ul > li selects…", "o": ["only li's that are direct children of a ul", "all li's anywhere in a ul", "the li right after a ul", "li's that come after a ul"], "a": 0, "ex": "> = direct child only.", "code": null}, {"c": "sel", "k": "mcq", "q": "h1 + h2 selects…", "o": ["an h2 that comes right after an h1 (same parent)", "every h2 after an h1", "h1 and h2", "h2 inside h1"], "a": 0, "ex": "+ = next (adjacent) sibling.", "code": null}, {"c": "sel", "k": "mcq", "q": "h3 ~ p selects…", "o": ["every p after an h3, with the same parent", "only the p right after h3", "p inside h3", "h3 and p"], "a": 0, "ex": "~ = subsequent siblings.", "code": null}, {"c": "sel", "k": "mcq", "q": "h1, h2 { color: green } selects…", "o": ["all h1's and all h2's", "h2 inside h1", "h2 right after h1", "nothing, invalid"], "a": 0, "ex": "Comma = selector list.", "code": null}, {"c": "sel", "k": "sa", "q": "Weight (specificity) of  #container p.special ?", "a": ["111"], "ex": "id 100 + element 1 + class 10.", "code": null}, {"c": "sel", "k": "sa", "q": "Weight of  nav ul li a:hover ?", "a": ["14"], "ex": "4 elements + 1 pseudo-class (10).", "code": null}, {"c": "sel", "k": "sa", "q": "Weight of  article h2 ?", "a": ["2"], "ex": "Two element selectors.", "code": null}, {"c": "sel", "k": "sa", "q": "Weight of  .flexcontainer article p:first-child span ?", "a": ["23"], "ex": "class 10 + pseudo-class 10 + 3 elements.", "code": null}, {"c": "sel", "k": "mcq", "q": "p { color: blue } and .intro { color: red } on <p class=\"intro\">. Colour?", "o": ["red", "blue", "purple", "browser default"], "a": 0, "ex": "Class (10) beats element (1).", "code": null}, {"c": "sel", "k": "mcq", "q": "Two rules with exactly the same weight conflict. Which wins?", "o": ["The one that comes last", "The first one", "Neither", "The shortest one"], "a": 0, "ex": "", "code": null}, {"c": "sel", "k": "mcq", "q": "How many times may an id appear on a page?", "o": ["Once", "Unlimited", "Twice", "Once per section"], "a": 0, "ex": "Duplicate ids are invalid.", "code": null}, {"c": "sel", "k": "mcq", "q": "The 3rd list item must look different. Best?", "o": ["Give it a class", "li:nth-child(3)", "An id on the ul", "Inline style"], "a": 0, "ex": "nth-child(number) is not future-proof. odd/even, first-child, last-child are fine.", "code": null}, {"c": "sel", "k": "mcq", "q": "Zebra stripes on table rows?", "o": ["tr:nth-child(even)", "a class on every second row", "tr + tr", "#even"], "a": 0, "ex": "odd/even shortcuts are perfectly OK.", "code": null}, {"c": "sel", "k": "sa", "q": "Write the selector for elements with class \"special\".", "a": [".special"], "ex": ". + class name.", "code": null}, {"c": "sel", "k": "sa", "q": "Write the selector for the element with id \"products\".", "a": ["#products"], "ex": "# + id.", "code": null}, {"c": "box", "k": "mcq", "q": "Which is inline by default?", "o": ["<span>", "<div>", "<p>", "<li>"], "a": 0, "ex": "Inline: span, a, strong, em.", "code": null}, {"c": "box", "k": "mcq", "q": "Which is block by default?", "o": ["<li>", "<a>", "<strong>", "<img>"], "a": 0, "ex": "Block: div, p, h1–h6, ul, ol, li, semantic containers.", "code": null}, {"c": "box", "k": "mcq", "q": "Which is inline-block by default?", "o": ["<img>", "<span>", "<div>", "<section>"], "a": 0, "ex": "", "code": null}, {"c": "box", "k": "mcq", "q": "You give a <span> a width of 10rem and margin-top 2rem. What happens?", "o": ["Nothing for width or vertical margin: it's inline", "It becomes 10rem wide", "Only the margin works", "It becomes a block"], "a": 0, "ex": "Inline: no width/height, margins/padding only on the x-axis.", "code": null}, {"c": "box", "k": "mcq", "q": "You want small boxes side by side that also accept width and vertical padding. Use…", "o": ["display: inline-block", "display: inline", "display: block", "display: none"], "a": 0, "ex": "Inline among peers, block inside.", "code": null}, {"c": "box", "k": "mcq", "q": "Padding is…", "o": ["space inside the box, between content and border", "space outside the box", "the border thickness", "the content width"], "a": 0, "ex": "Margin = outside.", "code": null}, {"c": "box", "k": "sa", "q": "content-box: width 20rem, padding-left 2rem, border 1rem solid. Total visual width (in rem)?", "a": ["24", "24rem"], "ex": "20 + 2 + 2×1 = 24. Margin doesn't count.", "code": null}, {"c": "box", "k": "sa", "q": "Same, but box-sizing: border-box. What is the content width (rem)?", "a": ["16", "16rem"], "ex": "20 − 2 padding − 2 border = 16.", "code": null}, {"c": "box", "k": "sa", "q": "content-box: width 300px, padding 20px, border 5px. Total visual width (px)?", "a": ["350", "350px"], "ex": "300 + 2×20 + 2×5 = 350. 'padding: 20px' = all four sides.", "code": null}, {"c": "box", "k": "mcq", "q": "With box-sizing: border-box, the width property means…", "o": ["the total visual width (content + padding + border)", "only the content", "content + margin", "nothing changes"], "a": 0, "ex": "", "code": null}, {"c": "box", "k": "sa", "q": ".a has margin-bottom 1.5rem, .b below it has margin-top 1rem. Space between them (rem)?", "a": ["1.5", "1.5rem"], "ex": "Vertical margins collapse: the biggest wins.", "code": null}, {"c": "box", "k": "sa", "q": "Same .a and .b, but now both are items in a flex container (flex-direction: column). Space between them (rem)?", "a": ["2.5", "2.5rem"], "ex": "Flex margins do not collapse.", "code": null}, {"c": "box", "k": "mcq", "q": "The background-color of a box fills…", "o": ["content + padding (border drawn on top)", "only the content", "content + padding + margin", "only the border"], "a": 0, "ex": "", "code": null}, {"c": "box", "k": "mcq", "q": "A container must grow with the screen but never get wider than 60rem. Use…", "o": ["width: 90%; max-width: 60rem;", "width: 60rem;", "min-width: 60rem;", "max-width: 90%;"], "a": 0, "ex": "", "code": null}, {"c": "box", "k": "mcq", "q": "How do you center a block (with a width) horizontally?", "o": ["margin: 0 auto;", "text-align: center;", "align: center;", "float: center;"], "a": 0, "ex": "text-align centers inline content inside the block.", "code": null}, {"c": "flex", "k": "mcq", "q": "Where do you put display: flex?", "o": ["On the container (parent)", "On every item", "On the body only", "On the last item"], "a": 0, "ex": "Its direct children become flex items.", "code": null}, {"c": "flex", "k": "mcq", "q": "Default flex-direction?", "o": ["row", "column", "row-reverse", "none"], "a": 0, "ex": "", "code": null}, {"c": "flex", "k": "mcq", "q": "Which aligns items along the MAIN axis?", "o": ["justify-content", "align-items", "align-content", "align-self"], "a": 0, "ex": "align-items = cross axis.", "code": null}, {"c": "flex", "k": "mcq", "q": "flex-direction: column; which property now centers items VERTICALLY?", "o": ["justify-content", "align-items", "vertical-align", "text-align"], "a": 0, "ex": "The axes flip: main axis is vertical now.", "code": null}, {"c": "flex", "k": "mcq", "q": "Center one item both horizontally and vertically in its flex container?", "o": ["justify-content: center; align-items: center;", "margin: center;", "text-align: center; vertical-align: middle;", "align-content: center only"], "a": 0, "ex": "", "code": null}, {"c": "flex", "k": "mcq", "q": "Why do flex items get equal heights by default?", "o": ["align-items defaults to stretch", "flex-grow is 1", "they're inline", "because of gap"], "a": 0, "ex": "", "code": null}, {"c": "flex", "k": "mcq", "q": "Default value of flex-grow?", "o": ["0", "1", "auto", "100%"], "a": 0, "ex": "Items don't grow unless you say so.", "code": null}, {"c": "flex", "k": "sa", "q": "Write the flex shorthand: don't grow, don't shrink, basis 50%.", "a": ["flex: 0 0 50%", "flex:0 0 50%", "flex: 0 0 50%;"], "ex": "flex: grow shrink basis.", "code": null}, {"c": "flex", "k": "mcq", "q": "width: 30% and flex-basis: 50% on the same flex item. Which wins?", "o": ["flex-basis", "width", "the smallest", "neither"], "a": 0, "ex": "Use flex-basis instead of width on flex items.", "code": null}, {"c": "flex", "k": "sa", "q": "Available space 730px. Item 1: flex-grow 3, initial width 480px. Items 2 & 3: flex-grow 1. Width of item 1 (px)?", "a": ["918", "918px"], "ex": "3/5 × 730 + 480 = 438 + 480 = 918.", "code": null}, {"c": "flex", "k": "sa", "q": "Available space 600px, three items with initial width 100px each. flex-grow: 2, 1, 1. Width of the first item (px)?", "a": ["400", "400px"], "ex": "2/4 × 600 + 100 = 400.", "code": null}, {"c": "flex", "k": "mcq", "q": "flex-wrap: nowrap (default) and too many items:", "o": ["they squeeze onto one line", "they wrap to a new line", "they disappear", "an error"], "a": 0, "ex": "", "code": null}, {"c": "flex", "k": "mcq", "q": "What does gap: 1rem 2rem mean?", "o": ["row-gap 1rem, column-gap 2rem", "column-gap 1rem, row-gap 2rem", "margin 1rem 2rem", "padding"], "a": 0, "ex": "", "code": null}, {"c": "flex", "k": "mcq", "q": "Push the last nav item to the far right in a flex row?", "o": ["margin-left: auto on that item", "float: right", "position: right", "justify-content: right on the item"], "a": 0, "ex": "Auto margins push in every direction inside flex.", "code": null}, {"c": "flex", "k": "mcq", "q": "Which two layout techniques are allowed in this course?", "o": ["inline-block and flexbox", "float and position", "grid and table", "position and flexbox"], "a": 0, "ex": "Grid etc. come in semester 2.", "code": null}, {"c": "flex", "k": "mcq", "q": "Biggest problem of inline-block layouts?", "o": ["Whitespace in the HTML creates gaps", "They can't be centered", "They don't work in browsers", "They always wrap"], "a": 0, "ex": "Also no equal heights.", "code": null}, {"c": "flex", "k": "mcq", "q": "float was originally meant for…", "o": ["letting text wrap around an image", "page layouts", "centering", "animations"], "a": 0, "ex": "", "code": null}, {"c": "flex", "k": "mcq", "q": "align-self is set on…", "o": ["one flex item", "the container", "the body", "grid items only"], "a": 0, "ex": "Exception on the cross axis.", "code": null}, {"c": "forms", "k": "mcq", "q": "Which attribute is SENT to the server?", "o": ["name", "id", "class", "for"], "a": 0, "ex": "id is only for CSS/JS/labels.", "code": null}, {"c": "forms", "k": "mcq", "q": "<label for=\"email\"> is linked to the input with…", "o": ["id=\"email\"", "name=\"email\"", "class=\"email\"", "type=\"email\""], "a": 0, "ex": "for ↔ id.", "code": null}, {"c": "forms", "k": "mcq", "q": "Two radio buttons with name=\"male\" and name=\"female\". Problem?", "o": ["They aren't grouped: you can select both", "None", "They can't be clicked", "Only the first is sent"], "a": 0, "ex": "Radios are grouped by the SAME name.", "code": null}, {"c": "forms", "k": "mcq", "q": "Pre-select a radio button or checkbox with…", "o": ["checked", "selected", "value", "default"], "a": 0, "ex": "selected is for <option>.", "code": null}, {"c": "forms", "k": "mcq", "q": "Pre-select an <option> with…", "o": ["selected", "checked", "default", "active"], "a": 0, "ex": "", "code": null}, {"c": "forms", "k": "mcq", "q": "placeholder vs value?", "o": ["placeholder = hint, not sent; value = real content, sent", "both are sent", "placeholder is sent, value isn't", "they're the same"], "a": 0, "ex": "", "code": null}, {"c": "forms", "k": "mcq", "q": "Which does NOT submit the form without JavaScript?", "o": ["<button type=\"button\">", "<button>", "<input type=\"submit\">", "<button type=\"submit\">"], "a": 0, "ex": "type=\"button\" needs JS.", "code": null}, {"c": "forms", "k": "mcq", "q": "Where do form elements have to be?", "o": ["Inside a <form>", "Anywhere on the page", "Inside <fieldset> only", "In the <head>"], "a": 0, "ex": "Otherwise they're not submitted.", "code": null}, {"c": "forms", "k": "mcq", "q": "Should you add a reset button by default?", "o": ["No, too easy to hit by accident", "Yes, always", "Only on login forms", "Only with JS"], "a": 0, "ex": "Only for forms the same person fills in repeatedly.", "code": null}, {"c": "forms", "k": "mcq", "q": "Is HTML form validation (required, type=email…) secure?", "o": ["No, always validate on the server too", "Yes", "Only with POST", "Only with HTTPS"], "a": 0, "ex": "'Not. One. Bit.'", "code": null}, {"c": "forms", "k": "mcq", "q": "Link or button: 'open the menu'?", "o": ["Button (an action)", "Link (navigation)", "Either", "A div"], "a": 0, "ex": "Link = go somewhere; button = do something.", "code": null}, {"c": "forms", "k": "mcq", "q": "Required accessibility level by EU legislation?", "o": ["WCAG 2.1 AA", "WCAG 1.0 A", "WCAG 2.1 AAA", "None"], "a": 0, "ex": "", "code": null}, {"c": "forms", "k": "mcq", "q": "Why value=\"female\" instead of value=\"женский\"?", "o": ["Values should be language-agnostic; the label can be translated", "Russian isn't allowed", "Shorter is faster", "Labels need English"], "a": 0, "ex": "The server shouldn't depend on the display language.", "code": null}, {"c": "forms", "k": "sa", "q": "A form has method=\"get\" action=\"search.php\" with <input name=\"q\"> filled with cats. URL after submit? (just the part after search.php)", "a": ["?q=cats"], "ex": "GET puts name=value in the query string.", "code": null}, {"c": "forms", "k": "sa", "q": "What does the abbreviation a11y stand for?", "a": ["accessibility"], "ex": "a + 11 letters + y.", "code": null}, {"c": "http", "k": "mcq", "q": "Which method should only RETRIEVE data?", "o": ["GET", "POST", "PUT", "DELETE"], "a": 0, "ex": "GET is safe and idempotent.", "code": null}, {"c": "http", "k": "mcq", "q": "Which method is NOT idempotent?", "o": ["POST", "GET", "PUT", "DELETE"], "a": 0, "ex": "Sending a payment twice charges twice.", "code": null}, {"c": "http", "k": "mcq", "q": "Where is the data of a GET request?", "o": ["In the query string of the URL", "In the request body", "In the headers only", "In a cookie"], "a": 0, "ex": "", "code": null}, {"c": "http", "k": "mcq", "q": "Where is the data of a POST request?", "o": ["In the request body", "In the URL", "In the status code", "In the Host header"], "a": 0, "ex": "Type indicated by Content-Type.", "code": null}, {"c": "http", "k": "mcq", "q": "Is POST more secure than GET because the data isn't in the URL?", "o": ["No", "Yes", "Only for passwords", "Only on localhost"], "a": 0, "ex": "Hidden ≠ secure.", "code": null}, {"c": "http", "k": "sa", "q": "In https://example.com/page?name=dog&color=black, which character starts the query string?", "a": ["?"], "ex": "& joins the pairs.", "code": null}, {"c": "http", "k": "sa", "q": "Which character joins key=value pairs in a query string?", "a": ["&"], "ex": "", "code": null}, {"c": "http", "k": "mcq", "q": "Which header is mandatory in HTTP/1.1?", "o": ["Host", "Accept", "User-Agent", "Cookie"], "a": 0, "ex": "", "code": null}, {"c": "http", "k": "mcq", "q": "Which header describes the format of the request body?", "o": ["Content-Type", "Accept", "Host", "Referer"], "a": 0, "ex": "Absent when there's no body.", "code": null}, {"c": "http", "k": "mcq", "q": "Which header tells the server which page you came from?", "o": ["Referer", "Host", "Origin-Page", "User-Agent"], "a": 0, "ex": "(Yes, misspelled in the standard.)", "code": null}, {"c": "http", "k": "mcq", "q": "Which header tells the server your browser and OS?", "o": ["User-Agent", "Accept", "Server", "Host"], "a": 0, "ex": "Server = the response header with server software.", "code": null}, {"c": "http", "k": "mcq", "q": "With which response header does a server send a cookie?", "o": ["Set-Cookie", "Cookie", "Content-Type", "Authorization"], "a": 0, "ex": "The client sends it back in Cookie.", "code": null}, {"c": "http", "k": "mcq", "q": "No (or wrong) credentials → status code?", "o": ["401", "403", "404", "500"], "a": 0, "ex": "401 is really an authentication problem.", "code": null}, {"c": "http", "k": "mcq", "q": "Logged in, but not allowed to see the resource → ?", "o": ["403", "401", "404", "503"], "a": 0, "ex": "Authorization problem.", "code": null}, {"c": "http", "k": "mcq", "q": "The server crashed on an unhandled exception → ?", "o": ["500", "503", "404", "418"], "a": 0, "ex": "Catch-all server error.", "code": null}, {"c": "http", "k": "mcq", "q": "Server overloaded / maintenance → ?", "o": ["503", "500", "404", "200"], "a": 0, "ex": "Temporarily unavailable.", "code": null}, {"c": "http", "k": "mcq", "q": "4xx codes mean…", "o": ["client error", "server error", "success", "redirect"], "a": 0, "ex": "5xx = server error, 2xx = success, 3xx = redirect.", "code": null}, {"c": "http", "k": "mcq", "q": "200 OK means the page is 100% correct?", "o": ["No: errors can still come with a 200", "Yes", "Only for GET", "Only for HTML"], "a": 0, "ex": "", "code": null}, {"c": "http", "k": "mcq", "q": "GET http://localhost:5000/index.html HTTP/1.1 is the…", "o": ["absolute form", "origin form", "relative form", "short form"], "a": 0, "ex": "Origin form = only /index.html.", "code": null}, {"c": "http", "k": "sa", "q": "In 'HTTP/1.1 404 Not Found', what is 'Not Found' called?", "a": ["reason phrase", "the reason phrase", "reason-phrase"], "ex": "protocol · status code · reason phrase", "code": null}, {"c": "http", "k": "mcq", "q": "PHP and Python run…", "o": ["on the server", "in the browser", "in CSS", "nowhere, they're markup"], "a": 0, "ex": "HTML, CSS, JS run on the client.", "code": null}];</script>
+<script>
+(() => {
+const $ = (s, r=document) => r.querySelector(s), $$ = (s, r=document) => [...r.querySelectorAll(s)];
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const shuffle = a => { a = a.slice(); for (let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; };
+const toast = m => { const d=document.createElement('div'); d.className='toast'; d.textContent=m; document.body.appendChild(d); setTimeout(()=>d.remove(),1700); };
+let S = {theme:null, read:{}, best:{}};
+try { Object.assign(S, JSON.parse(localStorage.getItem('wfe-notes')||'{}')); } catch(e){}
+const save = () => { try { localStorage.setItem('wfe-notes', JSON.stringify(S)); } catch(e){} };
+
+// chapters from template
+const tpl = document.createElement('div'); tpl.innerHTML = $('#notes').innerHTML;
+const CH = $$('section.ch', tpl).map(s => ({id: s.id.replace('ch-',''), title: s.dataset.title, n: s.dataset.n, html: s.innerHTML, lead: ($('.lead', s)||{}).textContent || ''}));
+const CHK = Object.fromEntries(CH.map(c => [c.id, c]));
+
+// theme
+function applyTheme(){ const t = S.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); document.documentElement.dataset.theme = t; $('#theme').textContent = t==='dark' ? 'light' : 'dark'; }
+$('#theme').onclick = () => { S.theme = document.documentElement.dataset.theme==='dark' ? 'light' : 'dark'; save(); applyTheme(); };
+applyTheme();
+
+function prog(){ const n = CH.filter(c => S.read[c.id]).length; $('#prog').textContent = `${n}/${CH.length} read`; }
+function toc(cur){
+  $('#toc').innerHTML = `<div class="lab">Chapters</div>` + CH.map(c => `<a href="#/${c.id}" class="${c.id===cur?'on':''}"><span class="n">${c.n}</span><span>${esc(c.title)}</span>${S.read[c.id]?'<span class="ck">✓</span>':''}</a>`).join('') +
+    `<div class="lab">Test yourself</div><a href="#/practice" class="${cur==='practice'?'on':''}"><span class="n">→</span><span>Exam practice</span></a>`;
+  $$('.top a').forEach(a => a.classList.toggle('on', (a.dataset.r==='practice') === (cur==='practice')));
+}
+
+// code highlighting for HTML/CSS samples
+function hl(code){
+  let s = esc(code);
+  s = s.replace(/(&lt;!--[\s\S]*?--&gt;|\/\*[\s\S]*?\*\/)/g, '<span class="cm">$1</span>');
+  s = s.replace(/(&lt;\/?)([a-z][a-z0-9]*)/g, '$1<span class="tg">$2</span>');
+  s = s.replace(/ ([a-z-]+)=(&quot;.*?&quot;)/g, ' <span class="at">$1</span>=<span class="st">$2</span>');
+  return s;
+}
+
+// ================= HOME
+function home(){
+  app.innerHTML = `<h1>Web Development<br><span class="hl">Fundamentals.</span></h1>
+  <p class="lead">Every slide from weeks 1–6 turned into short notes you actually understand, with live demos to play with and questions after every chapter. HTML, semantics, CSS, selectors, box model, flexbox, forms and HTTP.</p>
+  <div class="row"><a class="btn pri" href="#/${CH.find(c=>!S.read[c.id])?.id || CH[0].id}">${CH.some(c=>S.read[c.id]) ? 'Continue reading →' : 'Start reading →'}</a><a class="btn" href="#/practice">Exam practice (${QS.length} questions)</a></div>
+  <div class="cards">${CH.map(c => `<a class="chcard" href="#/${c.id}"><div class="n">${c.n}${S.read[c.id]?' · read ✓':''}${S.best[c.id]!=null?` · quiz ${S.best[c.id]}%`:''}</div><h4>${esc(c.title)}</h4><p>${esc(c.lead)}</p></a>`).join('')}</div>
+  <p class="small muted" style="margin-top:30px">Tip: read a chapter, play with its demo, do its quiz, then hit "I get this". Finish with Exam practice. <button class="btn sm" id="rst" style="margin-left:6px">Reset progress</button></p>`;
+  let armed=false; $('#rst').onclick = e => { const b=e.currentTarget; if(!armed){armed=true;b.textContent='Tap again to reset';b.classList.add('danger');setTimeout(()=>{armed=false;if(document.body.contains(b)){b.textContent='Reset progress';b.classList.remove('danger');}},4000);return;} S.read={}; S.best={}; save(); prog(); route(); toast('Progress reset'); };
+}
+
+// ================= CHAPTER
+function chapter(id){
+  const c = CHK[id], i = CH.indexOf(c);
+  app.innerHTML = `<div class="mobnav"><select id="jump">${CH.map(x=>`<option value="${x.id}" ${x.id===id?'selected':''}>${x.n} — ${esc(x.title)}</option>`).join('')}<option value="practice">→ Exam practice</option></select></div>
+  <div class="muted small mono" style="margin-top:28px">chapter ${c.n} / 08</div>${c.html}
+  <div class="done-btn"><button class="btn ${S.read[id]?'':'pri'}" id="done">${S.read[id]?'✓ Marked as understood':'I get this ✓'}</button></div>
+  <div class="pager">${i>0?`<a href="#/${CH[i-1].id}">← previous<b>${esc(CH[i-1].title)}</b></a>`:'<span></span>'}${i<CH.length-1?`<a href="#/${CH[i+1].id}" style="text-align:right">next →<b>${esc(CH[i+1].title)}</b></a>`:`<a href="#/practice" style="text-align:right">finish →<b>Exam practice</b></a>`}</div>`;
+  $('#jump').onchange = e => location.hash = '#/' + e.target.value;
+  $('#done').onclick = () => { S.read[id] = !S.read[id]; save(); prog(); toc(id); $('#done').textContent = S.read[id] ? '✓ Marked as understood' : 'I get this ✓'; $('#done').classList.toggle('pri', !S.read[id]); if (S.read[id]) toast('Nice. On to the next one.'); };
+  // code blocks
+  $$('pre.code', app).forEach(p => { const raw = p.textContent; p.innerHTML = hl(raw) + '<button class="copy">copy</button>'; $('.copy', p).onclick = () => { try { navigator.clipboard.writeText(raw); toast('Copied'); } catch(e){} }; });
+  $$('.widget', app).forEach(w => (W[w.dataset.w] || (()=>{}))(w));
+  $$('.quiz', app).forEach(q => chapterQuiz(q, q.dataset.c));
+}
+
+// ================= QUIZ ENGINE
+function norm(s){ return String(s).trim().toLowerCase().replace(/[“”]/g,'"').replace(/\s+/g,' ').replace(/\s*([;:,{}])\s*/g,'$1').replace(/;$/,'').replace(/^["']|["']$/g,''); }
+function checkSA(q, v){ const u = x => norm(x).replace(/\s*(px|rem)$/,''); const n = norm(v); return q.a.some(a => norm(a) === n || u(a) === u(v)); }
+function renderQ(box, q, onDone){
+  const opts = q.k==='mcq' ? shuffle(q.o.map((t,j)=>j)) : null;
+  box.innerHTML = `<div style="font-weight:600;margin-bottom:6px">${esc(q.q).replace(/ {2}(\S(?:.*?\S)?) {2}/g,' <code>$1</code> ')}</div>${q.code?`<pre class="code">${hl(q.code)}</pre>`:''}
+    ${q.k==='mcq' ? opts.map((j,n)=>`<button class="opt" data-j="${j}"><span class="k">${'abcd'[n]}</span><span>${esc(q.o[j])}</span></button>`).join('') :
+    `<div class="row"><input class="ans" placeholder="type your answer + enter" autocomplete="off" autocapitalize="off" spellcheck="false" style="flex:1"><button class="btn pri ck">Check</button></div>`}<div class="qfb"></div>`;
+  let done = false;
+  const finish = ok => { done = true; $('.qfb', box).innerHTML = `<div class="fb ${ok?'ok':'bad'}"><b>${ok?'Correct':'Not quite'}</b>${q.k==='sa'?` → <code>${esc(q.a[0])}</code>`:''}${q.ex?` <span class="muted">· ${esc(q.ex)}</span>`:''}</div><div class="row" style="margin-top:10px"><button class="btn pri nx">Next →</button></div>`; $('.nx', box).onclick = () => onDone(ok); $('.nx', box).focus(); };
+  if (q.k==='mcq') $$('.opt', box).forEach(b => b.onclick = () => { if (done) return; const j=+b.dataset.j, ok = j===q.a; $$('.opt', box).forEach(x => { if (+x.dataset.j===q.a) x.classList.add('ok'); else if (x===b) x.classList.add('bad'); }); finish(ok); });
+  else { const inp = $('.ans', box); const go = () => { if (done || !inp.value.trim()) return; const ok = checkSA(q, inp.value); inp.classList.add(ok?'ok':'bad'); finish(ok); }; $('.ck', box).onclick = go; inp.onkeydown = e => { if (e.key==='Enter') go(); }; }
+}
+function chapterQuiz(el, c){
+  const pool = QS.filter(q => q.c===c);
+  const start = () => {
+    const set = shuffle(pool).slice(0, 6); let i = 0, ok = 0;
+    const step = () => {
+      if (i >= set.length){ const p = Math.round(100*ok/set.length); S.best[c] = Math.max(S.best[c]||0, p); save();
+        el.innerHTML = `<div class="wt">check yourself</div><div class="row"><div class="score" style="font-size:54px">${ok}/${set.length}</div><span class="muted">${p>=80?'You get this chapter.':p>=50?'Almost. Reread the parts you missed.':'Reread this chapter, then try again.'}</span></div><div class="row"><button class="btn pri again">New questions</button><span class="small muted">${pool.length} questions in this chapter</span></div>`;
+        $('.again', el).onclick = start; return; }
+      el.innerHTML = `<div class="wt">check yourself · ${i+1}/${set.length}</div><div class="bar" style="margin-bottom:12px"><i style="width:${100*i/set.length}%"></i></div><div class="qb"></div>`;
+      renderQ($('.qb', el), set[i], r => { if (r) ok++; i++; step(); });
+    };
+    step();
+  };
+  el.innerHTML = `<div class="wt">check yourself</div><p style="margin:0 0 12px">6 random questions about this chapter, exam style.</p><button class="btn pri go">Start quiz</button>`;
+  $('.go', el).onclick = start;
+}
+
+// ================= PRACTICE (mixed)
+let pr = null;
+function practice(){
+  if (!pr || pr.done){
+    app.innerHTML = `<div class="mobnav"><select id="jump"><option value="">Exam practice</option>${CH.map(x=>`<option value="${x.id}">${x.n} — ${esc(x.title)}</option>`).join('')}</select></div>
+    <h2 style="margin-top:34px">Exam practice</h2><p class="lead">20 random questions from all 8 chapters. Different every time. At the end you see which chapters to reread.</p>
+    ${pr && pr.done ? results() : ''}
+    <div class="row"><button class="btn pri" id="go">${pr&&pr.done?'New round':'Start'} →</button></div>`;
+    $('#jump').onchange = e => { if (e.target.value) location.hash = '#/' + e.target.value; };
+    $('#go').onclick = () => { const by = {}; QS.forEach(q => (by[q.c] ||= []).push(q)); let set = []; CH.forEach(c => set.push(...shuffle(by[c.id]||[]).slice(0,2))); set = shuffle(set.concat(shuffle(QS.filter(q=>!set.includes(q))).slice(0, 20-set.length))); pr = {set, i:0, res:[], done:false}; practice(); };
+    return;
+  }
+  const q = pr.set[pr.i];
+  app.innerHTML = `<h2 style="margin-top:34px">Exam practice</h2><div class="row small muted"><span>question ${pr.i+1}/${pr.set.length}</span><span class="sp"></span><span>${esc(CHK[q.c].title)}</span></div><div class="bar" style="margin:8px 0 16px"><i style="width:${100*pr.i/pr.set.length}%"></i></div><div class="widget" id="pq"></div>`;
+  renderQ($('#pq'), q, ok => { pr.res.push(ok); pr.i++; if (pr.i >= pr.set.length) pr.done = true; practice(); scrollTo(0,0); });
+}
+function results(){
+  const ok = pr.res.filter(Boolean).length, n = pr.res.length, p = Math.round(100*ok/n);
+  const per = {}; pr.set.forEach((q,i) => { (per[q.c] ||= [0,0]); per[q.c][1]++; if (pr.res[i]) per[q.c][0]++; });
+  return `<div class="widget"><div class="wt">last round</div><div class="score">${p}%</div><p class="muted" style="margin-top:0">${ok}/${n} correct. ${p>=80?'Exam ready.':p>=60?'Good. Fix the weak chapters below.':'Reread the red chapters, then go again.'}</p>
+  ${Object.entries(per).map(([c,[a,b]]) => { const q=Math.round(100*a/b); return `<div class="row" style="gap:12px;margin:6px 0"><a href="#/${c}" style="width:210px;text-decoration:none" class="small">${esc(CHK[c].n)} ${esc(CHK[c].title)}</a><div class="bar" style="flex:1;min-width:80px"><i style="width:${q}%;background:${q>=70?'var(--ok)':q<50?'var(--bad)':'var(--ink)'}"></i></div><span class="mono small">${a}/${b}</span></div>`; }).join('')}</div>`;
+}
+
+// ================= WIDGETS
+const W = {};
+const head = (el, t) => `<div class="wt">${esc(t)}</div>`;
+
+// paths trainer
+W.paths = el => {
+  const files = ['index.html','music/index.html','music/listings.html','movies/index.html','movies/cinema/reviews.html','movies/cinema/listings.html','theater/index.html','theater/reviews.html'];
+  const rows = [['','site/',null],['├── ','index.html','index.html'],['├── ','music/',null],['│   ├── ','index.html','music/index.html'],['│   └── ','listings.html','music/listings.html'],['├── ','movies/',null],['│   ├── ','index.html','movies/index.html'],['│   └── ','cinema/',null],['│       ├── ','reviews.html','movies/cinema/reviews.html'],['│       └── ','listings.html','movies/cinema/listings.html'],['└── ','theater/',null],['    ├── ','index.html','theater/index.html'],['    └── ','reviews.html','theater/reviews.html']];
+  const rel = (from, to) => { const f = from.split('/').slice(0,-1), t = to.split('/'); let k = 0; while (k < f.length && k < t.length-1 && f[k]===t[k]) k++; return '../'.repeat(f.length-k) + t.slice(k).join('/'); };
+  let from, to;
+  const pickPair = () => { do { from = files[Math.floor(Math.random()*files.length)]; to = files[Math.floor(Math.random()*files.length)]; } while (from===to); };
+  const mark = () => rows.map(([pre,name,path]) => esc(pre) + (path===from ? `<span class="hi">${esc(name)}</span>` : path===to ? `<span class="hi2">${esc(name)}</span>` : esc(name))).join('\n');
+  const draw = () => {
+    el.innerHTML = `${head(el,'try it · link path trainer')}<div class="tree">${mark()}</div>
+    <p class="small" style="margin:10px 0">Link <b>from</b> <code style="background:var(--acc);color:#111">${from}</code> <b>to</b> <code style="background:var(--c2);color:#111">${to}</code></p>
+    <div class="grid2"><label class="ctl">absolute link<input type="text" id="pa" autocomplete="off" spellcheck="false" placeholder="/..."></label><label class="ctl">relative link<input type="text" id="pr" autocomplete="off" spellcheck="false" placeholder="..."></label></div>
+    <div class="row"><button class="btn pri" id="pc">Check</button><button class="btn" id="ps">Show answer</button><button class="btn" id="pn">New pair</button></div><div id="pf"></div>`;
+    const A = '/' + to, R = rel(from, to);
+    const nrm = v => v.trim().replace(/^\.\//,'');
+    $('#pc', el).onclick = () => { const a = $('#pa', el).value.trim() === A, r = nrm($('#pr', el).value) === R; $('#pa', el).className = a?'ok':'bad'; $('#pr', el).className = r?'ok':'bad'; $('#pf', el).innerHTML = `<div class="fb ${a&&r?'ok':'bad'}">${a&&r?'Both correct.':'Not yet.'} ${!a||!r?'Count the folders: every <code>../</code> goes one level up from the folder your file is in.':''}</div>`; };
+    $('#ps', el).onclick = () => { $('#pf', el).innerHTML = `<div class="fb">absolute: <code>${A}</code> · relative: <code>${R}</code></div>`; };
+    $('#pn', el).onclick = () => { pickPair(); draw(); };
+    [$('#pa', el), $('#pr', el)].forEach(i => i.onkeydown = e => { if (e.key==='Enter') $('#pc', el).click(); });
+  };
+  pickPair(); draw();
+};
+
+// picture fallback
+W.picture = el => {
+  let avif = true, webp = true, order = ['avif','webp'];
+  const draw = () => {
+    const pick = order.find(f => f==='avif' ? avif : webp) || 'jpg';
+    el.innerHTML = `${head(el,'try it · which image does the browser pick?')}
+    <div class="row" style="margin-bottom:10px"><label class="chk"><input type="checkbox" id="a1" ${avif?'checked':''}> browser supports AVIF</label><label class="chk"><input type="checkbox" id="w1" ${webp?'checked':''}> browser supports WebP</label><button class="btn sm" id="sw">swap source order</button></div>
+    <pre class="code">${hl(`<picture>\n${order.map(f=>`  <source srcset="art.${f}" type="image/${f}">`).join('\n')}\n  <img src="art.jpg" alt="Art">\n</picture>`)}</pre>
+    <div class="note">Shown: <b class="mono">art.${pick}</b> — ${pick==='jpg'?'no source is supported, so the <img> fallback is used.':`the first supported &lt;source&gt;${order[0]!==pick?' (the first one isn\'t supported)':''}.`}${order[0]==='webp'&&avif&&webp?' <b>Notice:</b> AVIF is supported too, but WebP comes first, so WebP wins.':''}</div>`;
+    $('#a1', el).onchange = e => { avif = e.target.checked; draw(); };
+    $('#w1', el).onchange = e => { webp = e.target.checked; draw(); };
+    $('#sw', el).onclick = () => { order.reverse(); draw(); };
+  };
+  draw();
+};
+
+// semantic wireframe
+W.layout = el => {
+  const info = {header:'<b>header</b>: introductory content of the page: logo, title, often the main nav. Multiple allowed (an article can have its own).',nav:'<b>nav</b>: main or sub navigation only. Not for every group of links.',main:'<b>main</b>: the main content. Only ONE per page, never inside article/header/footer/aside/nav.',section:'<b>section</b>: a thematic group (chapter, tab). Must have a heading. Not a div replacement.',article:'<b>article</b>: self-contained content that makes sense on its own (post, news item, product card). Can be nested.',aside:'<b>aside</b>: indirectly related content: sidebar, related articles, banners.',footer:'<b>footer</b>: footer of the page (or of a section/article). Multiple allowed.'};
+  el.innerHTML = `${head(el,'try it · tap a block')}<div class="wire"><div class="full" data-t="header">&lt;header&gt;</div><div class="full" data-t="nav">&lt;nav&gt;</div>
+  <div class="mainbox" data-t2="main" style="border-style:solid"><span style="cursor:pointer" data-t="main">&lt;main&gt;</span><div data-t="section">&lt;section&gt; + h2</div><div class="arts"><div data-t="article">&lt;article&gt;</div><div data-t="article">&lt;article&gt;</div></div></div>
+  <div data-t="aside">&lt;aside&gt;</div><div class="full" data-t="footer">&lt;footer&gt;</div></div><div class="note" id="wi" style="margin-top:10px">Tap any block to see what it means.</div>`;
+  $$('[data-t]', el).forEach(b => b.onclick = e => { e.stopPropagation(); $$('[data-t]', el).forEach(x=>x.classList.remove('on')); b.classList.add('on'); $('#wi', el).innerHTML = info[b.dataset.t]; });
+};
+
+// inherited or not game
+W.inherit = el => {
+  const props = [['color',1],['font-family',1],['font-size',1],['line-height',1],['text-align',1],['font-weight',1],['margin',0],['padding',0],['border',0],['width',0],['background-color',0],['height',0],['display',0]];
+  let deck = shuffle(props), i = 0, ok = 0;
+  const draw = () => {
+    if (i >= deck.length){ el.innerHTML = `${head(el,'mini game · inherited or not?')}<p><b>${ok}/${deck.length}</b> correct. Rule of thumb: <b>text</b> properties inherit, <b>box</b> properties don't.</p><button class="btn pri" id="ig">Play again</button>`; $('#ig', el).onclick = () => { deck = shuffle(props); i = 0; ok = 0; draw(); }; return; }
+    const [p, inh] = deck[i];
+    el.innerHTML = `${head(el,`mini game · inherited or not? ${i+1}/${deck.length}`)}<p style="font:600 22px var(--mono);margin:6px 0 14px">${p}</p><div class="pick"><button data-v="1">inherited ↓</button><button data-v="0">not inherited</button></div><div id="if"></div>`;
+    $$('.pick button', el).forEach(b => b.onclick = () => { if ($('#if', el).innerHTML) return; const right = +b.dataset.v === inh; if (right) ok++; b.classList.add(right?'ok':'bad'); $('#if', el).innerHTML = `<div class="fb ${right?'ok':'bad'}">${p} is <b>${inh?'inherited':'not inherited'}</b>${p==='background-color'?' (children look coloured only because their own background is transparent)':''}. <button class="btn sm" id="in" style="margin-left:6px">next</button></div>`; $('#in', el).onclick = () => { i++; draw(); }; });
+  };
+  draw();
+};
+
+// selector tester
+W.selector = el => {
+  const src = `<nav>
+  <ul>
+    <li><a href="#">Home</a></li>
+    <li class="special"><a href="#">Games</a></li>
+  </ul>
+</nav>
+<article id="news">
+  <h2>Title</h2>
+  <p class="intro">First paragraph</p>
+  <h3>Subtitle</h3>
+  <p>Second paragraph</p>
+  <h2>Another title</h2>
+  <p>Third paragraph</p>
+  <ul>
+    <li>Item one</li>
+    <li>Item two
+      <ul>
+        <li class="special">Nested item</li>
+      </ul>
+    </li>
+  </ul>
+</article>`;
+  const challenges = [['every a inside nav','nav a'],['only the li\'s that are direct children of the nav\'s ul','nav > ul > li'],['the p right after an h2','h2 + p'],['all p\'s after the h3 (same parent)','h3 ~ p'],['everything with class special','.special'],['the nested li (child of a ul that is inside an li)','li li'],['all h2 and h3 elements','h2, h3'],['the first p of the article using its class','.intro']];
+  const lines = src.split('\n');
+  const dom = document.createElement('div'); dom.innerHTML = src;
+  // map each element to its line: walk elements in document order = order of opening tags in source
+  const opens = []; lines.forEach((l,i) => { const re = /<([a-z0-9]+)/g; let m; while ((m = re.exec(l))) opens.push(i); });
+  const all = [...dom.querySelectorAll('*')];
+  let ch = 0;
+  const draw = (sel='') => {
+    let matched = new Set(), err = '';
+    if (sel.trim()) { try { const m = new Set(dom.querySelectorAll(sel)); all.forEach((e,i) => { if (m.has(e)) matched.add(opens[i]); }); } catch(e){ err = 'not a valid selector'; } }
+    const target = new Set(); try { const m = new Set(dom.querySelectorAll(challenges[ch][1])); all.forEach((e,i)=>{ if (m.has(e)) target.add(opens[i]); }); } catch(e){}
+    const solved = sel.trim() && !err && matched.size===target.size && [...target].every(x=>matched.has(x));
+    $('.codeview', el).innerHTML = lines.map((l,i) => `<div class="${matched.has(i)?'m':''}">${esc(l)||' '}</div>`).join('');
+    $('#sm', el).innerHTML = err ? `<span style="color:var(--bad)">${err}</span>` : sel.trim() ? `${matched.size} element(s) matched${solved?' · <b style="color:var(--ok)">challenge solved ✓</b>':''}` : 'type a selector';
+  };
+  el.innerHTML = `${head(el,'try it · live selector tester')}
+  <p class="small" style="margin:0 0 8px">Challenge: select <b id="chq"></b> <button class="btn sm" id="chn">next challenge</button> <button class="btn sm" id="chs">show</button></p>
+  <input type="text" id="sel" placeholder="type a CSS selector, e.g. article p" autocomplete="off" spellcheck="false" style="width:100%">
+  <div class="small muted" id="sm" style="margin:6px 0"></div><div class="codeview"></div>`;
+  const setCh = () => { $('#chq', el).textContent = challenges[ch][0]; };
+  $('#sel', el).oninput = e => draw(e.target.value);
+  $('#chn', el).onclick = () => { ch = (ch+1) % challenges.length; setCh(); $('#sel', el).value=''; draw(''); };
+  $('#chs', el).onclick = () => { $('#sel', el).value = challenges[ch][1]; draw(challenges[ch][1]); };
+  setCh(); draw('');
+};
+
+// specificity calculator
+W.spec = el => {
+  const calc = sel => {
+    let s = sel.replace(/\([^)]*\)/g,''); const r = {id:0, cls:0, el:0};
+    r.id = (s.match(/#[\w-]+/g)||[]).length; s = s.replace(/#[\w-]+/g,' ');
+    r.cls += (s.match(/\.[\w-]+/g)||[]).length; s = s.replace(/\.[\w-]+/g,' ');
+    r.cls += (s.match(/\[[^\]]*\]/g)||[]).length; s = s.replace(/\[[^\]]*\]/g,' ');
+    r.el += (s.match(/::[\w-]+/g)||[]).length; s = s.replace(/::[\w-]+/g,' ');
+    r.cls += (s.match(/:[\w-]+/g)||[]).length; s = s.replace(/:[\w-]+/g,' ');
+    r.el += (s.match(/(^|[\s>+~])[a-z][\w-]*/gi)||[]).length;
+    return r;
+  };
+  const draw = v => { const parts = v.split(',').map(x=>x.trim()).filter(Boolean); $('#so', el).innerHTML = parts.map(p => { const r = calc(p); const w = r.id*100 + r.cls*10 + r.el; return `<div><code>${esc(p)}</code> = <b>${w}</b> <span class="muted">(${r.id} id × 100 + ${r.cls} class/attr/pseudo-class × 10 + ${r.el} element × 1)</span></div>`; }).join('') || '<span class="muted">type a selector</span>'; };
+  el.innerHTML = `${head(el,'try it · specificity calculator')}<input type="text" id="si" value="#container p.special" autocomplete="off" spellcheck="false" style="width:100%"><div class="out" id="so"></div>
+  <p class="small muted" style="margin:8px 0 0">Try: <code>nav ul li a:hover</code> · <code>.flexcontainer article p:first-child span</code> · <code>h1, .title, #main</code></p>`;
+  $('#si', el).oninput = e => draw(e.target.value); draw($('#si', el).value);
+};
+
+// display modes (real CSS)
+W.display = el => {
+  let mode = 'inline';
+  const draw = () => {
+    el.innerHTML = `${head(el,'try it · same span, three display modes')}<div class="pick" style="margin-bottom:12px">${['inline','block','inline-block'].map(m=>`<button data-m="${m}" class="${m===mode?'ok':''}">${m}</button>`).join('')}</div>
+    <div class="stage"><p style="margin:0;font-size:14px;line-height:1.6">Lorem ipsum dolor sit amet, <span style="background:#A35A28;color:#fff;padding:.5rem;margin:2rem 1rem 1rem 1rem;width:12rem;display:${mode}">.demo is a span in a paragraph</span> consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p></div>
+    <pre class="code">${hl(`.demo {\n  padding: 0.5rem;\n  margin: 2rem 1rem 1rem 1rem;\n  width: 12rem;\n  display: ${mode};\n}`)}</pre>
+    <p class="small" style="margin:0">${mode==='inline'?'<b>inline</b>: stays in the line, <b>width is ignored</b>, vertical margins don\'t push anything (padding overlaps the lines).':mode==='block'?'<b>block</b>: forces a new line, width and all margins work.':'<b>inline-block</b>: stays in the line like text, but width and vertical margins/padding work like a block.'}</p>`;
+    $$('.pick button', el).forEach(b => b.onclick = () => { mode = b.dataset.m; draw(); });
+  };
+  draw();
+};
+
+// box model sliders
+W.box = el => {
+  const st = {w:200, p:20, b:5, m:15, bs:'content-box'};
+  const draw = () => {
+    const content = st.bs==='content-box' ? st.w : Math.max(0, st.w - 2*st.p - 2*st.b);
+    const total = st.bs==='content-box' ? st.w + 2*st.p + 2*st.b : st.w;
+    $('.boxviz', el).innerHTML = `<div class="bm" style="--m:${st.m}px"><div class="bb" style="--b:${st.b}px"><div class="bp" style="--p:${st.p}px"><div class="bc" style="--w:${content}px">${content}px</div></div></div></div>`;
+    $('#bo', el).innerHTML = st.bs==='content-box'
+      ? `content-box → total visual width = ${st.w} + 2×${st.p} + 2×${st.b} = <b>${total}px</b><br><span class="muted">plus ${st.m}px margin on each side as space around it</span>`
+      : `border-box → total visual width = width = <b>${total}px</b><br>content = ${st.w} − 2×${st.p} − 2×${st.b} = <b>${content}px</b>`;
+    $('#bcss', el).innerHTML = hl(`.box {\n  width: ${st.w}px;\n  padding: ${st.p}px;\n  border: ${st.b}px solid;\n  margin: ${st.m}px;\n  box-sizing: ${st.bs};\n}`);
+  };
+  el.innerHTML = `${head(el,'try it · box model')}<div class="ctrls">
+  ${[['w','width',80,320],['p','padding',0,50],['b','border',0,20],['m','margin',0,40]].map(([k,n,a,b])=>`<label class="ctl"><span>${n}: <span id="v${k}">${st[k]}</span>px</span><input type="range" min="${a}" max="${b}" value="${st[k]}" data-k="${k}"></label>`).join('')}
+  <label class="ctl">box-sizing<select id="bs"><option>content-box</option><option>border-box</option></select></label></div>
+  <div class="legend"><span><i style="background:var(--c1)"></i>margin</span><span><i style="background:#333"></i>border</span><span><i style="background:var(--c4)"></i>padding</span><span><i style="background:var(--c2)"></i>content</span></div>
+  <div class="boxviz"></div><div class="out" id="bo"></div><pre class="code" id="bcss"></pre>`;
+  $$('input[type=range]', el).forEach(r => r.oninput = () => { st[r.dataset.k] = +r.value; $('#v'+r.dataset.k, el).textContent = r.value; draw(); });
+  $('#bs', el).onchange = e => { st.bs = e.target.value; draw(); };
+  draw();
+};
+
+// collapsing margins (real CSS)
+W.collapse = el => {
+  const st = {a:24, b:16, flex:false};
+  const draw = () => {
+    const space = st.flex ? st.a + st.b : Math.max(st.a, st.b);
+    $('.stage', el).innerHTML = `<div style="${st.flex?'display:flex;flex-direction:column;':''}background:var(--soft);border-radius:6px;padding:1px 10px"><div style="background:var(--c2);color:#111;padding:8px;margin-bottom:${st.a}px;font:12px var(--mono)">.a { margin-bottom: ${st.a}px }</div><div style="background:var(--c1);color:#111;padding:8px;margin-top:${st.b}px;font:12px var(--mono)">.b { margin-top: ${st.b}px }</div></div>`;
+    $('#co', el).innerHTML = `space between them: <b>${space}px</b> — ${st.flex?'inside a flex container margins <b>don\'t</b> collapse, so they add up':'the margins collapse: the <b>biggest</b> one wins (not '+(st.a+st.b)+'px)'}`;
+  };
+  el.innerHTML = `${head(el,'try it · collapsing margins')}<div class="ctrls"><label class="ctl">.a margin-bottom <input type="number" id="ca" value="${st.a}"></label><label class="ctl">.b margin-top <input type="number" id="cb" value="${st.b}"></label><label class="chk" style="align-self:end"><input type="checkbox" id="cf"> parent is display:flex (column)</label></div><div class="stage"></div><div class="out" id="co"></div>`;
+  $('#ca', el).oninput = e => { st.a = Math.max(0, +e.target.value||0); draw(); };
+  $('#cb', el).oninput = e => { st.b = Math.max(0, +e.target.value||0); draw(); };
+  $('#cf', el).onchange = e => { st.flex = e.target.checked; draw(); };
+  draw();
+};
+
+// flexbox playground
+W.flex = el => {
+  const st = {dir:'row', wrap:'nowrap', jc:'flex-start', ai:'stretch', gap:8, g:[0,0,0,0]};
+  const opts = {dir:['row','row-reverse','column','column-reverse'], wrap:['nowrap','wrap'], jc:['flex-start','center','flex-end','space-between','space-around','space-evenly'], ai:['stretch','flex-start','center','flex-end']};
+  const names = {dir:'flex-direction', wrap:'flex-wrap', jc:'justify-content', ai:'align-items'};
+  const draw = () => {
+    const box = $('.fx', el);
+    box.style.cssText = `display:flex;flex-direction:${st.dir};flex-wrap:${st.wrap};justify-content:${st.jc};align-items:${st.ai};gap:${st.gap}px;`;
+    box.innerHTML = ['1','2 two','3','4 four'].map((t,i)=>`<div style="flex-grow:${st.g[i]};${i===1?'padding-top:22px;padding-bottom:22px;':''}${st.wrap==='wrap'?'min-width:140px;':''}">${t}</div>`).join('');
+    $('#fcss', el).innerHTML = hl(`.container {\n  display: flex;\n  flex-direction: ${st.dir};\n  flex-wrap: ${st.wrap};\n  justify-content: ${st.jc};   /* main axis */\n  align-items: ${st.ai};       /* cross axis */\n  gap: ${st.gap}px;\n}` + (st.g.some(x=>x)?`\n${st.g.map((g,i)=>g?`.item-${i+1} { flex-grow: ${g}; }`:'').filter(Boolean).join('\n')}`:''));
+    $('#fax', el).textContent = st.dir.startsWith('column') ? 'main axis = vertical ↕ · cross axis = horizontal ↔' : 'main axis = horizontal ↔ · cross axis = vertical ↕';
+  };
+  el.innerHTML = `${head(el,'try it · flexbox playground')}<div class="ctrls">${Object.keys(opts).map(k=>`<label class="ctl">${names[k]}<select data-k="${k}">${opts[k].map(o=>`<option ${o===st[k]?'selected':''}>${o}</option>`).join('')}</select></label>`).join('')}<label class="ctl"><span>gap: <span id="gv">8</span>px</span><input type="range" min="0" max="30" value="8" id="gp"></label></div>
+  <div class="row small" style="margin-bottom:10px"><span class="muted">flex-grow per item:</span>${[0,1,2,3].map(i=>`<label class="chk">${i+1} <input type="number" min="0" max="5" value="0" data-g="${i}" style="width:54px"></label>`).join('')}</div>
+  <div class="small muted mono" id="fax" style="margin-bottom:6px"></div><div class="fx"></div><pre class="code" id="fcss"></pre>`;
+  $$('select[data-k]', el).forEach(s => s.onchange = () => { st[s.dataset.k] = s.value; draw(); });
+  $('#gp', el).oninput = e => { st.gap = +e.target.value; $('#gv', el).textContent = st.gap; draw(); };
+  $$('input[data-g]', el).forEach(i => i.oninput = () => { st.g[+i.dataset.g] = Math.max(0, +i.value||0); draw(); });
+  draw();
+};
+
+// flex-grow calculator
+W.grow = el => {
+  const st = {space:730, items:[[3,480],[1,75],[1,75]]};
+  const draw = () => {
+    const tg = st.items.reduce((a,[g])=>a+g,0);
+    const ws = st.items.map(([g,w]) => tg ? g/tg*st.space + w : w);
+    const tot = ws.reduce((a,b)=>a+b,0);
+    $('.growbars', el).innerHTML = ws.map((w,i)=>`<div style="width:${Math.max(8,100*w/tot)}%;background:${['var(--c2)','var(--c1)','var(--c4)'][i]}">item ${i+1}: ${Math.round(w)}px</div>`).join('');
+    $('#go2', el).innerHTML = st.items.map(([g,w],i)=>`item ${i+1} = (${g} ÷ ${tg}) × ${st.space} + ${w} = <b>${Math.round(ws[i]*100)/100}px</b>`).join('<br>');
+  };
+  el.innerHTML = `${head(el,'try it · flex-grow calculator')}<div class="ctrls"><label class="ctl">available space (px)<input type="number" id="gs" value="${st.space}"></label>${st.items.map(([g,w],i)=>`<label class="ctl">item ${i+1} grow / initial px<span class="row" style="gap:6px;flex-wrap:nowrap"><input type="number" min="0" value="${g}" data-i="${i}" data-f="0" style="width:60px"><input type="number" min="0" value="${w}" data-i="${i}" data-f="1" style="width:80px"></span></label>`).join('')}</div><div class="growbars"></div><div class="out" id="go2"></div>`;
+  $('#gs', el).oninput = e => { st.space = Math.max(0, +e.target.value||0); draw(); };
+  $$('input[data-i]', el).forEach(inp => inp.oninput = () => { st.items[+inp.dataset.i][+inp.dataset.f] = Math.max(0, +inp.value||0); draw(); });
+  draw();
+};
+
+// form → request
+W.form = el => {
+  let method = 'get';
+  el.innerHTML = `${head(el,'try it · fill the form, see what is sent')}
+  <div class="pick" style="margin-bottom:12px"><button data-m="get" class="ok">method="get"</button><button data-m="post">method="post"</button></div>
+  <form class="stage" id="ff" action="order.php" style="display:grid;gap:10px">
+    <label class="ctl">First name<input type="text" name="firstName" id="firstName" value="Jane"></label>
+    <label class="ctl">Nickname (placeholder only)<input type="text" name="nick" id="nick" placeholder="e.g. JD"></label>
+    <fieldset style="border:1px solid var(--line);border-radius:8px"><legend class="small">Pizza (radio, same name)</legend>
+      <label class="chk"><input type="radio" name="pizza" id="veggie" value="veggie" checked> Veggie</label>
+      <label class="chk"><input type="radio" name="pizza" id="pepperoni" value="pepperoni"> Pepperoni</label></fieldset>
+    <fieldset style="border:1px solid var(--line);border-radius:8px"><legend class="small">Extras (checkboxes)</legend>
+      <label class="chk"><input type="checkbox" name="extra[]" id="cheese" value="cheese"> Cheese</label>
+      <label class="chk"><input type="checkbox" name="extra[]" id="olives" value="olives"> Olives</label></fieldset>
+    <label class="ctl">Country<select name="country" id="country"><option value="BE" selected>Belgium</option><option value="NL">Netherlands</option></select></label>
+    <input type="text" id="noName" placeholder="field with an id but NO name → never sent">
+  </form><div class="out" id="fo"></div>
+  <p class="small muted" style="margin:8px 0 0">Notice: ids are never sent, only <code>name=value</code>. The empty placeholder field sends an empty value. Unchecked checkboxes are not sent at all.</p>`;
+  const draw = () => {
+    const fd = new FormData($('#ff', el)); const qs = new URLSearchParams(fd).toString();
+    $('#fo', el).textContent = method==='get'
+      ? `GET /order.php?${qs} HTTP/1.1\nHost: localhost:5000\n\n(no body: the data is in the query string of the URL)`
+      : `POST /order.php HTTP/1.1\nHost: localhost:5000\nContent-Type: application/x-www-form-urlencoded\nContent-Length: ${qs.length}\n\n${qs}`;
+  };
+  $('#ff', el).oninput = draw; $('#ff', el).onchange = draw; $('#ff', el).onsubmit = e => e.preventDefault();
+  $$('.pick button', el).forEach(b => b.onclick = () => { method = b.dataset.m; $$('.pick button', el).forEach(x=>x.classList.toggle('ok', x===b)); draw(); });
+  draw();
+};
+
+// http: status code game
+W.http = el => {
+  const cases = [['You request /photos/cat.jpg but that file doesn\'t exist.','404'],['You log in with the wrong password.','401'],['You are logged in as a normal user and open /admin.','403'],['Everything worked, here is your page.','200'],['The PHP script throws an unhandled exception.','500'],['The server is in maintenance mode.','503'],['The server refuses to brew coffee because it is a teapot.','418']];
+  let deck = shuffle(cases), i = 0, ok = 0;
+  const draw = () => {
+    if (i >= deck.length){ el.innerHTML = `${head(el,'mini game · which status code?')}<p><b>${ok}/${deck.length}</b> correct.</p><button class="btn pri" id="hg">Play again</button>`; $('#hg', el).onclick = () => { deck = shuffle(cases); i=0; ok=0; draw(); }; return; }
+    const [txt, code] = deck[i];
+    el.innerHTML = `${head(el,`mini game · which status code? ${i+1}/${deck.length}`)}<p style="font-weight:600">${esc(txt)}</p><div class="pick">${['200','401','403','404','418','500','503'].map(c=>`<button data-c="${c}">${c}</button>`).join('')}</div><div id="hf"></div>`;
+    $$('.pick button', el).forEach(b => b.onclick = () => { if ($('#hf', el).innerHTML) return; const r = b.dataset.c===code; if (r) ok++; b.classList.add(r?'ok':'bad'); if (!r) $(`.pick button[data-c="${code}"]`, el).classList.add('ok'); $('#hf', el).innerHTML = `<div class="fb ${r?'ok':'bad'}">${r?'Correct':'It\'s '+code}. <button class="btn sm" id="hn">next</button></div>`; $('#hn', el).onclick = () => { i++; draw(); }; });
+  };
+  draw();
+};
+
+// ================= ROUTER
+const app = $('#app');
+function route(){
+  const r = location.hash.replace(/^#\/?/,'');
+  toc(r || 'home'); prog();
+  if (!r) home(); else if (r==='practice') practice(); else if (CHK[r]) chapter(r); else home();
+  scrollTo(0,0);
+}
+addEventListener('hashchange', route);
+route();
+window.__wfe = { checkSA, QS, CH };
+})();
+</script>
+</body>
+</html>
