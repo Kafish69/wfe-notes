@@ -153,6 +153,7 @@ input[type=range]{accent-color:var(--ink);width:100%}
   <nav class="top"><a href="#/" data-r="home">Notes</a><a href="#/practice" data-r="practice">Practice</a></nav>
   <span class="sp"></span>
   <span class="pill" id="prog">0/8 read</span>
+  <button class="iconbtn" id="lang" title="Switch language">urdu</button>
   <button class="iconbtn" id="theme">dark</button>
 </div></header>
 <div class="layout">
@@ -583,6 +584,422 @@ Accept-Language: en-GB</pre>
 <div class="quiz" data-c="http"></div>
 </section>
 </template>
+<template id="notes-ur"><!-- CHAPTER 1 -->
+<section class="ch" id="ch-links" data-title="Links, tables & images" data-n="01">
+<h2>Links, tables & images</h2>
+<p class="lead">Page doosri cheezon ko kaise point karta hai, tabular data kaise dikhate hain, aur kaunsa image format kab use karna hai.</p>
+
+<h3>Links</h3>
+<p>Link ek <code>&lt;a&gt;</code> (anchor) tag hai. <code>href</code> = link kahan jayega. Tags ke beech wala text = jis par user click karta hai.</p>
+<pre class="code">&lt;a href="mypage.html"&gt;Go there!&lt;/a&gt;</pre>
+<div class="grid2">
+  <div class="note"><b>Absolute link</b> (apni site ke andar): <code>/</code> se shuru hota hai aur hamesha site ke <em>root</em> (sab se upar wale folder) se dekha jata hai.<br><code>/pages/products.html</code></div>
+  <div class="note"><b>Relative link</b>: us file se shuru hota hai jis mein aap ho. <b>Yehi behtar hai.</b><br><code>pages/products.html</code> · <code>../</code> = ek folder upar</div>
+</div>
+<ul>
+  <li>Doosri website: <code>href="https://www.google.com"</code> (ya <code>//www.google.com</code>). Rule: doosri website hamesha <b>new tab</b> mein kholo.</li>
+  <li>Kabhi bhi apne computer ki file ka link mat do, jaise <code>C:\My Documents\file.htm</code>.</li>
+  <li>Usi page ke kisi hisse par jump: target ko <code>id</code> do aur <code>#</code> se link karo: <code>&lt;a href="#info"&gt;</code> → <code>&lt;h1 id="info"&gt;</code>.</li>
+  <li><em>Doosre</em> page ka koi hissa: dono mila do: <code>href="about.html#team"</code>.</li>
+</ul>
+<div class="widget" data-w="paths"></div>
+
+<h3>Tables</h3>
+<p>Sirf <b>tabular data</b> ke liye (jo cheez aap Excel mein likhte, woh table hai). Layout ke liye table <b>kabhi nahi</b>. Pehle <b>rows</b> mein socho: ek <code>&lt;tr&gt;</code> band karo phir agla shuru karo, aur har row mein cells barabar hone chahiye.</p>
+<pre class="code">&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Score&lt;/th&gt;&lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;&lt;td&gt;Anna&lt;/td&gt;&lt;td&gt;17&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tfoot&gt;
+    &lt;tr&gt;&lt;td&gt;Average&lt;/td&gt;&lt;td&gt;17&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tfoot&gt;
+&lt;/table&gt;</pre>
+<p class="small muted"><code>th</code> = heading wala cell, <code>td</code> = data cell, <code>tr</code> = table row.</p>
+
+<h3>Images</h3>
+<pre class="code">&lt;img src="cat.jpg" alt="A grey cat sleeping" title="Our cat"&gt;</pre>
+<ul>
+  <li><code>src</code> = image ka rasta (relative link behtar). <code>alt</code> = <b>zaroori</b> hai: jab image load na ho to yeh text dikhta hai, aur screen reader (andhay logon ka software) yehi parhta hai. <code>title</code> = mouse le jao to tooltip.</li>
+  <li><b>Content images</b> (jin ka matlab hai) <b>HTML</b> mein. <b>Sajawat wali</b> (background, design) <b>CSS</b> mein.</li>
+  <li>Bitmap image choti ho sakti hai, bari karo to kharab ho jati hai. <b>Kabhi bhi lambai/chaurai ka tanasub (ratio) mat bigaro.</b></li>
+  <li>Image ke neeche caption hamesha dikhana hai? <code>&lt;figure&gt;</code> + <code>&lt;img&gt;</code> + <code>&lt;figcaption&gt;</code>.</li>
+</ul>
+<pre class="code">&lt;figure&gt;
+  &lt;img src="cat.jpg" alt="A grey cat sleeping"&gt;
+  &lt;figcaption&gt;Our cat after exam week&lt;/figcaption&gt;
+&lt;/figure&gt;</pre>
+
+<h3>Image formats</h3>
+<div class="tbl"><table>
+<tr><th></th><th>Kis qisam ka</th><th>Compression</th><th>Transparency</th><th>Animation</th><th>Kab use karo</th></tr>
+<tr><td><b>JPEG</b></td><td>bitmap, poore rang</td><td>lossy</td><td>nahi</td><td>nahi</td><td>photos, har browser mein chalta hai</td></tr>
+<tr><td><b>GIF</b></td><td>bitmap, sirf 256 rang</td><td>lossy (kamzor)</td><td>sirf 1 rang (haan/na)</td><td><b>haan</b></td><td>ek jaisay rang wale hissay, simple animation</td></tr>
+<tr><td><b>PNG</b></td><td>bitmap, poore rang</td><td><b>lossless</b></td><td><b>haan</b> (asli)</td><td>nahi (sirf APNG)</td><td>transparency chahiye, file bari hoti hai</td></tr>
+<tr><td><b>WebP</b></td><td>bitmap (Google ka)</td><td>lossy ya lossless</td><td>haan</td><td>haan</td><td>har kaam ka naya format</td></tr>
+<tr><td><b>AVIF</b></td><td>bitmap (AV1)</td><td>lossy ya lossless, sab se behtar</td><td>haan</td><td>haan</td><td>behtareen photo quality, choti file, har browser mein nahi</td></tr>
+<tr><td><b>SVG</b></td><td><b>vector</b></td><td>(shapes calculate hoti hain)</td><td>haan</td><td>CSS/JS ke saath</td><td>logo, icons, jitna bara karo kharab nahi hota</td></tr>
+</table></div>
+<ul class="small">
+  <li><b>Lossy</b> = data hamesha ke liye nikal deta hai (wapas nahi aata). <b>Lossless</b> = sirf faltu data nikalta hai (wapas aa sakta hai).</li>
+  <li><b>Gamut</b> = kitne rang mojood hain. <b>Bit depth</b> = un rangon ke beech kitne bareek steps hain.</li>
+  <li><b>Icon fonts</b>: aise fonts jin mein letters ki jagah symbols hain. Vector hain, 1 request mein saikron icons, text ki tarah size/rang badal jata hai, sirf simple images.</li>
+  <li>Jaldi faisla: purane browsers bhi chahiye → <b>JPEG</b> · har kaam ka → <b>WebP</b> · behtareen photo + choti file → <b>AVIF</b>.</li>
+</ul>
+
+<h3>&lt;picture&gt; aur progressive enhancement</h3>
+<p><b>Progressive enhancement</b> = jo browser naya format samajhta hai usay naya do, baqi sab ko ek <b>fallback</b> (backup) do. Images ke liye yeh <code>&lt;picture&gt;</code> se hota hai:</p>
+<pre class="code">&lt;picture&gt;
+  &lt;source srcset="art.avif" type="image/avif"&gt;
+  &lt;source srcset="art.webp" type="image/webp"&gt;
+  &lt;img src="art.jpg" alt="Art" title="Art"&gt;
+&lt;/picture&gt;</pre>
+<ul>
+  <li>Browser <b>pehla</b> <code>&lt;source&gt;</code> leta hai jo usay samajh aaye. <b>Tarteeb (order) zaroori hai!</b></li>
+  <li>Andar wala <code>&lt;img&gt;</code> <b>zaroori</b> hai: screen reader alt/title usi se parhta hai, aur purana browser wohi dikhata hai.</li>
+</ul>
+<div class="widget" data-w="picture"></div>
+<div class="quiz" data-c="links"></div>
+</section>
+
+<!-- CHAPTER 2 -->
+<section class="ch" id="ch-sem" data-title="Semantic HTML" data-n="02">
+<h2>Semantic HTML</h2>
+<p class="lead">Semantics = code ka <em>matlab</em> kya hai, yeh nahi ke dikhta kaisa hai. Is se browser, screen reader aur Google ko samajh aata hai ke page mein kya hai.</p>
+<div class="widget" data-w="layout"></div>
+<div class="tbl"><table>
+<tr><th>Tag</th><th>Matlab</th><th>Yaad rakhne wale rules</th></tr>
+<tr><td><code>header</code></td><td>shuru wala hissa (title, logo, aksar nav bhi)</td><td>kai ho sakte hain, zyada mat use karo</td></tr>
+<tr><td><code>nav</code></td><td>main ya sub navigation (menu)</td><td>har links ki list ke liye nahi</td></tr>
+<tr><td><code>main</code></td><td>page ka asli/main content</td><td><b>page mein sirf ek</b>; article, header, footer, aside ya nav ke andar kabhi nahi</td></tr>
+<tr><td><code>section</code></td><td>ek mauzu (topic) ka group: chapter, tab</td><td><b>heading zaroori</b> (h1–h6); yeh "naya div" nahi hai</td></tr>
+<tr><td><code>article</code></td><td>aisa content jo akela bhi samajh aaye (blog post, news, card jo share ho sake)</td><td>andar article ho sakta hai (comments)</td></tr>
+<tr><td><code>aside</code></td><td>side wali, thori si mutaliq cheez (sidebar, related articles, banner)</td><td></td></tr>
+<tr><td><code>footer</code></td><td>page ya kisi hissay ka neeche wala hissa</td><td>kai ho sakte hain</td></tr>
+<tr><td><code>div</code> / <code>span</code></td><td>koi matlab nahi</td><td>sirf <b>design</b> ke liye group karna ho: block ke liye div, text ke andar span</td></tr>
+</table></div>
+<div class="grid2">
+  <div class="note"><b>em vs strong vs span</b><br><code>em</code> = zor de kar bolna (emphasis), <code>strong</code> = ahem cheez (importance). Dono matlab add karte hain. <code>span</code> koi matlab nahi deta.</div>
+  <div class="note"><b>Aur tags jo dekhe</b><br><code>figure</code>/<code>figcaption</code>, <code>time</code>, <code>address</code>, <code>blockquote</code>, <code>cite</code>, <code>abbr</code>, <code>code</code>, <code>mark</code>, <code>details</code>/<code>summary</code>, <code>fieldset</code> (sirf forms mein).</div>
+</div>
+<h3>Valid HTML</h3>
+<ul>
+  <li>Hamesha page ko <b>W3C validator</b> (validator.w3.org) se check karo. Wohi count hota hai.</li>
+  <li>Headings kitaab ki fehrist (table of contents) ki tarah honi chahiye: <code>h1 → h2 → h3</code>. <code>h1</code> ke foran baad <code>h3</code> = <b>invalid</b>. Alag dikhana hai to CSS se karo.</li>
+  <li><code>id</code> poore page mein sirf ek baar.</li>
+</ul>
+<pre class="code">&lt;!-- NOT valid --&gt;        &lt;!-- valid --&gt;
+&lt;h1&gt;Title&lt;/h1&gt;             &lt;h1&gt;Title&lt;/h1&gt;
+&lt;h3&gt;Sub&lt;/h3&gt;               &lt;h2&gt;Sub&lt;/h2&gt;
+&lt;h2&gt;Sub&lt;/h2&gt;               &lt;h3&gt;Sub sub&lt;/h3&gt;</pre>
+<div class="note warn"><b>Yeh kabhi mat karna:</b> <code>&lt;div class="header"&gt;</code>, <code>&lt;div class="main"&gt;</code>… Agar us kaam ka semantic tag mojood hai, to wohi use karo.</div>
+<div class="quiz" data-c="sem"></div>
+</section>
+
+<!-- CHAPTER 3 -->
+<section class="ch" id="ch-css" data-title="CSS basics & cascading" data-n="03">
+<h2>CSS basics & cascading</h2>
+<p class="lead">CSS kahan likhte hain, ek rule kaise banta hai, aur "cascading" ka asli matlab kya hai.</p>
+<h3>CSS lagane ke 3 tareeqe</h3>
+<div class="grid3">
+  <div class="note good"><b>Alag file</b> ✓ sahi tareeqa<br><code>&lt;link rel="stylesheet" type="text/css" href="screen.css"&gt;</code> <b>har</b> page ke <code>&lt;head&gt;</code> mein.</div>
+  <div class="note"><b>&lt;style&gt; block</b> head mein<br>chal jata hai, lekin "yuck"</div>
+  <div class="note warn"><b>Inline</b> <code>style="..."</code><br>"you will burn alive" 😅</div>
+</div>
+<h3>Syntax (likhne ka tareeqa)</h3>
+<pre class="code">selector {
+  property: value;   /* ; ek line khatam karta hai */
+  property: value;
+}                    /* { } selector ke saare rules ko group karte hain */</pre>
+<p>Sab se zyada use hone wali properties: <code>color</code>, <code>background-color</code>, <code>background-image</code>, <code>border</code>, <code>font-family</code>, <code>font-size</code>, <code>line-height</code>, <code>margin</code>, <code>padding</code>, <code>text-align</code>, <code>width</code>, <code>display</code>, <code>flex</code>.</p>
+
+<h3>Cascading = inheritance (wirasat)</h3>
+<p>Kuch properties parent se bachon (children) ko <b>khud ba khud mil jati hain</b>, kuch nahi milti.</p>
+<div class="grid2">
+  <div class="note good"><b>Inherit hoti hain</b> (text wali)<br><code>color</code>, <code>font-family</code>, <code>font-size</code>, <code>line-height</code>, <code>text-align</code>…</div>
+  <div class="note"><b>Inherit nahi hoti</b> (box wali)<br><code>margin</code>, <code>padding</code>, <code>border</code>, <code>width</code>, <code>background-color</code>…</div>
+</div>
+<p class="small"><b>Background wala chakkar:</b> <code>background-color</code> inherit nahi hota, lekin bachay usi rang ke lagte hain kyunke unka apna background <code>transparent</code> (sheesha) hota hai, to parent ka rang peeche se nazar aata hai.</p>
+<div class="widget" data-w="inherit"></div>
+
+<h3>Best practices</h3>
+<ol>
+  <li><b><code>body</code> par 4 cheezein likho</b>: <code>font-family</code>, <code>font-size</code>, <code>color</code>, <code>background-color</code>. Yeh neeche sab mein chali jati hain.</li>
+  <li><b>Parent par likho, child par badlo</b>: <code>section { font-size: 1.2rem }</code> + <code>section h2 { font-size: 3rem }</code>. Kal naya element aaye to woh bhi theek rahega.</li>
+  <li><b>Container ka size badlo</b>, har bachay ka nahi: <code>section { width: 70% }</code>, yeh nahi: <code>section h2, section p, section ul { width: 70% }</code>.</li>
+  <li><b>Images khud fit ho jayen</b>: <code>img { max-width: 100% }</code> taake container se bahar na niklen.</li>
+  <li><b>Fallback fonts</b>: <code>font-family: Arial, Helvetica, sans-serif;</code>. Aakhri hamesha generic: <code>serif</code>, <code>sans-serif</code> ya <code>monospace</code>.</li>
+</ol>
+<h3>Reset CSS</h3>
+<p>Har browser ke apne default styles hote hain. <b>reset.css</b> (Howest <b>Eric Meyer</b> wala use karta hai) sab ko ek jaisa kar deta hai. <b>Pehle</b> reset load karo, phir apni CSS, har page par:</p>
+<pre class="code">&lt;link rel="stylesheet" type="text/css" href="reset.css"&gt;
+&lt;link rel="stylesheet" type="text/css" href="screen.css"&gt;</pre>
+<div class="quiz" data-c="css"></div>
+</section>
+
+<!-- CHAPTER: colours & units -->
+<section class="ch" id="ch-units" data-title="Colours, units & clean CSS" data-n="04">
+<h2>Colours, units & clean CSS</h2>
+<p class="lead">Rang aur size kaise likhte hain, aur CSS ko saaf suthra kaise rakhte hain.</p>
+<h3>Rang (colours)</h3>
+<ul>
+  <li><b>Naam wale rang</b>: <code>black</code>, <code>white</code>, <code>red</code>, <code>hotpink</code>… aam rangon ke liye theek.</li>
+  <li><b>RGB</b>: kitna <b>R</b>ed, <b>G</b>reen aur <b>B</b>lue. Har ek <b>0</b> (bilkul nahi) se <b>255</b> (poora) tak → takreeban <b>1 crore 60 lakh (16 million)</b> rang. <code>rgb(255, 128, 0)</code></li>
+  <li><b>Hex</b>: wohi teen numbers hexadecimal mein, har ek ke 2 digit: <code>#FF8000</code> = R FF (255), G 80 (128), B 00 (0).</li>
+</ul>
+<div class="grid3">
+  <div class="note"><code>#000000</code> kaala<br><code>#FFFFFF</code> safed<br><code>#FF0000</code> laal</div>
+  <div class="note"><code>#00FF00</code> hara<br><code>#0000FF</code> neela<br><code>#FFFF00</code> peela (R+G)</div>
+  <div class="note"><code>#FF00FF</code> magenta (R+B)<br><code>#00FFFF</code> cyan (G+B)<br><code>#202020</code> bohat gehra grey</div>
+</div>
+<p class="small muted">R, G, B teeno barabar = grey ka koi shade. Hex khud CAOS mein samjhaya jayega.</p>
+<div class="widget" data-w="color"></div>
+<h3>Units</h3>
+<div class="grid2">
+  <div class="note warn"><b>Absolute</b>: <code>px</code> <code>pt</code> <code>in</code> <code>cm</code> <code>mm</code> <code>Q</code> <code>pc</code><br>Fixed size: user ki font settings ko nazar andaaz karte hain. "Absolute units are evil."</div>
+  <div class="note good"><b>Relative</b>: <code>em</code> <code>rem</code> <code>vw</code> <code>vh</code> <code>%</code><br>User/browser/parent ke hisaab se badalte hain. Font size ke liye <b>hamesha rem ya em</b>. Font size mein <code>%</code> kabhi nahi.</div>
+</div>
+<div class="grid2">
+  <div class="note"><b>rem</b> = <b>root</b> (html) ke font size ke hisaab se. Browser default 16px → <code>2rem</code> = 32px, <b>har jagah</b>.</div>
+  <div class="note"><b>em</b> = <b>parent</b> ke font size ke hisaab se, is liye andar andar jao to <b>barhta jata hai</b>: 1.5em ke andar 1.5em = root ka 2.25 guna.</div>
+</div>
+<p class="small"><code>vw</code> / <code>vh</code> = screen (viewport) ki chaurai / lambai ka 1%. <code>%</code> = parent ka percentage (width ke liye zabardast).</p>
+<div class="widget" data-w="remem"></div>
+<h3>Saaf suthri CSS</h3>
+<ul>
+  <li><b>Pehle plan</b>: design ke blocks kaghaz par banao aur tags pehle socho, phir code.</li>
+  <li><b>File ko hisson mein baanto</b> comments se, jaise <code>/* HTML ELEMENTS */</code>, <code>/* REUSABLE CLASSES */</code>, <code>/* CONTAINING ELEMENTS */</code>, <code>/* PAGE SPECIFIC */</code>. Koi bhi structure chalega, bas ho zaroor.</li>
+  <li><b>Naam rakhne ka tareeqa</b>: camelCase, PascalCase, snake_case, kebab-case… CSS mein ids aur classes ke liye <b>kebab-case</b>: <code>#main-nav</code>, <code>.promo-item</code>. BEM/SMACSS ke chakkar mein mat paro: KISS (simple rakho).</li>
+  <li><b>IDs as hooks</b> (best practice #5): 4 milte julte sections, har ek ka icon alag? Har section ko id do (<code>#services</code>, <code>#products</code>) aur usi se style karo, HTML ko classes se mat bharo.</li>
+</ul>
+<pre class="code">/* --- HTML ELEMENTS --- */
+body { font-family: Arial, Helvetica, sans-serif; }
+
+/* --- REUSABLE CLASSES --- */
+.promo-item { background-color: gold; }
+
+/* --- PAGE SPECIFIC --- */
+#services h2 { background-image: url(../media/services.svg); }
+#products h2 { background-image: url(../media/products.svg); }</pre>
+<h3>Accessibility ka qanoon</h3>
+<p><b>European Accessibility Act</b> <b>28 June 2025</b> se laagu hai: naye products aur services (websites bhi) sab ke liye qabil-e-istemaal hone chahiye, assistive devices ke saath bhi. Yeh <b>WCAG 2.1</b> (AA) laagu karta hai. WCAG 2.2 bhi aa chuka hai un ke liye jo minimum se zyada karna chahte hain.</p>
+<div class="quiz" data-c="units"></div>
+</section>
+
+<!-- CHAPTER 4 -->
+<section class="ch" id="ch-sel" data-title="Selectors & specificity" data-n="05">
+<h2>Selectors & specificity</h2>
+<p class="lead">Sahi elements ko kaise pakarna hai, aur jab do rules lar parein to kaun jeetta hai.</p>
+<div class="tbl"><table>
+<tr><th>Selector</th><th>Misaal</th><th>Kis ko pakarta hai</th></tr>
+<tr><td>element</td><td><code>h1</code></td><td>saare h1</td></tr>
+<tr><td>class</td><td><code>.special</code></td><td>har element jis ki class="special"</td></tr>
+<tr><td>id</td><td><code>#products</code></td><td>woh ek element jis ki id="products" (unique!)</td></tr>
+<tr><td>list <code>,</code></td><td><code>h1, h2</code></td><td>h1 <b>aur</b> h2 dono</td></tr>
+<tr><td>descendant <code>(space)</code></td><td><code>nav a</code></td><td>nav ke <b>andar kahin bhi</b> a (beta, pota…) — <b>yehi zyada use karo</b></td></tr>
+<tr><td>child <code>&gt;</code></td><td><code>ul &gt; li</code></td><td>sirf <b>seedhe bachay</b>. Bohat sakht, soch samajh kar.</td></tr>
+<tr><td>next sibling <code>+</code></td><td><code>h1 + h2</code></td><td>woh h2 jo h1 ke <b>foran baad</b> ho (same parent)</td></tr>
+<tr><td>subsequent sibling <code>~</code></td><td><code>h3 ~ p</code></td><td>h3 ke <b>baad</b> aane wale saare p, same parent mein (foran baad hona zaroori nahi)</td></tr>
+<tr><td>joined</td><td><code>p.myclass</code></td><td>sirf woh <b>p</b> jis ki class myclass ho (beech mein space nahi!)</td></tr>
+<tr><td>attribute</td><td><code>[alt]</code>, <code>img[alt]</code>, <code>img[alt="Jill"]</code></td><td>jin elements par woh attribute ho (ya bilkul wohi value)</td></tr>
+<tr><td>pseudo-class <code>:</code></td><td><code>a:hover</code> <code>:visited</code> <code>:active</code> <code>input:focus</code> <code>li:first-child</code> <code>tr:nth-child(odd)</code></td><td>element ki koi <b>haalat</b> (state) ya jagah</td></tr>
+<tr><td>pseudo-element <code>::</code></td><td><code>p::first-letter</code> <code>::first-line</code> <code>::before</code> <code>::after</code> <code>::selection</code></td><td>element ka koi <b>hissa</b></td></tr>
+</table></div>
+<div class="note"><b>Ek colon vs do:</b> <code>:hover</code> = haalat (pseudo-class, weight 10). <code>::first-letter</code> = hissa (pseudo-element, weight 1). <code>p.intro</code> (wohi p jis ki class intro hai) aur <code>p .intro</code> (p ke andar koi element jis ki class intro hai) alag cheezein hain.</div>
+<p class="small muted"><code>:first-child</code>, <code>:last-child</code>, <code>:nth-child(odd/even)</code> befikr use karo. "Teesra item alag dikhe" ke liye <code>:nth-child(3)</code>? Kal order badla to toot jayega: <b>class use karo</b>.</p>
+<div class="widget" data-w="selector"></div>
+<h3>Specificity (wazan / weight)</h3>
+<p>Jab rules aapas mein takrayen, jis selector ka <b>wazan sab se zyada</b> woh jeetta hai. Wazan barabar → jo rule <b>baad mein</b> likha hai woh jeetta hai.</p>
+<div class="grid3">
+  <div class="note"><b>1</b><br>element / pseudo-element<br><code>p</code> <code>h2</code> <code>::before</code></div>
+  <div class="note"><b>10</b><br>class / attribute / pseudo-class<br><code>.x</code> <code>[type]</code> <code>:hover</code></div>
+  <div class="note"><b>100</b><br>id<br><code>#container</code></div>
+</div>
+<p class="small">Slides wali misaalein: <code>article h2</code> = 2 · <code>nav ul li a:hover</code> = 14 · <code>#container p.special</code> = 111 · <code>.flexcontainer article p:first-child span</code> = 23. Combinators (space, &gt;, +, ~) ka wazan 0.</p>
+<div class="widget" data-w="spec"></div>
+<h3>Kaun jeetega? (slides ke puzzles)</h3>
+<p class="small">Har us rule ka wazan nikalo jo element ko pakarta hai. Sab se zyada wala jeetega; barabar ho to aakhri wala. Dhyan: jo rule element ko pakarta hi nahi woh count nahi hota, aur links ka apna browser wala rang hota hai.</p>
+<div class="widget" data-w="puzzle"></div>
+<div class="note"><b>Class ya id?</b> Class = baar baar use, kai elements par. Id = page mein sirf ek element (aur <code>#</code> link ka target bhi). CSS mein zyada tar classes hi use hongi.</div>
+<div class="quiz" data-c="sel"></div>
+</section>
+
+<!-- CHAPTER 5 -->
+<section class="ch" id="ch-box" data-title="Box model & display" data-n="06">
+<h2>Box model & display</h2>
+<p class="lead">Har element ek dabba (box) hai. Layout = in dabbon ko ek doosre ke saath, neeche ya andar rakhna.</p>
+<h3>Display modes</h3>
+<div class="tbl"><table>
+<tr><th></th><th>block</th><th>inline</th><th>inline-block</th></tr>
+<tr><td>Default chaurai</td><td>parent ki poori chaurai</td><td>sirf content jitni</td><td>sirf content jitni</td></tr>
+<tr><td>Nai line shuru karta hai?</td><td><b>haan</b></td><td>nahi</td><td>nahi</td></tr>
+<tr><td>Upar/neeche margin/padding?</td><td>haan</td><td><b>nahi</b> (sirf daayen baayen)</td><td>haan</td></tr>
+<tr><td>width / height kaam karti hai?</td><td>haan</td><td><b>nahi</b></td><td>haan</td></tr>
+<tr><td>Default kis ka</td><td>div, p, h1–h6, ul, ol, li, saare semantic containers</td><td>span, a, strong, em</td><td>img</td></tr>
+</table></div>
+<div class="widget" data-w="display"></div>
+<h3>Dabba (the box)</h3>
+<p>Andar se bahar: <b>content</b> → <b>padding</b> (dabbe ke <b>andar</b> ki khali jagah) → <b>border</b> (deewar) → <b>margin</b> (dabbe ke <b>bahar</b> ki jagah, padosi tak). Ghar ka bagheecha socho: paude = content, unke ird gird ghaas = padding, baar (fence) = border, padosi ki baar tak ka faasla = margin.</p>
+<div class="formula">total visual width = width + padding (left + right) + border (left + right)<br><span class="muted small">margin is mein nahi aata; woh bahar ki jagah hai</span></div>
+<p>Background content <b>aur</b> padding dono ko bharta hai (border ke neeche bhi jata hai; border upar banta hai).</p>
+<div class="widget" data-w="box"></div>
+<h3>box-sizing</h3>
+<div class="grid2">
+  <div class="note"><b>content-box</b> (normal)<br><code>width</code> = sirf content. Padding aur border <b>upar se judte</b> hain.<br><span class="small">20rem + 2rem padding + 2×1rem border = <b>24rem</b></span></div>
+  <div class="note"><b>border-box</b><br><code>width</code> = poori nazar aane wali chaurai. Padding aur border <b>isi mein se katte</b> hain.<br><span class="small">20rem = 2rem + 2×1rem + <b>16rem</b> content</span></div>
+</div>
+<p class="small muted">box-sizing sirf zaroorat ho to badlo; baar baar badloge to doosre developers pareshan honge.</p>
+<h3>Sizing</h3>
+<p><code>width</code>, <code>min-width</code>, <code>max-width</code>, <code>height</code>, <code>min-height</code>, <code>max-height</code>. Mashhoor responsive container: <code>width: 90%; max-width: 60rem; margin: 0 auto;</code> → screen ke saath chhota bara hota hai, 60rem par ruk jata hai, beech mein rehta hai.</p>
+<h3>Collapsing margins</h3>
+<p>Jab do upar/neeche wale margins aapas mein milte hain to <b>jama (add) nahi hote</b>: <b>bara wala jeetta hai</b>.</p>
+<div class="widget" data-w="collapse"></div>
+<ul class="small">
+  <li>Parent aur us ke pehle/aakhri bachay ke beech bhi hota hai (margin-top 1rem + bachay ka margin-top 2rem → upar 2rem).</li>
+  <li>Sirf jab sach mein milein: beech mein border, padding ya content ho to collapse nahi hota.</li>
+  <li><b>Flex</b> container ke andar margins collapse <b>nahi</b> hote.</li>
+</ul>
+<div class="quiz" data-c="box"></div>
+</section>
+
+<!-- CHAPTER 6 -->
+<section class="ch" id="ch-flex" data-title="Layout & flexbox" data-n="07">
+<h2>Layout & flexbox</h2>
+<p class="lead">Is course mein sirf do layout tareeqe allowed hain: <b>inline-block</b> aur <b>flexbox</b>.</p>
+<div class="tbl"><table>
+<tr><th>Tareeqa</th><th>Faisla</th></tr>
+<tr><td>float</td><td>sirf image ke gird text lapetne ke liye bana tha. Layout ke liye kabhi nahi.</td></tr>
+<tr><td>position (absolute…)</td><td>sirf un cheezon ke liye jo grid se bahar hon. Poore layout ke liye kabhi nahi.</td></tr>
+<tr><td>display: table</td><td>purana ho gaya, use mat karo</td></tr>
+<tr><td><b>inline-block</b></td><td>choti cheezein ek line mein (figures, list items) jab spacing se farq na pare. Masla: HTML ki <b>khali jagah (whitespace)</b> gap ban jati hai; heights barabar nahi.</td></tr>
+<tr><td><b>flexbox</b></td><td>baqi sab: nav bar, cards ki row, components, centre karna. <b>Ek axis</b> par kaam karta hai.</td></tr>
+<tr><td>grid</td><td>do axis, poore page ka layout (semester 2)</td></tr>
+</table></div>
+<h3>Container vs items</h3>
+<p><code>display: flex</code> <b>container</b> (parent) par lagta hai. Us ke <b>seedhe bachay</b> flex items ban jate hain.</p>
+<pre class="code">main { display: flex; }      /* main = container, us ke articles = items */</pre>
+<div class="tbl"><table>
+<tr><th>Container par</th><th>Kya karta hai</th></tr>
+<tr><td><code>flex-direction</code></td><td><code>row</code> (default) | <code>row-reverse</code> | <code>column</code> | <code>column-reverse</code></td></tr>
+<tr><td><code>flex-wrap</code></td><td><code>nowrap</code> (default, sab ek line mein dab jate hain) | <code>wrap</code> | <code>wrap-reverse</code></td></tr>
+<tr><td><code>flex-flow</code></td><td>direction + wrap ek saath: <code>flex-flow: row wrap</code></td></tr>
+<tr><td><code>gap</code></td><td>items ke beech faasla: <code>gap: 1rem</code> ya <code>gap: 1rem 2rem</code> (row-gap column-gap)</td></tr>
+<tr><td><code>justify-content</code></td><td><b>main axis</b> par jagah: flex-start, center, flex-end, space-between, space-around, space-evenly</td></tr>
+<tr><td><code>align-items</code></td><td><b>cross axis</b> par: stretch (default → sab ki height barabar!), center, flex-start, flex-end</td></tr>
+<tr><td><code>align-content</code></td><td>cross axis jab <b>kai lines</b> wrap ho jayen</td></tr>
+<tr><th>Item par</th><th></th></tr>
+<tr><td><code>align-self</code></td><td>ek item ke liye cross axis par alag rule</td></tr>
+<tr><td><code>flex-grow</code></td><td><b>bachi hui jagah</b> mein se kitna hissa milega (default 0 = nahi barhega)</td></tr>
+<tr><td><code>flex-shrink</code></td><td>jagah kam ho to kitna sukrega (0 = basis se chhota kabhi nahi)</td></tr>
+<tr><td><code>flex-basis</code></td><td>shuru ka ideal size. <code>width</code> ki jagah yeh use karo (dono hon to flex-basis jeetta hai)</td></tr>
+<tr><td><code>flex</code></td><td>shorthand: <code>flex: grow shrink basis</code> → <code>flex: 0 0 50%</code>. Basis mat chhorna.</td></tr>
+</table></div>
+<div class="note"><b>Axis ulat jate hain!</b> <code>flex-direction: column</code> ho to main axis upar-neeche ho jata hai, to <code>justify-content</code> upar-neeche aur <code>align-items</code> daayen-baayen kaam karta hai.</div>
+<div class="widget" data-w="flex"></div>
+<h3>flex-grow jagah kaise baant'ta hai</h3>
+<div class="formula">item width = (flex-grow ÷ total flex-grow) × bachi hui jagah + shuru ki width</div>
+<p class="small">Slide wali misaal: container mein 730px khali, item 1 ka <code>flex: 3 1 30rem</code> (480px), items 2 aur 3 ka <code>flex: 1 1 auto</code> (75px har ek). Item 1 = 3/5 × 730 + 480 = <b>918px</b>. flex-grow items ko barabar <b>nahi</b> karta: sirf <i>bachi hui</i> jagah baant'ta hai.</p>
+<div class="widget" data-w="grow"></div>
+<ul class="small">
+  <li><b>Auto margins</b> flex item mein har taraf dhakka dete hain: <code>margin-left: auto</code> item ko bilkul daayen dhakel deta hai (nav ka mashhoor trick). Margins alignment properties se jeet jate hain.</li>
+  <li><b>Beech mein (centre)</b> rakhna, daayen-baayen aur upar-neeche: <code>display:flex; justify-content:center; align-items:center;</code>. Block ko sirf daayen-baayen: <code>margin: 0 auto</code> + koi width.</li>
+</ul>
+<div class="quiz" data-c="flex"></div>
+</section>
+
+<!-- CHAPTER 7 -->
+<section class="ch" id="ch-forms" data-title="Forms & accessibility" data-n="08">
+<h2>Forms & accessibility</h2>
+<p class="lead">Forms user se data lete hain aur server ko bhejte hain.</p>
+<pre class="code">&lt;form action="login.php" method="post"&gt;
+  &lt;label for="user"&gt;User&lt;/label&gt;
+  &lt;input type="text" name="user" id="user"&gt;
+  &lt;label for="pw"&gt;Password&lt;/label&gt;
+  &lt;input type="password" name="pw" id="pw"&gt;
+  &lt;input type="submit" value="Login"&gt;
+&lt;/form&gt;</pre>
+<ul>
+  <li><code>action</code> = woh script jo data sambhalega. <code>method</code> = <code>get</code> ya <code>post</code>.</li>
+  <li><b>Har form element <code>&lt;form&gt;</code> ke andar hona chahiye</b>, warna bheja hi nahi jayega.</li>
+  <li><b><code>name</code></b> server ko jata hai (zaroori). <b><code>id</code></b> kabhi nahi jata: woh CSS, JS aur labels ke liye hai. Achi aadat: dono ki value same rakho.</li>
+  <li><b><code>&lt;label for="x"&gt;</code></b> us input se judta hai jis ki <code>id="x"</code> hai: screen reader parhta hai, aur label par click karo to input select ho jata hai.</li>
+  <li><b>Radio buttons / checkboxes ek hi <code>name</code> se group hote hain</b>. Naam alag = woh ek group nahi (aap "male" aur "female" dono select kar loge). Checkbox groups aksar <code>name="vehicle[]"</code> use karte hain.</li>
+  <li>Jo jata hai woh <code>value</code> hai, is liye usay zubaan se azaad rakho (<code>value="female"</code>, label wala translated text nahi).</li>
+  <li>Pehle se select: radio/checkbox ke liye <code>checked</code>, <code>&lt;option&gt;</code> ke liye <code>selected</code>.</li>
+  <li><code>placeholder</code> = halka grey ishara, type karte hi gayab, <b>nahi jata</b>. <code>value</code> = asli bhara hua content, <b>jata hai</b>.</li>
+  <li><code>&lt;fieldset&gt;</code> (+ <code>&lt;legend&gt;</code>) lambe forms mein milte julte fields ko group karta hai. Sirf forms ke andar.</li>
+</ul>
+<div class="widget" data-w="form"></div>
+<h3>Submit vs button</h3>
+<div class="grid2">
+  <div class="note good"><b>Form bhejte hain</b> (JavaScript ke baghair bhi):<br><code>&lt;input type="submit"&gt;</code> · <code>&lt;button&gt;</code> · <code>&lt;button type="submit"&gt;</code></div>
+  <div class="note warn"><b>JS ke baghair kuch nahi karte:</b><br><code>&lt;button type="button"&gt;</code> · <code>&lt;input type="button"&gt;</code><br>Sirf izafi, ghair zaroori kaam ke liye theek.</div>
+</div>
+<ul class="small">
+  <li><code>&lt;input type="reset"&gt;</code> form saaf kar deta hai. Mat lagao, jab tak wohi banda baar baar wohi form na bhare (ghalti se dab jata hai).</li>
+  <li><b>Link ya button?</b> Link (<code>&lt;a&gt;</code>) = kahin <b>jana</b> (naya page/section, Enter key). Button = kuch <b>karna</b> (bhejna, kholna, band karna; Space key).</li>
+  <li>HTML validation (<code>required</code>, <code>type="email"</code>, <code>min</code>, <code>pattern</code>…) foran feedback deta hai, lekin <b>bilkul bhi secure nahi</b>: server par bhi hamesha check karo.</li>
+  <li>Browser support <b>caniuse.com</b> par check karo.</li>
+</ul>
+<h3>Accessibility (a11y)</h3>
+<p>Cheezein <b>sab</b> ke liye qabil-e-istemaal banao: nazar (kamzor nazar, contrast, color blindness: mardon mein bohat aam), sunna, chhoona, harkat, bolna, zehni masail. Aksar halaat bhi wajah bante hain: phone par dhoop, shor wala station, train pakarne ke liye bhaagna. EU qanoon <b>WCAG 2.1 level AA</b> maangta hai. Unobtrusive JS: JavaScript fail ho jaye tab bhi page chalna chahiye.</p>
+<div class="quiz" data-c="forms"></div>
+</section>
+
+<!-- CHAPTER 8 -->
+<section class="ch" id="ch-http" data-title="HTTP request & response" data-n="09">
+<h2>HTTP request & response</h2>
+<p class="lead">Har page load ek baat cheet hai: client <b>maangta</b> (request) hai, server <b>jawab</b> (response) deta hai.</p>
+<div class="grid2">
+  <div class="note"><b>Client side</b> (browser mein chalta hai)<br>HTML, CSS, JavaScript</div>
+  <div class="note"><b>Server side</b> (server par chalta hai)<br>PHP, Python, .NET…</div>
+</div>
+<h3>Request</h3>
+<pre class="code">GET /index.html HTTP/1.1        ← method · request target · protocol
+Host: localhost:5000            ← headers (HTTP/1.1 mein Host zaroori)
+Accept-Language: en-GB</pre>
+<p class="small"><b>Origin form</b>: <code>GET /index.html HTTP/1.1</code> (sirf path). <b>Absolute form</b>: <code>GET http://localhost:5000/index.html HTTP/1.1</code> (poora URL).</p>
+<div class="tbl"><table>
+<tr><th>Method</th><th>Kaam</th><th>Idempotent</th><th>Safe</th></tr>
+<tr><td><b>GET</b></td><td>lena / parhna (sirf read)</td><td>haan</td><td>haan</td></tr>
+<tr><td><b>POST</b></td><td>bhejna / naya banana</td><td>nahi</td><td>nahi</td></tr>
+<tr><td>PUT</td><td>poora badal dena</td><td>haan</td><td>nahi</td></tr>
+<tr><td>PATCH</td><td>thora sa badalna</td><td>nahi</td><td>nahi</td></tr>
+<tr><td>DELETE</td><td>mitana</td><td>haan</td><td>nahi</td></tr>
+</table></div>
+<p class="small"><b>Idempotent</b> = 10 baar karo ya 1 baar, nateeja wohi (user 123 ko do baar delete karo: phir bhi gaya hua hai). POST /payment do baar = do baar paise kate → idempotent nahi.</p>
+<h3>GET vs POST</h3>
+<div class="grid2">
+  <div class="note"><b>GET</b>: data URL ki <b>query string</b> mein<br><code>https://example.com/page?name=dog&amp;color=black</code><br><span class="small"><code>?</code> se shuru, <code>key=value</code> jore, <code>&amp;</code> se jure hue</span></div>
+  <div class="note"><b>POST</b>: data <b>request body</b> mein (payload / form data), us ki qisam <code>Content-Type</code> header batata hai (forms: <code>application/x-www-form-urlencoded</code>)</div>
+</div>
+<div class="note warn">POST zyada secure hai kyunke data URL mein nazar nahi aata? <b>Bilkul nahi!</b> Chhupana ≠ mehfooz karna.</div>
+<div class="widget" data-w="http"></div>
+<h3>Headers</h3>
+<p>Headers <b>izafi maloomat (metadata)</b> hain jo saath jati hain, asli data nahi.</p>
+<div class="grid2">
+  <div class="note"><b>Request headers</b><br><code>Host</code> server ka domain (zaroori) · <code>Accept</code> client kaunsi types samajhta hai · <code>Accept-Language</code> · <code>Content-Type</code> body ka format (body na ho to nahi hota) · <code>Authorization</code> login details · <code>Referer</code> pichla page · <code>User-Agent</code> browser/OS ki info</div>
+  <div class="note"><b>Response headers</b><br><code>Content-Type</code> wapas aane wale data ki qisam · <code>Content-Encoding</code> decode kaise karna · <code>Date</code> · <code>Server</code> server ka software · <code>Set-Cookie</code> server cookie bhejta hai · (<code>Cookie</code> = client wapas bhejta hai)</div>
+</div>
+<h3>Response</h3>
+<pre class="code">HTTP/1.1 200 OK          ← protocol · status code · reason phrase</pre>
+<div class="tbl"><table>
+<tr><th>Code</th><th>Matlab</th></tr>
+<tr><td>1xx / 2xx / 3xx / 4xx / 5xx</td><td>info / kamyab / redirect / <b>client</b> ki ghalti / <b>server</b> ki ghalti</td></tr>
+<tr><td><b>200</b> OK</td><td>sab theek chala. Is ka matlab yeh nahi ke page bilkul sahi hai (error message bhi 200 ke saath aa sakta hai).</td></tr>
+<tr><td><b>401</b> Unauthorized</td><td>login details nahi ya ghalat → asal mein <b>authentication</b> (pehchaan) ka masla</td></tr>
+<tr><td><b>403</b> Forbidden</td><td>pehchaan liya, lekin ijazat nahi → <b>authorization</b> (ijazat) ka masla</td></tr>
+<tr><td><b>404</b> Not Found</td><td>us URL par kuch nahi</td></tr>
+<tr><td><b>418</b> I'm a teapot</td><td>April Fool wala mazaq code</td></tr>
+<tr><td><b>500</b> Internal Server Error</td><td>server kisi cheez par crash ho gaya (har cheez wala)</td></tr>
+<tr><td><b>503</b> Service Unavailable</td><td>abhi handle nahi kar sakta (load zyada, maintenance)</td></tr>
+</table></div>
+<div class="note"><b>Hacker ki soch:</b> status codes aur headers maloomat leak karte hain. 404s se site ka naqsha banta hai, 403 batata hai "yeh folder mojood hai", 500 wale error pages aur <code>Server</code> header technology bata dete hain, <code>/admin</code> par 200 = jackpot. <code>Content-Type</code> par andha bharosa Equifax hack ki wajah bana (Apache Struts, CVE-2017-5638).</div>
+<div class="quiz" data-c="http"></div>
+</section>
+</template>
 <script>const QS = [{"c": "links", "k": "mcq", "q": "Which link is a RELATIVE link?", "o": ["pages/products.html", "/pages/products.html", "https://site.com/pages/products.html", "C:\\site\\pages\\products.html"], "a": 0, "ex": "Relative links don't start with / or a protocol. Never link to your own disk.", "code": null}, {"c": "links", "k": "mcq", "q": "An absolute link inside your own site always starts from…", "o": ["the root of the site (/)", "the current file", "the parent folder", "the browser"], "a": 0, "ex": "/music/listings.html works from any page.", "code": null}, {"c": "links", "k": "sa", "q": "Site tree: index.html, music/listings.html. Give the RELATIVE link from index.html to listings.html.", "a": ["music/listings.html", "./music/listings.html"], "ex": "From the root folder, go into music/.", "code": null}, {"c": "links", "k": "sa", "q": "Site tree: movies/cinema/reviews.html and theater/reviews.html. Give the RELATIVE link from cinema reviews to theater reviews.", "a": ["../../theater/reviews.html"], "ex": "Up twice (out of cinema, out of movies), then into theater.", "code": null}, {"c": "links", "k": "sa", "q": "Same site: give the ABSOLUTE link from cinema reviews to movies/cinema/listings.html.", "a": ["/movies/cinema/listings.html"], "ex": "Absolute = from the root, starting with /.", "code": null}, {"c": "links", "k": "sa", "q": "Write the href that jumps to the element with id=\"info\" on the same page.", "a": ["#info"], "ex": "# + the id.", "code": null}, {"c": "links", "k": "sa", "q": "Write the href that opens about.html and jumps to id=\"team\" on that page.", "a": ["about.html#team"], "ex": "Combine the page and the #id.", "code": null}, {"c": "links", "k": "mcq", "q": "Which attribute of <img> is mandatory?", "o": ["alt", "title", "width", "class"], "a": 0, "ex": "alt is shown when the image can't load and read by screen readers.", "code": null}, {"c": "links", "k": "mcq", "q": "What does the title attribute of an image do?", "o": ["Shows a tooltip on hover", "Replaces the image when it doesn't load", "Sets the file name", "Makes it accessible to search engines only"], "a": 0, "ex": "alt = replacement text, title = tooltip.", "code": null}, {"c": "links", "k": "mcq", "q": "A purely decorative background pattern belongs in…", "o": ["CSS", "HTML <img>", "<figure>", "<picture>"], "a": 0, "ex": "Content images in HTML, design images in CSS.", "code": null}, {"c": "links", "k": "mcq", "q": "Which tag gives an image a visible caption?", "o": ["<figcaption> inside <figure>", "<caption>", "<alt>", "<label>"], "a": 0, "ex": "<caption> is for tables.", "code": null}, {"c": "links", "k": "mcq", "q": "You need an animated image with true transparency and good compression. Best pick?", "o": ["WebP", "JPEG", "PNG", "GIF (max 256 colours)"], "a": 0, "ex": "JPEG: no transparency/animation. PNG: no animation. GIF: 256 colours and binary transparency.", "code": null}, {"c": "links", "k": "mcq", "q": "Which format is lossless?", "o": ["PNG", "JPEG", "GIF", "none of them"], "a": 0, "ex": "PNG = lossless. JPEG is lossy.", "code": null}, {"c": "links", "k": "mcq", "q": "Which format is a vector format?", "o": ["SVG", "PNG", "WebP", "AVIF"], "a": 0, "ex": "SVG scales infinitely without quality loss.", "code": null}, {"c": "links", "k": "mcq", "q": "GIF supports at most…", "o": ["256 colours", "16 million colours", "2 colours", "65 536 colours"], "a": 0, "ex": "8-bit indexed colour.", "code": null}, {"c": "links", "k": "mcq", "q": "Lossy compression…", "o": ["permanently removes data (irreversible)", "only removes metadata (reversible)", "never reduces quality", "is only used by PNG"], "a": 0, "ex": "Lossless = reversible.", "code": null}, {"c": "links", "k": "mcq", "q": "In <picture>, the browser shows…", "o": ["the first <source> it supports", "the last <source>", "the smallest file", "always the <img>"], "a": 0, "ex": "Source order matters!", "code": null}, {"c": "links", "k": "mcq", "q": "Why is the <img> inside <picture> mandatory?", "o": ["It's the fallback and screen readers read its alt/title", "It sets the size", "It loads first", "It's only for SEO"], "a": 0, "ex": "No support for any source → the img is shown.", "code": null}, {"c": "links", "k": "mcq", "q": "Webp source first, AVIF second, JPG img. A browser supports both AVIF and WebP. It shows…", "o": ["the WebP", "the AVIF", "the JPG", "nothing"], "a": 0, "ex": "First match wins, so put the best (AVIF) first.", "code": "<picture>\n  <source srcset=\"a.webp\" type=\"image/webp\">\n  <source srcset=\"a.avif\" type=\"image/avif\">\n  <img src=\"a.jpg\" alt=\"Art\">\n<\/picture>"}, {"c": "links", "k": "mcq", "q": "Serving AVIF to browsers that support it and JPEG to the rest is called…", "o": ["progressive enhancement", "graceful degradation", "responsive design", "lazy loading"], "a": 0, "ex": "The JPEG is the fallback.", "code": null}, {"c": "links", "k": "mcq", "q": "Tables are meant for…", "o": ["tabular data only", "page layout", "navigation", "forms"], "a": 0, "ex": "Never for layout.", "code": null}, {"c": "links", "k": "mcq", "q": "Which tag is a header cell in a table?", "o": ["<th>", "<td>", "<thead>", "<tr>"], "a": 0, "ex": "th = table header cell, td = data cell, tr = row.", "code": null}, {"c": "sem", "k": "mcq", "q": "How many <main> elements may a page have?", "o": ["One", "As many as needed", "None", "One per section"], "a": 0, "ex": "main = the one main content area.", "code": null}, {"c": "sem", "k": "mcq", "q": "Which can NOT contain <main>?", "o": ["<article>", "<body>", "<div>", "nothing, main can go anywhere"], "a": 0, "ex": "main is never inside article, header, footer, aside or nav.", "code": null}, {"c": "sem", "k": "mcq", "q": "A blog post you could share on its own on social media goes in…", "o": ["<article>", "<section>", "<aside>", "<div>"], "a": 0, "ex": "article = independent, self-contained content.", "code": null}, {"c": "sem", "k": "mcq", "q": "What does a <section> need to be valid?", "o": ["A heading (h1–h6)", "An id", "A class", "A <p>"], "a": 0, "ex": "section = thematic group with a title.", "code": null}, {"c": "sem", "k": "mcq", "q": "A sidebar with related articles goes in…", "o": ["<aside>", "<nav>", "<footer>", "<section>"], "a": 0, "ex": "aside = indirectly related.", "code": null}, {"c": "sem", "k": "mcq", "q": "The main menu of the website goes in…", "o": ["<nav>", "<menu>", "<aside>", "<ul> only"], "a": 0, "ex": "nav = main and sub navigation, not every list of links.", "code": null}, {"c": "sem", "k": "mcq", "q": "You need a wrapper ONLY to give two forms a common background. Use…", "o": ["<div>", "<section>", "<article>", "<aside>"], "a": 0, "ex": "div = meaningless graphical grouping.", "code": null}, {"c": "sem", "k": "mcq", "q": "You want to colour two words inside a sentence, with no extra meaning. Use…", "o": ["<span>", "<div>", "<strong>", "<em>"], "a": 0, "ex": "span = inline, meaningless. strong/em add meaning.", "code": null}, {"c": "sem", "k": "mcq", "q": "What's the difference between <strong> and <em>?", "o": ["strong = importance, em = emphasis/stress", "strong = bold, em = italic only, no meaning", "em is block-level", "there is none"], "a": 0, "ex": "Both add meaning; the look is just default styling.", "code": null}, {"c": "sem", "k": "mcq", "q": "Is this valid? <h1>…<\/h1> <h3>…<\/h3> <h2>…<\/h2>", "o": ["No, headings must follow table-of-contents order", "Yes", "Only with a section", "Only in HTML4"], "a": 0, "ex": "h1 → h2 → h3. Change the look with CSS.", "code": null}, {"c": "sem", "k": "mcq", "q": "Which validator 'counts' for this course?", "o": ["The W3C validator", "The Gitlab validator", "Sonar", "Chrome DevTools"], "a": 0, "ex": "validator.w3.org", "code": null}, {"c": "sem", "k": "mcq", "q": "<div class=\"header\"> instead of <header> is…", "o": ["wrong: use the semantic tag", "fine", "better for SEO", "required in HTML5"], "a": 0, "ex": "", "code": null}, {"c": "sem", "k": "mcq", "q": "How many <header> elements may a page have?", "o": ["Multiple", "Exactly one", "None", "Only one inside main"], "a": 0, "ex": "header and footer can appear multiple times (e.g. inside articles).", "code": null}, {"c": "sem", "k": "mcq", "q": "<fieldset> may be used…", "o": ["only inside forms", "anywhere", "only in tables", "only in nav"], "a": 0, "ex": "It groups form fields.", "code": null}, {"c": "sem", "k": "sa", "q": "Which semantic tag holds the date/time '3 days ago' in an article header?", "a": ["time", "<time>"], "ex": "<time> marks dates and times.", "code": null}, {"c": "css", "k": "mcq", "q": "Best way to add CSS to a site?", "o": ["External file with <link> in the <head>", "A <style> block in every page", "style=\"\" on each element", "<css> tag"], "a": 0, "ex": "Inline = 'you will burn alive'.", "code": null}, {"c": "css", "k": "sa", "q": "Complete the link tag: <link rel=\"________\" type=\"text/css\" href=\"screen.css\">", "a": ["stylesheet"], "ex": "rel = relation to the document.", "code": null}, {"c": "css", "k": "mcq", "q": "Which property is NOT inherited by children?", "o": ["margin", "color", "font-family", "font-size"], "a": 0, "ex": "Text properties inherit; box properties (margin, padding, border, width, background) don't.", "code": null}, {"c": "css", "k": "mcq", "q": "A <p> inside a <div> with a red background looks red too. Why?", "o": ["The p's background is transparent by default", "background-color is inherited", "CSS bug", "p always copies its parent"], "a": 0, "ex": "background-color is NOT inherited.", "code": null}, {"c": "css", "k": "mcq", "q": "Which 4 properties should you declare on body?", "o": ["font-family, font-size, color, background-color", "margin, padding, border, width", "display, flex, gap, width", "font-weight, text-align, width, height"], "a": 0, "ex": "They cascade to everything.", "code": null}, {"c": "css", "k": "mcq", "q": "What is the last font in a font-family list?", "o": ["A generic family: serif, sans-serif or monospace", "Arial", "The most beautiful one", "Times"], "a": 0, "ex": "Fallbacks cascade until one is found.", "code": null}, {"c": "css", "k": "mcq", "q": "All children of section must be 70% wide. Best?", "o": ["section { width: 70%; }", "section h2, section p, section ul { width: 70%; }", "h2 { width:70% } p { width:70% }", "* { width: 70%; }"], "a": 0, "ex": "Resize the container, not every child.", "code": null}, {"c": "css", "k": "mcq", "q": "Images should never overflow their container. Rule?", "o": ["img { max-width: 100%; }", "img { width: 100vw; }", "img { overflow: hidden; }", "img { display: block; }"], "a": 0, "ex": "", "code": null}, {"c": "css", "k": "mcq", "q": "In which order do you load reset.css and screen.css?", "o": ["reset.css first, then screen.css", "screen.css first", "order doesn't matter", "only one of them"], "a": 0, "ex": "Later rules override earlier ones.", "code": null}, {"c": "css", "k": "mcq", "q": "Why use a reset CSS?", "o": ["Browsers have different default styles; the reset gives one baseline", "To delete all CSS", "For speed", "To validate HTML"], "a": 0, "ex": "Howest uses Eric Meyer's reset.", "code": null}, {"c": "css", "k": "mcq", "q": "In  p { color: red; }  , what is 'color'?", "o": ["the property", "the selector", "the value", "the declaration block"], "a": 0, "ex": "selector { property: value; }", "code": null}, {"c": "css", "k": "mcq", "q": "What ends a single declaration in CSS?", "o": ["; (semicolon)", ", (comma)", "} (curly brace)", ": (colon)"], "a": 0, "ex": "{ } group a set of declarations.", "code": null}, {"c": "css", "k": "mcq", "q": "section { font-size: 1.2rem } section h2 { font-size: 3rem }. A new <p> added in the section gets…", "o": ["1.2rem", "3rem", "the browser default", "0"], "a": 0, "ex": "Declare on the parent, overwrite on the child: future-proof.", "code": null}, {"c": "sel", "k": "mcq", "q": "Which selector selects every <a> anywhere inside <nav> (also grandchildren)?", "o": ["nav a", "nav > a", "nav + a", "nav ~ a"], "a": 0, "ex": "Space = descendant. Prefer it over >.", "code": null}, {"c": "sel", "k": "mcq", "q": "ul > li selects…", "o": ["only li's that are direct children of a ul", "all li's anywhere in a ul", "the li right after a ul", "li's that come after a ul"], "a": 0, "ex": "> = direct child only.", "code": null}, {"c": "sel", "k": "mcq", "q": "h1 + h2 selects…", "o": ["an h2 that comes right after an h1 (same parent)", "every h2 after an h1", "h1 and h2", "h2 inside h1"], "a": 0, "ex": "+ = next (adjacent) sibling.", "code": null}, {"c": "sel", "k": "mcq", "q": "h3 ~ p selects…", "o": ["every p after an h3, with the same parent", "only the p right after h3", "p inside h3", "h3 and p"], "a": 0, "ex": "~ = subsequent siblings.", "code": null}, {"c": "sel", "k": "mcq", "q": "h1, h2 { color: green } selects…", "o": ["all h1's and all h2's", "h2 inside h1", "h2 right after h1", "nothing, invalid"], "a": 0, "ex": "Comma = selector list.", "code": null}, {"c": "sel", "k": "sa", "q": "Weight (specificity) of  #container p.special ?", "a": ["111"], "ex": "id 100 + element 1 + class 10.", "code": null}, {"c": "sel", "k": "sa", "q": "Weight of  nav ul li a:hover ?", "a": ["14"], "ex": "4 elements + 1 pseudo-class (10).", "code": null}, {"c": "sel", "k": "sa", "q": "Weight of  article h2 ?", "a": ["2"], "ex": "Two element selectors.", "code": null}, {"c": "sel", "k": "sa", "q": "Weight of  .flexcontainer article p:first-child span ?", "a": ["23"], "ex": "class 10 + pseudo-class 10 + 3 elements.", "code": null}, {"c": "sel", "k": "mcq", "q": "p { color: blue } and .intro { color: red } on <p class=\"intro\">. Colour?", "o": ["red", "blue", "purple", "browser default"], "a": 0, "ex": "Class (10) beats element (1).", "code": null}, {"c": "sel", "k": "mcq", "q": "Two rules with exactly the same weight conflict. Which wins?", "o": ["The one that comes last", "The first one", "Neither", "The shortest one"], "a": 0, "ex": "", "code": null}, {"c": "sel", "k": "mcq", "q": "How many times may an id appear on a page?", "o": ["Once", "Unlimited", "Twice", "Once per section"], "a": 0, "ex": "Duplicate ids are invalid.", "code": null}, {"c": "sel", "k": "mcq", "q": "The 3rd list item must look different. Best?", "o": ["Give it a class", "li:nth-child(3)", "An id on the ul", "Inline style"], "a": 0, "ex": "nth-child(number) is not future-proof. odd/even, first-child, last-child are fine.", "code": null}, {"c": "sel", "k": "mcq", "q": "Zebra stripes on table rows?", "o": ["tr:nth-child(even)", "a class on every second row", "tr + tr", "#even"], "a": 0, "ex": "odd/even shortcuts are perfectly OK.", "code": null}, {"c": "sel", "k": "sa", "q": "Write the selector for elements with class \"special\".", "a": [".special"], "ex": ". + class name.", "code": null}, {"c": "sel", "k": "sa", "q": "Write the selector for the element with id \"products\".", "a": ["#products"], "ex": "# + id.", "code": null}, {"c": "box", "k": "mcq", "q": "Which is inline by default?", "o": ["<span>", "<div>", "<p>", "<li>"], "a": 0, "ex": "Inline: span, a, strong, em.", "code": null}, {"c": "box", "k": "mcq", "q": "Which is block by default?", "o": ["<li>", "<a>", "<strong>", "<img>"], "a": 0, "ex": "Block: div, p, h1–h6, ul, ol, li, semantic containers.", "code": null}, {"c": "box", "k": "mcq", "q": "Which is inline-block by default?", "o": ["<img>", "<span>", "<div>", "<section>"], "a": 0, "ex": "", "code": null}, {"c": "box", "k": "mcq", "q": "You give a <span> a width of 10rem and margin-top 2rem. What happens?", "o": ["Nothing for width or vertical margin: it's inline", "It becomes 10rem wide", "Only the margin works", "It becomes a block"], "a": 0, "ex": "Inline: no width/height, margins/padding only on the x-axis.", "code": null}, {"c": "box", "k": "mcq", "q": "You want small boxes side by side that also accept width and vertical padding. Use…", "o": ["display: inline-block", "display: inline", "display: block", "display: none"], "a": 0, "ex": "Inline among peers, block inside.", "code": null}, {"c": "box", "k": "mcq", "q": "Padding is…", "o": ["space inside the box, between content and border", "space outside the box", "the border thickness", "the content width"], "a": 0, "ex": "Margin = outside.", "code": null}, {"c": "box", "k": "sa", "q": "content-box: width 20rem, padding-left 2rem, border 1rem solid. Total visual width (in rem)?", "a": ["24", "24rem"], "ex": "20 + 2 + 2×1 = 24. Margin doesn't count.", "code": null}, {"c": "box", "k": "sa", "q": "Same, but box-sizing: border-box. What is the content width (rem)?", "a": ["16", "16rem"], "ex": "20 − 2 padding − 2 border = 16.", "code": null}, {"c": "box", "k": "sa", "q": "content-box: width 300px, padding 20px, border 5px. Total visual width (px)?", "a": ["350", "350px"], "ex": "300 + 2×20 + 2×5 = 350. 'padding: 20px' = all four sides.", "code": null}, {"c": "box", "k": "mcq", "q": "With box-sizing: border-box, the width property means…", "o": ["the total visual width (content + padding + border)", "only the content", "content + margin", "nothing changes"], "a": 0, "ex": "", "code": null}, {"c": "box", "k": "sa", "q": ".a has margin-bottom 1.5rem, .b below it has margin-top 1rem. Space between them (rem)?", "a": ["1.5", "1.5rem"], "ex": "Vertical margins collapse: the biggest wins.", "code": null}, {"c": "box", "k": "sa", "q": "Same .a and .b, but now both are items in a flex container (flex-direction: column). Space between them (rem)?", "a": ["2.5", "2.5rem"], "ex": "Flex margins do not collapse.", "code": null}, {"c": "box", "k": "mcq", "q": "The background-color of a box fills…", "o": ["content + padding (border drawn on top)", "only the content", "content + padding + margin", "only the border"], "a": 0, "ex": "", "code": null}, {"c": "box", "k": "mcq", "q": "A container must grow with the screen but never get wider than 60rem. Use…", "o": ["width: 90%; max-width: 60rem;", "width: 60rem;", "min-width: 60rem;", "max-width: 90%;"], "a": 0, "ex": "", "code": null}, {"c": "box", "k": "mcq", "q": "How do you center a block (with a width) horizontally?", "o": ["margin: 0 auto;", "text-align: center;", "align: center;", "float: center;"], "a": 0, "ex": "text-align centers inline content inside the block.", "code": null}, {"c": "flex", "k": "mcq", "q": "Where do you put display: flex?", "o": ["On the container (parent)", "On every item", "On the body only", "On the last item"], "a": 0, "ex": "Its direct children become flex items.", "code": null}, {"c": "flex", "k": "mcq", "q": "Default flex-direction?", "o": ["row", "column", "row-reverse", "none"], "a": 0, "ex": "", "code": null}, {"c": "flex", "k": "mcq", "q": "Which aligns items along the MAIN axis?", "o": ["justify-content", "align-items", "align-content", "align-self"], "a": 0, "ex": "align-items = cross axis.", "code": null}, {"c": "flex", "k": "mcq", "q": "flex-direction: column; which property now centers items VERTICALLY?", "o": ["justify-content", "align-items", "vertical-align", "text-align"], "a": 0, "ex": "The axes flip: main axis is vertical now.", "code": null}, {"c": "flex", "k": "mcq", "q": "Center one item both horizontally and vertically in its flex container?", "o": ["justify-content: center; align-items: center;", "margin: center;", "text-align: center; vertical-align: middle;", "align-content: center only"], "a": 0, "ex": "", "code": null}, {"c": "flex", "k": "mcq", "q": "Why do flex items get equal heights by default?", "o": ["align-items defaults to stretch", "flex-grow is 1", "they're inline", "because of gap"], "a": 0, "ex": "", "code": null}, {"c": "flex", "k": "mcq", "q": "Default value of flex-grow?", "o": ["0", "1", "auto", "100%"], "a": 0, "ex": "Items don't grow unless you say so.", "code": null}, {"c": "flex", "k": "sa", "q": "Write the flex shorthand: don't grow, don't shrink, basis 50%.", "a": ["flex: 0 0 50%", "flex:0 0 50%", "flex: 0 0 50%;"], "ex": "flex: grow shrink basis.", "code": null}, {"c": "flex", "k": "mcq", "q": "width: 30% and flex-basis: 50% on the same flex item. Which wins?", "o": ["flex-basis", "width", "the smallest", "neither"], "a": 0, "ex": "Use flex-basis instead of width on flex items.", "code": null}, {"c": "flex", "k": "sa", "q": "Available space 730px. Item 1: flex-grow 3, initial width 480px. Items 2 & 3: flex-grow 1. Width of item 1 (px)?", "a": ["918", "918px"], "ex": "3/5 × 730 + 480 = 438 + 480 = 918.", "code": null}, {"c": "flex", "k": "sa", "q": "Available space 600px, three items with initial width 100px each. flex-grow: 2, 1, 1. Width of the first item (px)?", "a": ["400", "400px"], "ex": "2/4 × 600 + 100 = 400.", "code": null}, {"c": "flex", "k": "mcq", "q": "flex-wrap: nowrap (default) and too many items:", "o": ["they squeeze onto one line", "they wrap to a new line", "they disappear", "an error"], "a": 0, "ex": "", "code": null}, {"c": "flex", "k": "mcq", "q": "What does gap: 1rem 2rem mean?", "o": ["row-gap 1rem, column-gap 2rem", "column-gap 1rem, row-gap 2rem", "margin 1rem 2rem", "padding"], "a": 0, "ex": "", "code": null}, {"c": "flex", "k": "mcq", "q": "Push the last nav item to the far right in a flex row?", "o": ["margin-left: auto on that item", "float: right", "position: right", "justify-content: right on the item"], "a": 0, "ex": "Auto margins push in every direction inside flex.", "code": null}, {"c": "flex", "k": "mcq", "q": "Which two layout techniques are allowed in this course?", "o": ["inline-block and flexbox", "float and position", "grid and table", "position and flexbox"], "a": 0, "ex": "Grid etc. come in semester 2.", "code": null}, {"c": "flex", "k": "mcq", "q": "Biggest problem of inline-block layouts?", "o": ["Whitespace in the HTML creates gaps", "They can't be centered", "They don't work in browsers", "They always wrap"], "a": 0, "ex": "Also no equal heights.", "code": null}, {"c": "flex", "k": "mcq", "q": "float was originally meant for…", "o": ["letting text wrap around an image", "page layouts", "centering", "animations"], "a": 0, "ex": "", "code": null}, {"c": "flex", "k": "mcq", "q": "align-self is set on…", "o": ["one flex item", "the container", "the body", "grid items only"], "a": 0, "ex": "Exception on the cross axis.", "code": null}, {"c": "forms", "k": "mcq", "q": "Which attribute is SENT to the server?", "o": ["name", "id", "class", "for"], "a": 0, "ex": "id is only for CSS/JS/labels.", "code": null}, {"c": "forms", "k": "mcq", "q": "<label for=\"email\"> is linked to the input with…", "o": ["id=\"email\"", "name=\"email\"", "class=\"email\"", "type=\"email\""], "a": 0, "ex": "for ↔ id.", "code": null}, {"c": "forms", "k": "mcq", "q": "Two radio buttons with name=\"male\" and name=\"female\". Problem?", "o": ["They aren't grouped: you can select both", "None", "They can't be clicked", "Only the first is sent"], "a": 0, "ex": "Radios are grouped by the SAME name.", "code": null}, {"c": "forms", "k": "mcq", "q": "Pre-select a radio button or checkbox with…", "o": ["checked", "selected", "value", "default"], "a": 0, "ex": "selected is for <option>.", "code": null}, {"c": "forms", "k": "mcq", "q": "Pre-select an <option> with…", "o": ["selected", "checked", "default", "active"], "a": 0, "ex": "", "code": null}, {"c": "forms", "k": "mcq", "q": "placeholder vs value?", "o": ["placeholder = hint, not sent; value = real content, sent", "both are sent", "placeholder is sent, value isn't", "they're the same"], "a": 0, "ex": "", "code": null}, {"c": "forms", "k": "mcq", "q": "Which does NOT submit the form without JavaScript?", "o": ["<button type=\"button\">", "<button>", "<input type=\"submit\">", "<button type=\"submit\">"], "a": 0, "ex": "type=\"button\" needs JS.", "code": null}, {"c": "forms", "k": "mcq", "q": "Where do form elements have to be?", "o": ["Inside a <form>", "Anywhere on the page", "Inside <fieldset> only", "In the <head>"], "a": 0, "ex": "Otherwise they're not submitted.", "code": null}, {"c": "forms", "k": "mcq", "q": "Should you add a reset button by default?", "o": ["No, too easy to hit by accident", "Yes, always", "Only on login forms", "Only with JS"], "a": 0, "ex": "Only for forms the same person fills in repeatedly.", "code": null}, {"c": "forms", "k": "mcq", "q": "Is HTML form validation (required, type=email…) secure?", "o": ["No, always validate on the server too", "Yes", "Only with POST", "Only with HTTPS"], "a": 0, "ex": "'Not. One. Bit.'", "code": null}, {"c": "forms", "k": "mcq", "q": "Link or button: 'open the menu'?", "o": ["Button (an action)", "Link (navigation)", "Either", "A div"], "a": 0, "ex": "Link = go somewhere; button = do something.", "code": null}, {"c": "forms", "k": "mcq", "q": "Required accessibility level by EU legislation?", "o": ["WCAG 2.1 AA", "WCAG 1.0 A", "WCAG 2.1 AAA", "None"], "a": 0, "ex": "", "code": null}, {"c": "forms", "k": "mcq", "q": "Why value=\"female\" instead of value=\"женский\"?", "o": ["Values should be language-agnostic; the label can be translated", "Russian isn't allowed", "Shorter is faster", "Labels need English"], "a": 0, "ex": "The server shouldn't depend on the display language.", "code": null}, {"c": "forms", "k": "sa", "q": "A form has method=\"get\" action=\"search.php\" with <input name=\"q\"> filled with cats. URL after submit? (just the part after search.php)", "a": ["?q=cats"], "ex": "GET puts name=value in the query string.", "code": null}, {"c": "forms", "k": "sa", "q": "What does the abbreviation a11y stand for?", "a": ["accessibility"], "ex": "a + 11 letters + y.", "code": null}, {"c": "http", "k": "mcq", "q": "Which method should only RETRIEVE data?", "o": ["GET", "POST", "PUT", "DELETE"], "a": 0, "ex": "GET is safe and idempotent.", "code": null}, {"c": "http", "k": "mcq", "q": "Which method is NOT idempotent?", "o": ["POST", "GET", "PUT", "DELETE"], "a": 0, "ex": "Sending a payment twice charges twice.", "code": null}, {"c": "http", "k": "mcq", "q": "Where is the data of a GET request?", "o": ["In the query string of the URL", "In the request body", "In the headers only", "In a cookie"], "a": 0, "ex": "", "code": null}, {"c": "http", "k": "mcq", "q": "Where is the data of a POST request?", "o": ["In the request body", "In the URL", "In the status code", "In the Host header"], "a": 0, "ex": "Type indicated by Content-Type.", "code": null}, {"c": "http", "k": "mcq", "q": "Is POST more secure than GET because the data isn't in the URL?", "o": ["No", "Yes", "Only for passwords", "Only on localhost"], "a": 0, "ex": "Hidden ≠ secure.", "code": null}, {"c": "http", "k": "sa", "q": "In https://example.com/page?name=dog&color=black, which character starts the query string?", "a": ["?"], "ex": "& joins the pairs.", "code": null}, {"c": "http", "k": "sa", "q": "Which character joins key=value pairs in a query string?", "a": ["&"], "ex": "", "code": null}, {"c": "http", "k": "mcq", "q": "Which header is mandatory in HTTP/1.1?", "o": ["Host", "Accept", "User-Agent", "Cookie"], "a": 0, "ex": "", "code": null}, {"c": "http", "k": "mcq", "q": "Which header describes the format of the request body?", "o": ["Content-Type", "Accept", "Host", "Referer"], "a": 0, "ex": "Absent when there's no body.", "code": null}, {"c": "http", "k": "mcq", "q": "Which header tells the server which page you came from?", "o": ["Referer", "Host", "Origin-Page", "User-Agent"], "a": 0, "ex": "(Yes, misspelled in the standard.)", "code": null}, {"c": "http", "k": "mcq", "q": "Which header tells the server your browser and OS?", "o": ["User-Agent", "Accept", "Server", "Host"], "a": 0, "ex": "Server = the response header with server software.", "code": null}, {"c": "http", "k": "mcq", "q": "With which response header does a server send a cookie?", "o": ["Set-Cookie", "Cookie", "Content-Type", "Authorization"], "a": 0, "ex": "The client sends it back in Cookie.", "code": null}, {"c": "http", "k": "mcq", "q": "No (or wrong) credentials → status code?", "o": ["401", "403", "404", "500"], "a": 0, "ex": "401 is really an authentication problem.", "code": null}, {"c": "http", "k": "mcq", "q": "Logged in, but not allowed to see the resource → ?", "o": ["403", "401", "404", "503"], "a": 0, "ex": "Authorization problem.", "code": null}, {"c": "http", "k": "mcq", "q": "The server crashed on an unhandled exception → ?", "o": ["500", "503", "404", "418"], "a": 0, "ex": "Catch-all server error.", "code": null}, {"c": "http", "k": "mcq", "q": "Server overloaded / maintenance → ?", "o": ["503", "500", "404", "200"], "a": 0, "ex": "Temporarily unavailable.", "code": null}, {"c": "http", "k": "mcq", "q": "4xx codes mean…", "o": ["client error", "server error", "success", "redirect"], "a": 0, "ex": "5xx = server error, 2xx = success, 3xx = redirect.", "code": null}, {"c": "http", "k": "mcq", "q": "200 OK means the page is 100% correct?", "o": ["No: errors can still come with a 200", "Yes", "Only for GET", "Only for HTML"], "a": 0, "ex": "", "code": null}, {"c": "http", "k": "mcq", "q": "GET http://localhost:5000/index.html HTTP/1.1 is the…", "o": ["absolute form", "origin form", "relative form", "short form"], "a": 0, "ex": "Origin form = only /index.html.", "code": null}, {"c": "http", "k": "sa", "q": "In 'HTTP/1.1 404 Not Found', what is 'Not Found' called?", "a": ["reason phrase", "the reason phrase", "reason-phrase"], "ex": "protocol · status code · reason phrase", "code": null}, {"c": "http", "k": "mcq", "q": "PHP and Python run…", "o": ["on the server", "in the browser", "in CSS", "nowhere, they're markup"], "a": 0, "ex": "HTML, CSS, JS run on the client.", "code": null}, {"c": "units", "k": "sa", "q": "Write white as a hex colour.", "a": ["#ffffff", "#fff"], "ex": "FF = 255 for R, G and B.", "code": null}, {"c": "units", "k": "sa", "q": "Write rgb(255, 0, 0) as a hex colour.", "a": ["#ff0000", "#f00"], "ex": "", "code": null}, {"c": "units", "k": "sa", "q": "#00FF00 is which colour?", "a": ["green", "lime"], "ex": "R 00, G FF, B 00.", "code": null}, {"c": "units", "k": "sa", "q": "#FFFF00 is which colour? (red + green)", "a": ["yellow"], "ex": "", "code": null}, {"c": "units", "k": "sa", "q": "What is FF in decimal?", "a": ["255"], "ex": "Each RGB channel goes from 0 to 255.", "code": null}, {"c": "units", "k": "mcq", "q": "How many colours can RGB make?", "o": ["about 16 million", "256", "65 536", "1 million"], "a": 0, "ex": "256 × 256 × 256.", "code": null}, {"c": "units", "k": "mcq", "q": "#202020 is…", "o": ["a very dark grey", "dark red", "dark blue", "black"], "a": 0, "ex": "R = G = B → grey.", "code": null}, {"c": "units", "k": "mcq", "q": "Which unit is RELATIVE?", "o": ["rem", "px", "cm", "pt"], "a": 0, "ex": "Relative: em, rem, vw, vh, %.", "code": null}, {"c": "units", "k": "mcq", "q": "Which unit should you use for font sizes?", "o": ["rem or em", "px", "%", "cm"], "a": 0, "ex": "Never % for font size; absolute units ignore the user's settings.", "code": null}, {"c": "units", "k": "mcq", "q": "rem is relative to…", "o": ["the root (html) font size", "the parent's font size", "the viewport width", "the screen DPI"], "a": 0, "ex": "em = the parent.", "code": null}, {"c": "units", "k": "sa", "q": "Root font size 16px. What is 2rem in px?", "a": ["32", "32px"], "ex": "2 × 16.", "code": null}, {"c": "units", "k": "sa", "q": "Root 16px. A div has font-size 1.5em; inside it a p with font-size 1.5em. Size of the p's text (px)?", "a": ["36", "36px"], "ex": "em compounds: 16 × 1.5 × 1.5 = 36. With rem it would be 24.", "code": null}, {"c": "units", "k": "mcq", "q": "1vw is…", "o": ["1% of the viewport width", "1px", "1% of the parent", "1em"], "a": 0, "ex": "vh = 1% of the viewport height.", "code": null}, {"c": "units", "k": "mcq", "q": "Naming convention to use for CSS classes and ids?", "o": ["kebab-case (main-nav)", "camelCase (mainNav)", "snake_case (main_nav)", "PascalCase (MainNav)"], "a": 0, "ex": "lowercase-with-dashes.", "code": null}, {"c": "units", "k": "mcq", "q": "Four similar sections need a different background icon each. Best practice?", "o": ["Give each section an id as a 'hook'", "Add 4 classes to every h2", "Use nth-child(1..4)", "Inline styles"], "a": 0, "ex": "Best practice #5: ids as hooks.", "code": null}, {"c": "units", "k": "mcq", "q": "Since 28 June 2025 the European Accessibility Act enforces…", "o": ["WCAG 2.1", "WCAG 1.0", "WCAG 3.0", "no standard"], "a": 0, "ex": "WCAG 2.2 exists for doing more than the minimum.", "code": null}, {"c": "sel", "k": "mcq", "q": "p.myclass selects…", "o": ["p elements that have class myclass", "elements with class myclass inside a p", "all p's and all .myclass", "nothing, invalid"], "a": 0, "ex": "No space = joined: same element.", "code": null}, {"c": "sel", "k": "mcq", "q": "img[alt] selects…", "o": ["img elements that have an alt attribute", "all alt texts", "images without alt", "all elements with alt"], "a": 0, "ex": "[alt] alone = any element with alt.", "code": null}, {"c": "sel", "k": "mcq", "q": "Which is a pseudo-ELEMENT?", "o": ["::first-letter", ":hover", ":focus", ":nth-child(2)"], "a": 0, "ex": "Two colons = a part of an element. One colon = a state.", "code": null}, {"c": "sel", "k": "mcq", "q": "Which pseudo-class styles an input while you're typing in it?", "o": [":focus", ":hover", ":active", ":visited"], "a": 0, "ex": "", "code": null}, {"c": "sel", "k": "sa", "q": "Weight of  a:hover ?", "a": ["11"], "ex": "element 1 + pseudo-class 10.", "code": null}, {"c": "sel", "k": "sa", "q": "Weight of  p::first-letter ?", "a": ["2"], "ex": "element 1 + pseudo-element 1.", "code": null}, {"c": "sel", "k": "sa", "q": "Weight of  img[alt=\"Jill\"] ?", "a": ["11"], "ex": "element 1 + attribute 10.", "code": null}, {"c": "sel", "k": "mcq", "q": "#myid {blue} .myclass {green} h1 {red} on <h1 id=\"myid\" class=\"myclass\">. Colour?", "o": ["blue", "green", "red", "black"], "a": 0, "ex": "Id 100 wins.", "code": null}, {"c": "sel", "k": "mcq", "q": "h3 + p {red} p {green} article p {blue}: the p right after the h3 in an article is…", "o": ["blue", "red", "green", "black"], "a": 0, "ex": "h3 + p and article p both weigh 2 → the last one wins.", "code": null}];</script>
 <script>
 (() => {
@@ -595,9 +1012,14 @@ try { Object.assign(S, JSON.parse(localStorage.getItem('wfe-notes')||'{}')); } c
 const save = () => { try { localStorage.setItem('wfe-notes', JSON.stringify(S)); } catch(e){} };
 
 // chapters from template
-const tpl = document.createElement('div'); tpl.innerHTML = $('#notes').innerHTML;
-const CH = $$('section.ch', tpl).map(s => ({id: s.id.replace('ch-',''), title: s.dataset.title, n: s.dataset.n, html: s.innerHTML, lead: ($('.lead', s)||{}).textContent || ''}));
-const CHK = Object.fromEntries(CH.map(c => [c.id, c]));
+const parse = id => { const t = document.createElement('div'); t.innerHTML = $(id).innerHTML; return $$('section.ch', t).map(s => ({id: s.id.replace('ch-',''), title: s.dataset.title, n: s.dataset.n, html: s.innerHTML, lead: ($('.lead', s)||{}).textContent || ''})); };
+const CH_EN = parse('#notes'), CH_UR = parse('#notes-ur');
+let CH, CHK;
+const UR = () => S.lang === 'ur';
+const t = (en, ur) => UR() ? ur : en;
+function setLang(){ CH = UR() ? CH_UR : CH_EN; CHK = Object.fromEntries(CH.map(c => [c.id, c])); document.documentElement.lang = UR() ? 'ur-Latn' : 'en'; $('#lang').textContent = UR() ? 'english' : 'urdu'; }
+setLang();
+$('#lang').onclick = () => { S.lang = UR() ? 'en' : 'ur'; save(); setLang(); route(); toast(UR() ? 'Roman Urdu on. Quiz English mein hi rahenge, exam bhi English mein hai.' : 'English on'); };
 
 // theme
 function applyTheme(){ const t = S.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); document.documentElement.dataset.theme = t; $('#theme').textContent = t==='dark' ? 'light' : 'dark'; }
@@ -606,7 +1028,7 @@ applyTheme();
 
 function prog(){ const n = CH.filter(c => S.read[c.id]).length; $('#prog').textContent = `${n}/${CH.length} read`; }
 function toc(cur){
-  $('#toc').innerHTML = `<div class="lab">Chapters</div>` + CH.map(c => `<a href="#/${c.id}" class="${c.id===cur?'on':''}"><span class="n">${c.n}</span><span>${esc(c.title)}</span>${S.read[c.id]?'<span class="ck">✓</span>':''}</a>`).join('') +
+  $('#toc').innerHTML = `<div class="lab">${t('Chapters','Chapters')}</div>` + CH.map(c => `<a href="#/${c.id}" class="${c.id===cur?'on':''}"><span class="n">${c.n}</span><span>${esc(c.title)}</span>${S.read[c.id]?'<span class="ck">✓</span>':''}</a>`).join('') +
     `<div class="lab">Test yourself</div><a href="#/practice" class="${cur==='practice'?'on':''}"><span class="n">→</span><span>Exam practice</span></a>`;
   $$('.top a').forEach(a => a.classList.toggle('on', (a.dataset.r==='practice') === (cur==='practice')));
 }
@@ -623,10 +1045,12 @@ function hl(code){
 // ================= HOME
 function home(){
   app.innerHTML = `<h1>Web Development<br><span class="hl">Fundamentals.</span></h1>
-  <p class="lead">Every slide from weeks 1–6 turned into short notes you actually understand, with live demos to play with and questions after every chapter. HTML, semantics, CSS, colours & units, selectors, box model, flexbox, forms and HTTP.</p>
-  <div class="row"><a class="btn pri" href="#/${CH.find(c=>!S.read[c.id])?.id || CH[0].id}">${CH.some(c=>S.read[c.id]) ? 'Continue reading →' : 'Start reading →'}</a><a class="btn" href="#/practice">Exam practice (${QS.length} questions)</a></div>
+  <p class="lead">${t('Every slide from weeks 1–6 turned into short notes you actually understand, with live demos to play with and questions after every chapter. HTML, semantics, CSS, colours & units, selectors, box model, flexbox, forms and HTTP.','Week 1–6 ki har slide, asaan notes mein jo sach mein samajh aayen. Har chapter mein khelne wale live demos aur aakhir mein sawal. HTML, semantics, CSS, rang aur units, selectors, box model, flexbox, forms aur HTTP.')}</p>
+  <div class="row small" style="margin:-6px 0 18px"><span class="muted">${t('Language:','Zubaan:')}</span><button class="btn sm ${UR()?'':'pri'}" data-l="en">English</button><button class="btn sm ${UR()?'pri':''}" data-l="ur">Roman Urdu</button></div>
+  <div class="row"><a class="btn pri" href="#/${CH.find(c=>!S.read[c.id])?.id || CH[0].id}">${CH.some(c=>S.read[c.id]) ? t('Continue reading →','Wahin se shuru karo →') : t('Start reading →','Parhna shuru karo →')}</a><a class="btn" href="#/practice">${t('Exam practice','Exam ki practice')} (${QS.length} ${t('questions','sawal')})</a></div>
   <div class="cards">${CH.map(c => `<a class="chcard" href="#/${c.id}"><div class="n">${c.n}${S.read[c.id]?' · read ✓':''}${S.best[c.id]!=null?` · quiz ${S.best[c.id]}%`:''}</div><h4>${esc(c.title)}</h4><p>${esc(c.lead)}</p></a>`).join('')}</div>
-  <p class="small muted" style="margin-top:30px">Tip: read a chapter, play with its demo, do its quiz, then hit "I get this". Finish with Exam practice. <button class="btn sm" id="rst" style="margin-left:6px">Reset progress</button></p>`;
+  <p class="small muted" style="margin-top:30px">${t('Tip: read a chapter, play with its demo, do its quiz, then hit "I get this". Finish with Exam practice.','Tareeqa: chapter parho, demo se khelo, quiz karo, phir "Samajh aa gaya" dabao. Aakhir mein Exam practice karo. Quiz English mein hain kyunke exam bhi English mein hoga.')} <button class="btn sm" id="rst" style="margin-left:6px">Reset progress</button></p>`;
+  $$('[data-l]').forEach(b => b.onclick = () => { S.lang = b.dataset.l; save(); setLang(); route(); });
   let armed=false; $('#rst').onclick = e => { const b=e.currentTarget; if(!armed){armed=true;b.textContent='Tap again to reset';b.classList.add('danger');setTimeout(()=>{armed=false;if(document.body.contains(b)){b.textContent='Reset progress';b.classList.remove('danger');}},4000);return;} S.read={}; S.best={}; save(); prog(); route(); toast('Progress reset'); };
 }
 
@@ -635,10 +1059,10 @@ function chapter(id){
   const c = CHK[id], i = CH.indexOf(c);
   app.innerHTML = `<div class="mobnav"><select id="jump">${CH.map(x=>`<option value="${x.id}" ${x.id===id?'selected':''}>${x.n} — ${esc(x.title)}</option>`).join('')}<option value="practice">→ Exam practice</option></select></div>
   <div class="muted small mono" style="margin-top:28px">chapter ${c.n} / ${String(CH.length).padStart(2,"0")}</div>${c.html}
-  <div class="done-btn"><button class="btn ${S.read[id]?'':'pri'}" id="done">${S.read[id]?'✓ Marked as understood':'I get this ✓'}</button></div>
+  <div class="done-btn"><button class="btn ${S.read[id]?'':'pri'}" id="done">${S.read[id]?t('✓ Marked as understood','✓ Samajh aa gaya'):t('I get this ✓','Samajh aa gaya ✓')}</button></div>
   <div class="pager">${i>0?`<a href="#/${CH[i-1].id}">← previous<b>${esc(CH[i-1].title)}</b></a>`:'<span></span>'}${i<CH.length-1?`<a href="#/${CH[i+1].id}" style="text-align:right">next →<b>${esc(CH[i+1].title)}</b></a>`:`<a href="#/practice" style="text-align:right">finish →<b>Exam practice</b></a>`}</div>`;
   $('#jump').onchange = e => location.hash = '#/' + e.target.value;
-  $('#done').onclick = () => { S.read[id] = !S.read[id]; save(); prog(); toc(id); $('#done').textContent = S.read[id] ? '✓ Marked as understood' : 'I get this ✓'; $('#done').classList.toggle('pri', !S.read[id]); if (S.read[id]) toast('Nice. On to the next one.'); };
+  $('#done').onclick = () => { S.read[id] = !S.read[id]; save(); prog(); toc(id); $('#done').textContent = S.read[id] ? t('✓ Marked as understood','✓ Samajh aa gaya') : t('I get this ✓','Samajh aa gaya ✓'); $('#done').classList.toggle('pri', !S.read[id]); if (S.read[id]) toast(t('Nice. On to the next one.','Zabardast. Agla chapter!')); };
   // code blocks
   $$('pre.code', app).forEach(p => { const raw = p.textContent; p.innerHTML = hl(raw) + '<button class="copy">copy</button>'; $('.copy', p).onclick = () => { try { navigator.clipboard.writeText(raw); toast('Copied'); } catch(e){} }; });
   $$('.widget', app).forEach(w => (W[w.dataset.w] || (()=>{}))(w));
@@ -664,14 +1088,14 @@ function chapterQuiz(el, c){
     const set = shuffle(pool).slice(0, 6); let i = 0, ok = 0;
     const step = () => {
       if (i >= set.length){ const p = Math.round(100*ok/set.length); S.best[c] = Math.max(S.best[c]||0, p); save();
-        el.innerHTML = `<div class="wt">check yourself</div><div class="row"><div class="score" style="font-size:54px">${ok}/${set.length}</div><span class="muted">${p>=80?'You get this chapter.':p>=50?'Almost. Reread the parts you missed.':'Reread this chapter, then try again.'}</span></div><div class="row"><button class="btn pri again">New questions</button><span class="small muted">${pool.length} questions in this chapter</span></div>`;
+        el.innerHTML = `<div class="wt">check yourself</div><div class="row"><div class="score" style="font-size:54px">${ok}/${set.length}</div><span class="muted">${p>=80?t('You get this chapter.','Yeh chapter aa gaya.'):p>=50?t('Almost. Reread the parts you missed.','Kareeb ho. Jo ghalat hue woh hissay dobara parho.'):t('Reread this chapter, then try again.','Chapter dobara parho, phir try karo.')}</span></div><div class="row"><button class="btn pri again">New questions</button><span class="small muted">${pool.length} questions in this chapter</span></div>`;
         $('.again', el).onclick = start; return; }
       el.innerHTML = `<div class="wt">check yourself · ${i+1}/${set.length}</div><div class="bar" style="margin-bottom:12px"><i style="width:${100*i/set.length}%"></i></div><div class="qb"></div>`;
       renderQ($('.qb', el), set[i], r => { if (r) ok++; i++; step(); });
     };
     step();
   };
-  el.innerHTML = `<div class="wt">check yourself</div><p style="margin:0 0 12px">6 random questions about this chapter, exam style.</p><button class="btn pri go">Start quiz</button>`;
+  el.innerHTML = `<div class="wt">check yourself</div><p style="margin:0 0 12px">${t('6 random questions about this chapter, exam style.','Is chapter ke 6 random sawal, exam jaise (English mein, kyunke exam bhi English mein hai).')}</p><button class="btn pri go">${t('Start quiz','Quiz shuru karo')}</button>`;
   $('.go', el).onclick = start;
 }
 

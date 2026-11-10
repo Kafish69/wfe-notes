@@ -1,6 +1,6 @@
 # wfe.notes
 
-Interactive notes + practice for **Web Development Fundamentals** (HTML & CSS, weeks 1–6).
+Interactive notes + practice for **Web Development Fundamentals** (HTML & CSS, weeks 1–6), in **English and Roman Urdu**.
 
 **Live:** https://kafish69.github.io/wfe-notes/
 
